@@ -8,6 +8,10 @@ module ODF
       s.content
     end
     
+    def initialize
+      @tables = []
+    end
+
     def content
       b = Builder::XmlMarkup.new
 
@@ -21,9 +25,27 @@ module ODF
       |xml|
         xml.office:body do
           xml.office:spreadsheet do
+            xml << @tables.map {|t| t.content}.join("")
           end
         end
       end
+    end
+
+    def table(title)
+      t = Table.new(title)
+      yield t if block_given?
+      @tables << t
+    end
+  end
+
+  class Table
+    def initialize(title)
+      @title = title
+    end
+
+    def content
+      xml = Builder::XmlMarkup.new
+      xml.table:table, 'table:name' => @title
     end
   end
 end
