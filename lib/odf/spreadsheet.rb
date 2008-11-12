@@ -3,9 +3,18 @@ require 'builder'
 require 'odf/meta_stuff'
 
 module ODF
+  class Cell
+    def content
+      Builder::XmlMarkup.new.tag! 'table:table-cell'
+    end
+  end
+
+  Row = ODF::container_of :cells
   class Row
     def content
-      Builder::XmlMarkup.new.tag! 'table:table-row'
+      Builder::XmlMarkup.new.tag! 'table:table-row' do |xml|
+        xml << children_content
+      end
     end
   end
 
