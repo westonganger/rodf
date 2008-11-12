@@ -13,4 +13,9 @@ describe ODF::Cell do
     output = ODF::Cell.new('Test').xml
     Hpricot(output).at('table:table-cell')['office:value-type'].should=='string'
   end
+
+  it "should allow value types to be specified" do
+    output = ODF::Cell.new(34.2, :type => :float).xml
+    Hpricot(output).at('table:table-cell')['office:value-type'].should=='float'
+  end
 end

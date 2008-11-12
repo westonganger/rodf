@@ -4,15 +4,16 @@ require 'odf/meta_stuff'
 
 module ODF
   class Cell
-    def initialize(value='')
+    def initialize(value='', opts={})
+      @type = opts[:type] || 'string'
       @value = value
     end
 
     def xml
       Builder::XmlMarkup.new.tag! 'table:table-cell',
-        'office:value-type' => 'string' do
+        'office:value-type' => @type do
       |xml|
-        xml << @value
+        xml << @value.to_s
       end
     end
   end
