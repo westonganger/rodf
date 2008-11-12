@@ -1,17 +1,30 @@
 require 'builder'
 
+require 'odf/meta_stuff'
+
 module ODF
-  class SpreadSheet
-    def self.create
-      s = new
-      yield s if block_given?
-      s.content
+  class Row
+    def content
+      Builder::XmlMarkup.new.tag! 'table:table-row'
     end
-    
-    def initialize
-      @tables = []
+  end
+
+  Table = ODF::container_of :rows
+  class Table
+    def initialize(title)
+      @title = title
     end
 
+    def content
+      xml = Builder::XmlMarkup.new
+      xml.table:table, 'table:name' => @title do
+        xml << children_content
+      end
+    end
+  end
+
+  SpreadSheet = ODF::container_of :tables
+  class SpreadSheet
     def content
       b = Builder::XmlMarkup.new
 
@@ -25,48 +38,11 @@ module ODF
       |xml|
         xml.office:body do
           xml.office:spreadsheet do
-            xml << @tables.map {|t| t.content}.join("")
+            xml << children_content
           end
         end
       end
     end
-
-    def table(title)
-      t = Table.new(title)
-      yield t if block_given?
-      @tables << t
-    end
-  end
-
-  class Table
-    def self.create(title)
-      t = new(title)
-      yield t if block_given?
-      t.content
-    end
-
-    def initialize(title)
-      @title = title
-      @rows = []
-    end
-
-    def row
-      r = Row.new
-      yield r if block_given?
-      @rows << r
-    end
-
-    def content
-      xml = Builder::XmlMarkup.new
-      xml.table:table, 'table:name' => @title do
-        xml << @rows.map {|r| r.content}.join('')
-      end
-    end
-  end
-
-  class Row
-    def content
-      Builder::XmlMarkup.new.tag! 'table:table-row'
-    end
   end
 end
+
