@@ -39,13 +39,34 @@ module ODF
   end
 
   class Table
+    def self.create(title)
+      t = new(title)
+      yield t if block_given?
+      t.content
+    end
+
     def initialize(title)
       @title = title
+      @rows = []
+    end
+
+    def row
+      r = Row.new
+      yield r if block_given?
+      @rows << r
     end
 
     def content
       xml = Builder::XmlMarkup.new
-      xml.table:table, 'table:name' => @title
+      xml.table:table, 'table:name' => @title do
+        xml << @rows.map {|r| r.content}.join('')
+      end
+    end
+  end
+
+  class Row
+    def content
+      Builder::XmlMarkup.new.tag! 'table:table-row'
     end
   end
 end
