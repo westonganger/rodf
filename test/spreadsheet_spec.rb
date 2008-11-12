@@ -12,7 +12,7 @@ describe ODF::SpreadSheet do
 
   it "should be empty if no tables were added" do
     output = ODF::SpreadSheet.create {|s| }
-    output.should have_tag('//office:spreadsheet/*', :count => 0)
+    output.should_not have_tag('//office:spreadsheet/*')
   end
 
   it "should include tables when asked to" do
@@ -21,8 +21,7 @@ describe ODF::SpreadSheet do
     }
     output.should have_tag('//office:spreadsheet/*', :count => 1)
     output.should have_tag('//table:table', :count => 1)
-    Hpricot(output).at('//table:table').get_attribute('table:name').
-      should == 'Example'
+    Hpricot(output).at('//table:table')['table:name'].should == 'Example'
 
     output = ODF::SpreadSheet.create { |s|
       s.table 'First table'
