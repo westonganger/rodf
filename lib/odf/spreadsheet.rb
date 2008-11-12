@@ -4,8 +4,14 @@ require 'odf/meta_stuff'
 
 module ODF
   class Cell
+    def initialize(value='')
+      @value = value
+    end
+
     def xml
-      Builder::XmlMarkup.new.tag! 'table:table-cell'
+      Builder::XmlMarkup.new.tag! 'table:table-cell' do |xml|
+        xml << @value
+      end
     end
   end
 
