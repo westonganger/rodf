@@ -9,7 +9,9 @@ module ODF
     end
 
     def xml
-      Builder::XmlMarkup.new.tag! 'table:table-cell' do |xml|
+      Builder::XmlMarkup.new.tag! 'table:table-cell',
+        'office:value-type' => 'string' do
+      |xml|
         xml << @value
       end
     end

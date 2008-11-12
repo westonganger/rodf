@@ -8,4 +8,9 @@ describe ODF::Cell do
     output.should have_tag('//table:table-cell')
     Hpricot(output).at('table:table-cell').innerHTML.should == 'Test'
   end
+
+  it "should have string as default value type" do
+    output = ODF::Cell.new('Test').xml
+    Hpricot(output).at('table:table-cell')['office:value-type'].should=='string'
+  end
 end
