@@ -16,8 +16,7 @@ module ODF
     end
 
     def content
-      xml = Builder::XmlMarkup.new
-      xml.table:table, 'table:name' => @title do
+      Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
         xml << children_content
       end
     end
