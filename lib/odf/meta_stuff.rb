@@ -8,7 +8,7 @@ module ODF
     def container_class.create(*args)
       container = new(*args)
       yield container if block_given?
-      container.content
+      container.xml
     end
 
     container_class.send :define_method, :children do
@@ -22,8 +22,8 @@ module ODF
       c
     end
 
-    container_class.send :define_method, :children_content do |*args|
-      children.map {|c| c.content}.join
+    container_class.send :define_method, :children_xml do |*args|
+      children.map {|c| c.xml}.join
     end
 
     container_class

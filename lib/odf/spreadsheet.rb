@@ -4,16 +4,16 @@ require 'odf/meta_stuff'
 
 module ODF
   class Cell
-    def content
+    def xml
       Builder::XmlMarkup.new.tag! 'table:table-cell'
     end
   end
 
   Row = ODF::container_of :cells
   class Row
-    def content
+    def xml
       Builder::XmlMarkup.new.tag! 'table:table-row' do |xml|
-        xml << children_content
+        xml << children_xml
       end
     end
   end
@@ -24,16 +24,16 @@ module ODF
       @title = title
     end
 
-    def content
+    def xml
       Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
-        xml << children_content
+        xml << children_xml
       end
     end
   end
 
   SpreadSheet = ODF::container_of :tables
   class SpreadSheet
-    def content
+    def xml
       b = Builder::XmlMarkup.new
 
       b.instruct! :xml, :version => '1.0', :encoding => 'UTF-8'
@@ -46,7 +46,7 @@ module ODF
       |xml|
         xml.office:body do
           xml.office:spreadsheet do
-            xml << children_content
+            xml << children_xml
           end
         end
       end
