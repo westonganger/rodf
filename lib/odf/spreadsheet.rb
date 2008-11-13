@@ -31,6 +31,12 @@ module ODF
 
   Row = ODF::container_of :cells
   class Row
+    attr_reader :number
+
+    def initialize(number=0)
+      @number = number
+    end
+
     def xml
       Builder::XmlMarkup.new.tag! 'table:table-row' do |xml|
         xml << children_xml
@@ -42,12 +48,22 @@ module ODF
   class Table
     def initialize(title)
       @title = title
+      @last_row = 0
+    end
+
+    alias create_row row
+    def row
+      create_row(next_row) {|r| yield r if block_given?}
     end
 
     def xml
       Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
         xml << children_xml
       end
+    end
+  private
+    def next_row
+      @last_row += 1
     end
   end
 

@@ -19,4 +19,13 @@ describe ODF::Table do
     output.should have_tag('//table:table/*', :count => 2)
     output.should have_tag('//table:table-row')
   end
+
+  it "should provide row numbers" do
+    output = ODF::Table.create('Row letter table') {|t|
+      t.row {|row| row.cell}
+      t.row {|row| row.cell(row.number)}
+    }
+    output.should have_tag('text:p')
+    Hpricot(output).at('text:p').innerHTML.should == '2'
+  end
 end
