@@ -13,7 +13,9 @@ module ODF
       Builder::XmlMarkup.new.tag! 'table:table-cell',
         'office:value-type' => @type do
       |xml|
-        xml << @value.to_s
+        xml.text:p do
+          xml << @value.to_s
+        end
       end
     end
   end
