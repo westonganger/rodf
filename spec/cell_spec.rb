@@ -11,8 +11,9 @@ describe ODF::Cell do
   end
 
   it "should have string as default value type" do
-    output = ODF::Cell.new('Test').xml
-    Hpricot(output).at('table:table-cell')['office:value-type'].should=='string'
+    [ODF::Cell.new('Test').xml, ODF::Cell.new(54).xml].each do |xml|
+      Hpricot(xml).at('table:table-cell')['office:value-type'].should=='string'
+    end
   end
 
   it "should allow value types to be specified" do

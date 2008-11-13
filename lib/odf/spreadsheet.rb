@@ -7,7 +7,7 @@ module ODF
   class Cell
     def initialize(*args)
       value = args.first || ''
-      opts = args.last || {}
+      opts = args.last.instance_of?(Hash) ? args.last : {}
 
       @type = opts[:type] || :string
       @formula = opts[:formula]
