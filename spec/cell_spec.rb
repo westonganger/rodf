@@ -31,4 +31,13 @@ describe ODF::Cell do
     output = ODF::Cell.new(34.2, :type => :string).xml
     Hpricot(output).at('text:p').innerHTML.should == '34.2'
   end
+
+  it "should accept formulas" do
+    output = ODF::Cell.new(:type => :float,
+                           :formula => "oooc:=SUM([.A1:.A4])").xml
+
+    elem = Hpricot(output).at('table:table-cell')
+    elem['office:value-type'].should == 'float'
+    elem['table:formula'].should == 'oooc:=SUM([.A1:.A4])'
+  end
 end

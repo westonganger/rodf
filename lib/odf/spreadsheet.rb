@@ -5,14 +5,19 @@ require 'odf/meta_stuff'
 
 module ODF
   class Cell
-    def initialize(value='', opts={})
+    def initialize(*args)
+      value = args.first || ''
+      opts = args.last || {}
+
       @type = opts[:type] || :string
-      @value = value
+      @formula = opts[:formula]
+      @value = value unless value.instance_of? Hash
     end
 
     def xml
       elem_attrs = {'office:value-type' => @type}
       elem_attrs['office:value'] = @value unless contains_string?
+      elem_attrs['table:formula'] = @formula unless @formula.nil?
 
       Builder::XmlMarkup.new.tag! 'table:table-cell', elem_attrs do |xml|
         xml.text(:p, @value) if contains_string?
