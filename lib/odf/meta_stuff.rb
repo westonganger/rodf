@@ -22,7 +22,7 @@ module ODF
       c
     end
 
-    container_class.send :define_method, :children_xml do |*args|
+    container_class.send :define_method, :children_xml do
       children.map {|c| c.xml}.join
     end
 
