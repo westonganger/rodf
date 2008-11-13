@@ -15,12 +15,14 @@ module ODF
       @children ||= []
     end
 
-    container_class.send :define_method, stuff do |*args|
-      c = stuff_class.new(*args)
-      yield c if block_given?
-      children << c
-      c
-    end
+    container_class.class_eval <<END
+      def #{stuff}(*args)
+        c = #{stuff_class}.new(*args)
+        yield c if block_given?
+        children << c
+        c
+      end
+END
 
     container_class.send :define_method, :children_xml do
       children.map {|c| c.xml}.join

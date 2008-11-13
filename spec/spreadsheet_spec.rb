@@ -29,4 +29,15 @@ describe ODF::SpreadSheet do
     }
     output.should have_tag('//office:spreadsheet/*', :count => 2)
   end
+
+  it "should allow rows to be added inside tables" do
+    output = ODF::SpreadSheet.create do |s|
+      s.table('My table') do |t|
+        t.row
+      end
+    end
+
+    output.should have_tag('//table:table/*')
+    output.should have_tag('//table:table-row')
+  end
 end
