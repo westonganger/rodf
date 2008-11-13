@@ -15,7 +15,7 @@ module ODF
       elem_attrs['office:value'] = @value unless contains_string?
 
       Builder::XmlMarkup.new.tag! 'table:table-cell', elem_attrs do |xml|
-        xml.text(:p) { xml << @value.to_s } if contains_string?
+        xml.text(:p, @value) if contains_string?
       end
     end
 
