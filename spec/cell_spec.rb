@@ -19,4 +19,16 @@ describe ODF::Cell do
     output = ODF::Cell.new(34.2, :type => :float).xml
     Hpricot(output).at('table:table-cell')['office:value-type'].should=='float'
   end
+
+  it "should place strings in a paragraph tag and floats in value attribute" do
+    output = ODF::Cell.new('Test').xml
+    Hpricot(output).at('text:p').innerHTML.should == 'Test'
+
+    output = ODF::Cell.new(47, :type => :float).xml
+    output.should_not have_tag('//table:table-cell/*')
+    Hpricot(output).at('table:table-cell')['office:value'].should == '47'
+
+    output = ODF::Cell.new(34.2, :type => :string).xml
+    Hpricot(output).at('text:p').innerHTML.should == '34.2'
+  end
 end

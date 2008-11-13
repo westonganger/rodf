@@ -5,18 +5,21 @@ require 'odf/meta_stuff'
 module ODF
   class Cell
     def initialize(value='', opts={})
-      @type = opts[:type] || 'string'
+      @type = opts[:type] || :string
       @value = value
     end
 
     def xml
-      Builder::XmlMarkup.new.tag! 'table:table-cell',
-        'office:value-type' => @type do
-      |xml|
-        xml.text:p do
-          xml << @value.to_s
-        end
+      elem_attrs = {'office:value-type' => @type}
+      elem_attrs['office:value'] = @value unless contains_string?
+
+      Builder::XmlMarkup.new.tag! 'table:table-cell', elem_attrs do |xml|
+        xml.text(:p) { xml << @value.to_s } if contains_string?
       end
+    end
+
+    def contains_string?
+      :string == @type
     end
   end
 
