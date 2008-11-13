@@ -11,7 +11,7 @@ module ODF
 
       @type = opts[:type] || :string
       @formula = opts[:formula]
-      @value = value unless value.instance_of? Hash
+      @value = value.to_s.strip unless value.instance_of? Hash
     end
 
     def xml
@@ -25,7 +25,7 @@ module ODF
     end
 
     def contains_string?
-      :string == @type
+      :string == @type && !@value.nil? && !@value.empty?
     end
   end
 

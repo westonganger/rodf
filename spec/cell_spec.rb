@@ -40,4 +40,10 @@ describe ODF::Cell do
     elem['office:value-type'].should == 'float'
     elem['table:formula'].should == 'oooc:=SUM([.A1:.A4])'
   end
+
+  it "should not have an empty paragraph" do
+    [ODF::Cell.new, ODF::Cell.new(''), ODF::Cell.new('  ')].each do |cell|
+      cell.xml.should_not have_tag('text:p')
+    end
+  end
 end
