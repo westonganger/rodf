@@ -67,17 +67,39 @@ module ODF
     end
   end
 
+  class Property
+    PROPERTY_NAMES = {:cell => 'style:table-cell-properties',
+                      :text => 'style:text-properties'}
+
+    def initialize(type, specs={})
+      @name = PROPERTY_NAMES[type]
+      @specs = specs
+    end
+
+    def xml
+      specs = {}
+      @specs.each do |k, v|
+        specs['fo:' + k] = v
+      end
+      Builder::XmlMarkup.new.tag! @name, specs
+    end
+  end
+
+  Style = ODF::container_of :propertys
   class Style
     FAMILIES = {:cell => 'table-cell'}
 
-    def initialize(name, opts={})
+    def initialize(name='', opts={})
       @name = name
       @family = FAMILIES[opts[:family]]
     end
 
     def xml
       Builder::XmlMarkup.new.style:style, 'style:name' => @name,
-                                          'style:family' => @family
+                                          'style:family' => @family do
+      |xml|
+        xml << propertys_xml
+      end
     end
   end 
 
