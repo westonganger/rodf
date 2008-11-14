@@ -47,4 +47,10 @@ describe ODF::Cell do
       cell.xml.should_not have_tag('text:p')
     end
   end
+
+  it "should allow an style to be specified" do
+    cell = ODF::Cell.new 45.8, :type => :float, :style => 'left-column-cell'
+    Hpricot(cell.xml).at('table:table-cell')['table:style-name'].
+      should == 'left-column-cell'
+  end
 end
