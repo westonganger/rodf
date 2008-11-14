@@ -40,4 +40,17 @@ describe ODF::SpreadSheet do
     output.should have_tag('//table:table/*')
     output.should have_tag('//table:table-row')
   end
+
+  it "should allow styles to be added" do
+    ODF::SpreadSheet.create.should_not have_tag('//office:automatic-styles')
+    output = ODF::SpreadSheet.create do |s|
+      s.style 'even-row-cell', :family => :cell
+    end
+
+    output.should have_tag('//office:automatic-styles/*', :count => 1)
+    output.should have_tag('//style:style')
+    Hpricot(output).at('//style:style')['style:name'].should == 'even-row-cell'
+    Hpricot(output).at('//style:style')['style:family'].should == 'table-cell'
+  end
 end
+
