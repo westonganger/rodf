@@ -67,7 +67,21 @@ module ODF
     end
   end
 
-  SpreadSheet = ODF::container_of :tables
+  class Style
+    FAMILIES = {:cell => 'table-cell'}
+
+    def initialize(name, opts={})
+      @name = name
+      @family = FAMILIES[opts[:family]]
+    end
+
+    def xml
+      Builder::XmlMarkup.new.style:style, 'style:name' => @name,
+                                          'style:family' => @family
+    end
+  end 
+
+  SpreadSheet = ODF::container_of :tables, :styles
   class SpreadSheet
     def self.file(ods_file_name)
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
@@ -92,6 +106,9 @@ module ODF
                                         'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
                                         'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" do
       |xml|
+        xml.tag! 'office:automatic-styles' do
+          xml << styles_xml
+        end unless styles.empty?
         xml.office:body do
           xml.office:spreadsheet do
             xml << tables_xml
