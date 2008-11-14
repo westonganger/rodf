@@ -39,7 +39,7 @@ module ODF
 
     def xml
       Builder::XmlMarkup.new.tag! 'table:table-row' do |xml|
-        xml << children_xml
+        xml << cells_xml
       end
     end
   end
@@ -58,7 +58,7 @@ module ODF
 
     def xml
       Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
-        xml << children_xml
+        xml << rows_xml
       end
     end
   private
@@ -94,7 +94,7 @@ module ODF
       |xml|
         xml.office:body do
           xml.office:spreadsheet do
-            xml << children_xml
+            xml << tables_xml
           end
         end
       end
