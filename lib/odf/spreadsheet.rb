@@ -1,7 +1,7 @@
 require 'builder'
 require 'zip/zip'
 
-require 'odf/meta_stuff'
+require 'odf/container'
 
 module ODF
   class Cell
@@ -31,8 +31,8 @@ module ODF
     end
   end
 
-  Row = ODF::container_of :cells
-  class Row
+  class Row < Container
+    contains :cells
     attr_reader :number
 
     def initialize(number=0)
@@ -46,8 +46,9 @@ module ODF
     end
   end
 
-  Table = ODF::container_of :rows
-  class Table
+  class Table < Container
+    contains :rows    
+
     def initialize(title)
       @title = title
       @last_row = 0
@@ -87,8 +88,9 @@ module ODF
     end
   end
 
-  Style = ODF::container_of :propertys
-  class Style
+  class Style < Container
+    contains :propertys
+    
     FAMILIES = {:cell => 'table-cell'}
 
     def initialize(name='', opts={})
@@ -105,8 +107,9 @@ module ODF
     end
   end 
 
-  SpreadSheet = ODF::container_of :tables, :styles
-  class SpreadSheet
+  class SpreadSheet < Container
+    contains :tables, :styles
+
     def self.file(ods_file_name)
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
       ods_file.get_output_stream('styles.xml') {|f| f << skeleton('styles.xml')}
