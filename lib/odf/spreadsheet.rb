@@ -1,3 +1,5 @@
+require 'rubygems'
+
 require 'builder'
 require 'zip/zip'
 
