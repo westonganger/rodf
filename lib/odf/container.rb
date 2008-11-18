@@ -1,8 +1,11 @@
+require 'rubygems'
+require 'active_support/core_ext/string'
+
 module ODF
   class Container
     def self.contains(*stuffs_array)
       stuffs_array.map {|sym| sym.to_s}.each do |stuffs|
-        stuff = stuffs.to_s[0..-2]
+        stuff = stuffs.to_s.singularize
         stuff_class = eval(stuff.capitalize)
 
         self.class_eval "

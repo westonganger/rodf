@@ -89,7 +89,7 @@ module ODF
   end
 
   class Style < Container
-    contains :propertys
+    contains :properties
     
     FAMILIES = {:cell => 'table-cell'}
 
@@ -102,7 +102,7 @@ module ODF
       Builder::XmlMarkup.new.style:style, 'style:name' => @name,
                                           'style:family' => @family do
       |xml|
-        xml << propertys_xml
+        xml << properties_xml
       end
     end
   end 
