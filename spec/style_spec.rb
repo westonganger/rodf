@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/spreadsheet'
+require 'odf/style'
 
 describe ODF::Style do
   it "should output properties when they're added" do

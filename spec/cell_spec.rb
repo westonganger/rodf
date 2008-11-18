@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/spreadsheet'
+require 'odf/cell'
 
 describe ODF::Cell do
   it "should hold text content in a paragraph tag" do

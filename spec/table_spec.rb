@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/spreadsheet'
+require 'odf/table'
 
 describe ODF::Table do
   it "should allow rows to be added" do
