@@ -8,7 +8,7 @@ module ODF
 
     def initialize(type, specs={})
       @name = PROPERTY_NAMES[type]
-      @specs = specs
+      @specs = specs.map { |k, v| [k.to_s, v] }
     end
 
     def xml
