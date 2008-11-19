@@ -1,7 +1,8 @@
 require 'spec/rake/spectask'
  
-task :default => :spec
 Spec::Rake::SpecTask.new
+task :default => :spec
+task :test => :spec
 
 require 'echoe'
 Echoe.new('rodf') do |gem|
