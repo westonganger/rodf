@@ -24,23 +24,23 @@ Gem::Specification.new do |s|
     s.specification_version = 2
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<builder>, [">= 0", "= 2.1.2"])
-      s.add_runtime_dependency(%q<rubyzip>, [">= 0", "= 0.9.1"])
-      s.add_runtime_dependency(%q<activesupport>, [">= 0", "= 2.0.0"])
-      s.add_development_dependency(%q<rspec_hpricot_matchers>, [">= 0", "= 1.0"])
-      s.add_development_dependency(%q<echoe>, [">= 0", "= 3.0.2"])
+      s.add_runtime_dependency(%q<builder>, [">= 2.1.2"])
+      s.add_runtime_dependency(%q<rubyzip>, [">= 0.9.1"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 2.0.0"])
+      s.add_development_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
+      s.add_development_dependency(%q<echoe>, [">= 3.0.2"])
     else
-      s.add_dependency(%q<builder>, [">= 0", "= 2.1.2"])
-      s.add_dependency(%q<rubyzip>, [">= 0", "= 0.9.1"])
-      s.add_dependency(%q<activesupport>, [">= 0", "= 2.0.0"])
-      s.add_dependency(%q<rspec_hpricot_matchers>, [">= 0", "= 1.0"])
-      s.add_dependency(%q<echoe>, [">= 0", "= 3.0.2"])
+      s.add_dependency(%q<builder>, [">= 2.1.2"])
+      s.add_dependency(%q<rubyzip>, [">= 0.9.1"])
+      s.add_dependency(%q<activesupport>, [">= 2.0.0"])
+      s.add_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
+      s.add_dependency(%q<echoe>, [">= 3.0.2"])
     end
   else
-    s.add_dependency(%q<builder>, [">= 0", "= 2.1.2"])
-    s.add_dependency(%q<rubyzip>, [">= 0", "= 0.9.1"])
-    s.add_dependency(%q<activesupport>, [">= 0", "= 2.0.0"])
-    s.add_dependency(%q<rspec_hpricot_matchers>, [">= 0", "= 1.0"])
-    s.add_dependency(%q<echoe>, [">= 0", "= 3.0.2"])
+    s.add_dependency(%q<builder>, [">= 2.1.2"])
+    s.add_dependency(%q<rubyzip>, [">= 0.9.1"])
+    s.add_dependency(%q<activesupport>, [">= 2.0.0"])
+    s.add_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
+    s.add_dependency(%q<echoe>, [">= 3.0.2"])
   end
 end
