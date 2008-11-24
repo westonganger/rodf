@@ -28,16 +28,25 @@ module ODF
     FAMILIES = {:cell => 'table-cell'}
 
     def initialize(name='', opts={})
-      @elem_attrs = {'style:name' => name,
-                     'style:family' => FAMILIES[opts[:family]]}
-      @elem_attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
-      @elem_attrs['style:parent-style-name'] = opts[:parent] unless opts[:parent].nil?
+      @name = name
+      @elem_attrs = make_element_attributes(@name, opts)
     end
 
     def xml
       Builder::XmlMarkup.new.style:style, @elem_attrs do |xml|
         xml << properties_xml
       end
+    end
+
+    def make_element_attributes(name, opts)
+      attrs = {'style:name' => name, 'style:family' => FAMILIES[opts[:family]]}
+      attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
+      attrs['style:parent-style-name'] = opts[:parent].to_s unless opts[:parent].nil?
+      attrs
+    end
+
+    def to_s
+      @name
     end
   end 
 end

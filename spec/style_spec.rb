@@ -55,6 +55,13 @@ describe ODF::Style do
 
     style = Hpricot(xml).at('//style:style')
     style['style:parent-style-name'].should == 'cell-default'
+
+    cell_style = ODF::Style.new('cell-default', :family => :cell)
+    xml = ODF::Style.create 'child-style', :family => :cell,
+                            :parent => cell_style
+
+    style = Hpricot(xml).at('//style:style')
+    style['style:parent-style-name'].should == 'cell-default'
   end
 end
 
