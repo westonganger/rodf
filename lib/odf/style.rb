@@ -31,6 +31,7 @@ module ODF
       @elem_attrs = {'style:name' => name,
                      'style:family' => FAMILIES[opts[:family]]}
       @elem_attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
+      @elem_attrs['style:parent-style-name'] = opts[:parent] unless opts[:parent].nil?
     end
 
     def xml

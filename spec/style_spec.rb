@@ -48,5 +48,13 @@ describe ODF::Style do
     style = Hpricot(xml).at('//style:style')
     style['style:data-style-name'].should == 'currency-grouped'
   end
+
+  it "should allow parent styles" do
+    xml = ODF::Style.create 'child-style', :family => :cell,
+                            :parent => 'cell-default'
+
+    style = Hpricot(xml).at('//style:style')
+    style['style:parent-style-name'].should == 'cell-default'
+  end
 end
 
