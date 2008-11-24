@@ -27,6 +27,7 @@ module ODF
       @type = opts[:type] || :string
       @formula = opts[:formula]
       @style = opts[:style]
+      @matrix = opts[:matrix_formula]
       @value = value.to_s.strip unless value.instance_of? Hash
     end
 
@@ -35,6 +36,8 @@ module ODF
       elem_attrs['office:value'] = @value unless contains_string?
       elem_attrs['table:formula'] = @formula unless @formula.nil?
       elem_attrs['table:style-name'] = @style unless @style.nil?
+      elem_attrs['table:number-matrix-columns-spanned'] =
+        elem_attrs['table:number-matrix-rows-spanned'] = 1 unless @matrix.nil?
 
       Builder::XmlMarkup.new.tag! 'table:table-cell', elem_attrs do |xml|
         xml.text(:p, @value) if contains_string?
