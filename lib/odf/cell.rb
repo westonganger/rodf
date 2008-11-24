@@ -25,27 +25,29 @@ module ODF
       opts = args.last.instance_of?(Hash) ? args.last : {}
 
       @type = opts[:type] || :string
-      @formula = opts[:formula]
-      @style = opts[:style]
-      @matrix = opts[:matrix_formula]
       @value = value.to_s.strip unless value.instance_of? Hash
+
+      @elem_attrs = make_element_attributes(@type, @value, opts)
     end
 
     def xml
-      elem_attrs = {'office:value-type' => @type}
-      elem_attrs['office:value'] = @value unless contains_string?
-      elem_attrs['table:formula'] = @formula unless @formula.nil?
-      elem_attrs['table:style-name'] = @style unless @style.nil?
-      elem_attrs['table:number-matrix-columns-spanned'] =
-        elem_attrs['table:number-matrix-rows-spanned'] = 1 unless @matrix.nil?
-
-      Builder::XmlMarkup.new.tag! 'table:table-cell', elem_attrs do |xml|
+      Builder::XmlMarkup.new.tag! 'table:table-cell', @elem_attrs do |xml|
         xml.text(:p, @value) if contains_string?
       end
     end
 
     def contains_string?
       :string == @type && !@value.nil? && !@value.empty?
+    end
+
+    def make_element_attributes(type, value, opts)
+      attrs = {'office:value-type' => type}
+      attrs['office:value'] = value unless contains_string?
+      attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
+      attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
+      attrs['table:number-matrix-columns-spanned'] =
+        attrs['table:number-matrix-rows-spanned'] = 1 unless opts[:matrix_formula].nil?
+      attrs
     end
   end
 end
