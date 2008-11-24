@@ -11,13 +11,9 @@
       <style:table-cell-properties style:rotation-align="none"/>
       <style:text-properties style:font-name="Arial1" style:font-name-complex="Arial1"/>
     </style:style>
-    <number:number-style style:name="number-currency-positive" style:volatile="true">
+    <number:number-style style:name="number-currency-positive">
       <number:number number:decimal-places="2" number:min-integer-digits="1" number:grouping="true" />
-    </number:number-style>
-    <number:number-style style:name="number-currency">
-      <number:text>-</number:text>
-      <number:number number:decimal-places="2" number:min-integer-digits="1" number:grouping="true" />
-      <style:map style:condition="value()&gt;=0" style:apply-style-name="number-currency-positive" />
     </number:number-style>
   </office:styles>
 </office:document-styles>
+
