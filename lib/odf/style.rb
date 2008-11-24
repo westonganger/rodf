@@ -30,12 +30,14 @@ module ODF
     def initialize(name='', opts={})
       @name = name
       @family = FAMILIES[opts[:family]]
+      @data_style = opts[:data_style]
     end
 
     def xml
-      Builder::XmlMarkup.new.style:style, 'style:name' => @name,
-                                          'style:family' => @family do
-      |xml|
+      elem_attrs = {'style:name' => @name, 'style:family' => @family}
+      elem_attrs['style:data-style-name'] = @data_style unless @data_style.nil?
+
+      Builder::XmlMarkup.new.style:style, elem_attrs do |xml|
         xml << properties_xml
       end
     end

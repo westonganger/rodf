@@ -40,5 +40,13 @@ describe ODF::Style do
     text_elem = Hpricot(output).at('style:text-properties')
     text_elem['fo:color'].should == '#4c4c4c'
   end
+
+  it "should allow data styles" do
+    xml = ODF::Style.create 'my-style', :family => :cell,
+                            :data_style => 'number-currency-positive'
+
+    style = Hpricot(xml).at('//style:style')
+    style['style:data-style-name'].should == 'number-currency-positive'
+  end
 end
 
