@@ -43,10 +43,10 @@ describe ODF::Style do
 
   it "should allow data styles" do
     xml = ODF::Style.create 'my-style', :family => :cell,
-                            :data_style => 'number-currency-positive'
+                            :data_style => 'currency-grouped'
 
     style = Hpricot(xml).at('//style:style')
-    style['style:data-style-name'].should == 'number-currency-positive'
+    style['style:data-style-name'].should == 'currency-grouped'
   end
 end
 
