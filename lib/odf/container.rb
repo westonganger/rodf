@@ -16,6 +16,8 @@
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'rubygems'
+gem 'activesupport', '2.1.2'
+
 require 'active_support/core_ext/string'
 
 module ODF
