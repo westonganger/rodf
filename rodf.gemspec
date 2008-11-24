@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thiago Arrais"]
-  s.date = %q{2008-11-19}
+  s.date = %q{2008-11-24}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
   s.extra_rdoc_files = ["lib/odf/row.rb", "lib/odf/spreadsheet.rb", "lib/odf/cell.rb", "lib/odf/table.rb", "lib/odf/property.rb", "lib/odf/style.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/container.rb", "CHANGELOG", "README.rdoc", "LICENSE.LGPL"]
@@ -27,12 +27,14 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<builder>, [">= 2.1.2"])
       s.add_runtime_dependency(%q<rubyzip>, [">= 0.9.1"])
       s.add_runtime_dependency(%q<activesupport>, [">= 2.0.0"])
+      s.add_development_dependency(%q<rspec>, [">= 1.1.11"])
       s.add_development_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
       s.add_development_dependency(%q<echoe>, [">= 3.0.2"])
     else
       s.add_dependency(%q<builder>, [">= 2.1.2"])
       s.add_dependency(%q<rubyzip>, [">= 0.9.1"])
       s.add_dependency(%q<activesupport>, [">= 2.0.0"])
+      s.add_dependency(%q<rspec>, [">= 1.1.11"])
       s.add_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
       s.add_dependency(%q<echoe>, [">= 3.0.2"])
     end
@@ -40,6 +42,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<builder>, [">= 2.1.2"])
     s.add_dependency(%q<rubyzip>, [">= 0.9.1"])
     s.add_dependency(%q<activesupport>, [">= 2.0.0"])
+    s.add_dependency(%q<rspec>, [">= 1.1.11"])
     s.add_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
     s.add_dependency(%q<echoe>, [">= 3.0.2"])
   end
