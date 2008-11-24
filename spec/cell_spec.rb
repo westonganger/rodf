@@ -68,6 +68,15 @@ describe ODF::Cell do
     elem['table:number-matrix-rows-spanned'].should == '1'
   end
 
+  it "should not make a matrix formula when asked not too" do
+    output = ODF::Cell.new(:type => :float, :matrix_formula => false,
+                           :formula => "oooc:=SUM([.A1:.A4])").xml
+
+    elem = Hpricot(output).at('table:table-cell')
+    elem['table:number-matrix-columns-spanned'].should be_nil
+    elem['table:number-matrix-rows-spanned'].should be_nil
+  end
+
   it "should not have an empty paragraph" do
     [ODF::Cell.new, ODF::Cell.new(''), ODF::Cell.new('  ')].each do |cell|
       cell.xml.should_not have_tag('text:p')
