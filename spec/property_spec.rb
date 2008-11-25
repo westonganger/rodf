@@ -26,5 +26,14 @@ describe ODF::Property do
     elem['fo:color'].should == '#4c4c4c'
     elem['fo:font-weight'].should == 'bold'
   end
+
+  it "should prefix column-width property with style namespace" do
+    property = ODF::Property.new :column, 'column-width' => '2cm'
+
+    property.xml.should have_tag('//style:table-column-properties')
+
+    elem = Hpricot(property.xml).at('//style:table-column-properties')
+    elem['style:column-width'].should == '2cm'
+  end
 end
 

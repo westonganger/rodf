@@ -21,7 +21,8 @@ require 'builder'
 module ODF
   class Property
     PROPERTY_NAMES = {:cell => 'style:table-cell-properties',
-                      :text => 'style:text-properties'}
+                      :text => 'style:text-properties',
+                      :column => 'style:table-column-properties'}
 
     def initialize(type, specs={})
       @name = PROPERTY_NAMES[type]
@@ -31,7 +32,8 @@ module ODF
     def xml
       specs = {}
       @specs.each do |k, v|
-        specs['fo:' + k] = v
+        prefix = 'column-width' == k ? 'style' : 'fo'
+        specs[prefix + ':' + k] = v
       end
       Builder::XmlMarkup.new.tag! @name, specs
     end
