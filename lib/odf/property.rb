@@ -30,10 +30,9 @@ module ODF
     end
 
     def xml
-      specs = {}
-      @specs.each do |k, v|
-        prefix = 'column-width' == k ? 'style' : 'fo'
-        specs[prefix + ':' + k] = v
+      specs = @specs.inject({}) do |acc, kv|
+        prefix = 'column-width' == kv.first ? 'style' : 'fo'
+        acc.merge prefix + ':' + kv.first => kv.last
       end
       Builder::XmlMarkup.new.tag! @name, specs
     end
