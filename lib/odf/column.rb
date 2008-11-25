@@ -18,33 +18,16 @@
 require 'rubygems'
 require 'builder'
 
-require 'odf/column'
-require 'odf/container'
-require 'odf/row'
-
 module ODF
-  class Table < Container
-    contains :rows, :columns
-
-    def initialize(title)
-      @title = title
-      @last_row = 0
-    end
-
-    alias create_row row
-    def row
-      create_row(next_row) {|r| yield r if block_given?}
+  class Column
+    def initialize(opts={})
+      @elem_attrs = {}
+      @elem_attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
     end
 
     def xml
-      Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
-        xml << columns_xml
-        xml << rows_xml
-      end
-    end
-  private
-    def next_row
-      @last_row += 1
+      Builder::XmlMarkup.new.tag! 'table:table-column', @elem_attrs
     end
   end
 end
+

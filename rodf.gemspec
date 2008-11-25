@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thiago Arrais"]
-  s.date = %q{2008-11-24}
+  s.date = %q{2008-11-25}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
-  s.extra_rdoc_files = ["lib/odf/row.rb", "lib/odf/spreadsheet.rb", "lib/odf/cell.rb", "lib/odf/table.rb", "lib/odf/property.rb", "lib/odf/style.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/container.rb", "CHANGELOG", "README.rdoc", "LICENSE.LGPL"]
-  s.files = ["lib/odf/row.rb", "lib/odf/spreadsheet.rb", "lib/odf/cell.rb", "lib/odf/table.rb", "lib/odf/property.rb", "lib/odf/style.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/container.rb", "CHANGELOG", "README.rdoc", "Rakefile", "LICENSE.LGPL", "spec/cell_spec.rb", "spec/spreadsheet_spec.rb", "spec/spec_helper.rb", "spec/row_spec.rb", "spec/table_spec.rb", "spec/style_spec.rb", "spec/property_spec.rb", "Manifest", "rodf.gemspec"]
+  s.extra_rdoc_files = ["lib/odf/row.rb", "lib/odf/spreadsheet.rb", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/table.rb", "lib/odf/property.rb", "lib/odf/style.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/container.rb", "CHANGELOG", "README.rdoc", "LICENSE.LGPL"]
+  s.files = ["lib/odf/row.rb", "lib/odf/spreadsheet.rb", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/table.rb", "lib/odf/property.rb", "lib/odf/style.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/container.rb", "CHANGELOG", "README.rdoc", "Rakefile", "LICENSE.LGPL", "spec/cell_spec.rb", "spec/spreadsheet_spec.rb", "spec/spec_helper.rb", "spec/row_spec.rb", "spec/table_spec.rb", "spec/style_spec.rb", "spec/property_spec.rb", "Manifest", "rodf.gemspec"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/thiagoarrais/rodf/tree}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Rodf", "--main", "README.rdoc"]

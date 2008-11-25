@@ -45,4 +45,14 @@ describe ODF::Table do
     output.should have_tag('text:p')
     Hpricot(output).at('text:p').innerHTML.should == '2'
   end
+
+  it "should allow column style specifications" do
+    xml = ODF::Table.create('Styles columns table') do |t|
+      t.column :style => 'wide'
+    end
+
+    xml.should have_tag('table:table-column')
+    column = Hpricot(xml).at('table:table-column')
+    column['table:style-name'].should == 'wide'
+  end
 end

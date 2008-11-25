@@ -1,6 +1,7 @@
 lib/odf/row.rb
 lib/odf/spreadsheet.rb
 lib/odf/cell.rb
+lib/odf/column.rb
 lib/odf/table.rb
 lib/odf/property.rb
 lib/odf/style.rb
