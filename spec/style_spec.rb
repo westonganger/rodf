@@ -63,5 +63,11 @@ describe ODF::Style do
     style = Hpricot(xml).at('//style:style')
     style['style:parent-style-name'].should == 'cell-default'
   end
+
+  it "should be able to describe column styles" do
+    xml = ODF::Style.create 'column-style', :family => :column
+    
+    Hpricot(xml).at('//style:style')['style:family'].should == 'table-column'
+  end
 end
 
