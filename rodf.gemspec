@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rodf}
-  s.version = "0.1"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thiago Arrais"]
-  s.date = %q{2008-11-25}
+  s.date = %q{2008-12-02}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
   s.extra_rdoc_files = ["lib/odf/row.rb", "lib/odf/spreadsheet.rb", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/table.rb", "lib/odf/property.rb", "lib/odf/style.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/container.rb", "CHANGELOG", "README.rdoc", "LICENSE.LGPL"]
