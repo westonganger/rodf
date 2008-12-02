@@ -1,20 +1,18 @@
 = rODF
 
-This is (soon to be) a RubyGem for writing to ODF output. It currently supports
-creating spreadsheets.
+This is a library for writing to ODF output with Ruby. It currently only
+supports creating spreadsheets (ODS). Text documents (ODT) and slide shows (ODP)
+may be added some time in the future.
 
 This is NOT an ODF reading library.
 
-== Installation
+=== Installation
 
-At some moment you'll be able to
+You should be able to install the latest stable version by saying something like
 
   sudo gem install rodf
 
-But for the time being, try going to the project's GitHub page and downloading
-the source: http://github.com/thiagoarrais/rodf/tree
-
-== How do I use it?
+=== How do I use it?
 
 rODF works pretty much like Builder, but with ODF-aware constructs. Try this:
 
