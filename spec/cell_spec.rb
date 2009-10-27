@@ -91,7 +91,8 @@ describe ODF::Cell do
 
   it "should span multiple cells when asked to" do
     cell = ODF::Cell.new 'Spreadsheet title', :span => 4
-    Hpricot(cell.xml).at('table:table-cell')['table:number-columns-spanned'].
-      should == '4'
+    doc = Hpricot(cell.xml)
+    doc.at('table:table-cell')['table:number-columns-spanned'].should == '4'
+    doc.search('table:table-cell').size.should == 4
   end
 end

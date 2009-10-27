@@ -28,12 +28,16 @@ module ODF
       @value = value.to_s.strip unless value.instance_of? Hash
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
+      @mutiply = (opts[:span] || 1).to_i
     end
 
     def xml
-      Builder::XmlMarkup.new.tag! 'table:table-cell', @elem_attrs do |xml|
+      markup = Builder::XmlMarkup.new
+      text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
         xml.text(:p, @value) if contains_string?
       end
+      (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
+      text
     end
 
     def contains_string?
