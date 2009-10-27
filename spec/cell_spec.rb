@@ -88,4 +88,10 @@ describe ODF::Cell do
     Hpricot(cell.xml).at('table:table-cell')['table:style-name'].
       should == 'left-column-cell'
   end
+
+  it "should span multiple cells when asked to" do
+    cell = ODF::Cell.new 'Spreadsheet title', :span => 4
+    Hpricot(cell.xml).at('table:table-cell')['table:number-columns-spanned'].
+      should == '4'
+  end
 end
