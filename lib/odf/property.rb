@@ -44,27 +44,29 @@ module ODF
       tspecs.map {|k, v| result.delete k}
       tspecs = tspecs.inject({}) {|acc, e| acc.merge e.first => e.last}
       if tspecs[:border_width] && tspecs[:border_style] && tspecs[:border_color] then
-        width_parts = tspecs[:border_width].split
-        style_parts = tspecs[:border_style].split
-        color_parts = tspecs[:border_color].split
-        if  width_parts.length == 1 &&
-            style_parts.length == 1 &&
-            color_parts.length == 1 then
-          result[:border] = [width_parts[0], style_parts[0], color_parts[0]].join(' ')
+        width = tspecs[:border_width].split
+        style = tspecs[:border_style].split
+        color = tspecs[:border_color].split
+        if width.length == 1 && style.length == 1 && color.length == 1 then
+          result[:border] = [width[0], style[0], color[0]].join(' ')
         else
-          result['border-top'] = [width_parts[0], style_parts[0], color_parts[0]].join(' ')
-          result['border-right'] = [width_parts[1] || width_parts[0],
-                                    style_parts[1] || style_parts[0],
-                                    color_parts[1] || color_parts[0]].join(' ')
-          result['border-bottom'] = [ width_parts[2] || width_parts[0],
-                                      style_parts[2] || style_parts[0],
-                                      color_parts[2] || color_parts[0]].join(' ')
-          result['border-left'] = [ width_parts[3] || width_parts[1] || width_parts[0],
-                                    style_parts[3] || style_parts[1] || style_parts[0],
-                                    color_parts[3] || color_parts[1] || color_parts[0]].join(' ')
+          result['border-top'] = cascading_join(width, style, color, 0)
+          result['border-right'] = cascading_join(width, style, color, 1, 0)
+          result['border-bottom'] = cascading_join(width, style, color, 2, 0)
+          result['border-left'] = cascading_join(width, style, color, 3, 1, 0)
         end
       end
       result
+    end
+
+    def cascading_join(width_parts, style_parts, color_parts, *prefs)
+      [ cascade(width_parts, prefs),
+        cascade(style_parts, prefs),
+        cascade(color_parts, prefs)].join(' ')
+    end
+
+    def cascade(list, prefs)
+      prefs.inject(nil) {|acc, i| acc || list[i]}
     end
   end
 end
