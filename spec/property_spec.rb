@@ -51,5 +51,17 @@ describe ODF::Property do
     Hpricot(property.xml).at('//style:table-cell-properties')['fo:border'].
       should == "0.025in solid #000000"
   end
+
+  it "should the first value for vertical and second for horizontal border side specs" do
+    property = ODF::Property.new :cell, :border_width => '0.025in 0.3in',
+                                        :border_color => '#ff0000 #0000ff',
+                                        :border_style => 'solid'
+
+    elem= Hpricot(property.xml).at('//style:table-cell-properties')
+    elem['fo:border-top'].should == "0.025in solid #ff0000"
+    elem['fo:border-right'].should == "0.3in solid #0000ff"
+    elem['fo:border-bottom'].should == "0.025in solid #ff0000"
+    elem['fo:border-left'].should == "0.3in solid #0000ff"
+  end
 end
 
