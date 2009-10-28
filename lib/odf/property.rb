@@ -23,10 +23,11 @@ module ODF
     PROPERTY_NAMES = {:cell => 'style:table-cell-properties',
                       :text => 'style:text-properties',
                       :column => 'style:table-column-properties'}
+    TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
     def initialize(type, specs={})
       @name = PROPERTY_NAMES[type]
-      @specs = specs.map { |k, v| [k.to_s, v] }
+      @specs = translate(specs).map { |k, v| [k.to_s, v] }
     end
 
     def xml
@@ -35,6 +36,19 @@ module ODF
         acc.merge prefix + ':' + kv.first => kv.last
       end
       Builder::XmlMarkup.new.tag! @name, specs
+    end
+  private
+    def translate(specs)
+      result = specs.clone
+      tspecs = specs.select {|k, v| TRANSLATED_SPECS.include? k}
+      tspecs.map {|k, v| result.delete k}
+      tspecs = tspecs.inject({}) {|acc, e| acc.merge e.first => e.last}
+      if tspecs[:border_width] && tspecs[:border_style] && tspecs[:border_color] then
+        result[:border] = [
+          tspecs[:border_width], tspecs[:border_style], tspecs[:border_color]].
+            join(' ')
+      end
+      result
     end
   end
 end

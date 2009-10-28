@@ -35,5 +35,21 @@ describe ODF::Property do
     elem = Hpricot(property.xml).at('//style:table-column-properties')
     elem['style:column-width'].should == '2cm'
   end
+
+  it "should accept full frame border specs" do
+    property = ODF::Property.new :cell, :border => "0.025in solid #000000"
+
+    Hpricot(property.xml).at('//style:table-cell-properties')['fo:border'].
+      should == "0.025in solid #000000"
+  end
+
+  it "should accept splited full frame border specs" do
+    property = ODF::Property.new :cell, :border_width => '0.025in',
+                                        :border_color => '#000000',
+                                        :border_style => 'solid'
+
+    Hpricot(property.xml).at('//style:table-cell-properties')['fo:border'].
+      should == "0.025in solid #000000"
+  end
 end
 
