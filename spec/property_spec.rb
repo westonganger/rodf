@@ -52,7 +52,7 @@ describe ODF::Property do
       should == "0.025in solid #000000"
   end
 
-  it "should the first value for vertical and second for horizontal border side specs" do
+  it "should use the first value for vertical and second for horizontal border side specs" do
     property = ODF::Property.new :cell, :border_width => '0.025in 0.3in',
                                         :border_color => '#ff0000 #0000ff',
                                         :border_style => 'solid'
@@ -62,6 +62,22 @@ describe ODF::Property do
     elem['fo:border-right'].should == "0.3in solid #0000ff"
     elem['fo:border-bottom'].should == "0.025in solid #ff0000"
     elem['fo:border-left'].should == "0.3in solid #0000ff"
+  end
+
+  it "should use the third value for bottom border specs when present" do
+    property = ODF::Property.new :cell, :border_width => '0.025in 0.3in 0.4in',
+                                        :border_color => '#ff0000 #0000ff',
+                                        :border_style => 'dotted solid solid'
+
+    elem = Hpricot(property.xml).at('//style:table-cell-properties')
+    elem['fo:border-bottom'].should == "0.4in solid #ff0000"
+
+    property = ODF::Property.new :cell, :border_width => '0.025in',
+                                        :border_color => '#ff0000 #0000ff #00ff00',
+                                        :border_style => 'dotted solid'
+
+    elem = Hpricot(property.xml).at('//style:table-cell-properties')
+    elem['fo:border-bottom'].should == "0.025in dotted #00ff00"
   end
 end
 

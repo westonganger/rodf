@@ -56,7 +56,9 @@ module ODF
           result['border-right'] = [  width_parts[1] || width_parts[0],
                                       style_parts[1] || style_parts[0],
                                       color_parts[1] || color_parts[0]].join(' ')
-          result['border-bottom'] = [width_parts[0], style_parts[0], color_parts[0]].join(' ')
+          result['border-bottom'] = [ width_parts[2] || width_parts[0],
+                                      style_parts[2] || style_parts[0],
+                                      color_parts[2] || color_parts[0]].join(' ')
           result['border-left'] = [ width_parts[1] || width_parts[0],
                                     style_parts[1] || style_parts[0],
                                     color_parts[1] || color_parts[0]].join(' ')
