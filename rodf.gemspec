@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thiago Arrais"]
-  s.date = %q{2009-10-27}
+  s.date = %q{2010-04-05}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
   s.extra_rdoc_files = ["CHANGELOG", "LICENSE.LGPL", "README.rdoc", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/container.rb", "lib/odf/property.rb", "lib/odf/row.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/spreadsheet.rb", "lib/odf/style.rb", "lib/odf/table.rb"]
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Rodf", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rodf}
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{ODF generation library for Ruby}
 
   if s.respond_to? :specification_version then
@@ -25,14 +25,14 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<builder>, [">= 2.1.2"])
       s.add_runtime_dependency(%q<rubyzip>, [">= 0.9.1"])
-      s.add_runtime_dependency(%q<activesupport>, ["= 2.1.2"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 2.1.2"])
       s.add_development_dependency(%q<rspec>, [">= 1.1.11"])
       s.add_development_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
       s.add_development_dependency(%q<echoe>, [">= 3.0.2"])
     else
       s.add_dependency(%q<builder>, [">= 2.1.2"])
       s.add_dependency(%q<rubyzip>, [">= 0.9.1"])
-      s.add_dependency(%q<activesupport>, ["= 2.1.2"])
+      s.add_dependency(%q<activesupport>, [">= 2.1.2"])
       s.add_dependency(%q<rspec>, [">= 1.1.11"])
       s.add_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
       s.add_dependency(%q<echoe>, [">= 3.0.2"])
@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<builder>, [">= 2.1.2"])
     s.add_dependency(%q<rubyzip>, [">= 0.9.1"])
-    s.add_dependency(%q<activesupport>, ["= 2.1.2"])
+    s.add_dependency(%q<activesupport>, [">= 2.1.2"])
     s.add_dependency(%q<rspec>, [">= 1.1.11"])
     s.add_dependency(%q<rspec_hpricot_matchers>, [">= 1.0"])
     s.add_dependency(%q<echoe>, [">= 3.0.2"])

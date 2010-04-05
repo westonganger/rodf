@@ -16,9 +16,9 @@
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'rubygems'
-gem 'activesupport', '2.1.2'
+gem 'activesupport', '>= 2.1.2'
 
-require 'active_support/core_ext/string'
+require 'active_support'
 
 module ODF
   class Container
