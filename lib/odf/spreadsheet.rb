@@ -18,28 +18,14 @@
 require 'rubygems'
 
 require 'builder'
-require 'zip/zip'
 
-require 'odf/container'
-require 'odf/skeleton'
+require 'odf/document'
 require 'odf/style'
 require 'odf/table'
 
 module ODF
-  class SpreadSheet < Container
+  class SpreadSheet < Document
     contains :tables, :styles
-
-    def self.file(ods_file_name)
-      ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
-      ods_file.get_output_stream('styles.xml') {|f| f << skeleton.styles }
-      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton.manifest('spreadsheet') }
-
-      yield(spreadsheet = new)
-
-      ods_file.get_output_stream('content.xml') {|f| f << spreadsheet.xml}
-
-      ods_file.close
-    end
 
     def xml
       b = Builder::XmlMarkup.new
@@ -61,11 +47,6 @@ module ODF
           end
         end
       end
-    end
-
-  private
-    def self.skeleton
-      @skeleton ||= Skeleton.new
     end
   end
 end

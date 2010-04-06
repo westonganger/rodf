@@ -18,24 +18,11 @@
 require 'rubygems'
 
 require 'builder'
-require 'zip/zip'
 
-require 'odf/skeleton'
+require 'odf/document'
 
 module ODF
-  class Text
-    def self.file(ods_file_name)
-      ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
-      ods_file.get_output_stream('styles.xml') {|f| f << skeleton.styles }
-      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton.manifest('text') }
-
-      yield(text = new)
-
-      ods_file.get_output_stream('content.xml') {|f| f << text.xml}
-
-      ods_file.close
-    end
-
+  class Text < Document
     def xml
       b = Builder::XmlMarkup.new
 
@@ -51,15 +38,6 @@ module ODF
           xml.office:text
         end
       end
-    end
-
-    def self.create
-      self.new.xml
-    end
-
-  private
-    def self.skeleton
-      @skeleton ||= Skeleton.new
     end
   end
 end
