@@ -24,7 +24,7 @@ require 'odf/style'
 require 'odf/table'
 
 module ODF
-  class SpreadSheet < Document
+  class Spreadsheet < Document
     contains :tables, :styles
 
     def xml
@@ -49,5 +49,7 @@ module ODF
       end
     end
   end
+
+  SpreadSheet = Spreadsheet
 end
 
