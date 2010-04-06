@@ -15,29 +15,17 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'rubygems'
+require 'builder'
 
-require 'odf/text'
+module ODF
+  class Paragraph
+    def initialize(content)
+      @content = content
+    end
 
-describe ODF::Text do
-  it "should have the expected structure" do
-    output = ODF::Text.create
-    output.should have_tag('//office:document-content/*')
-    output.should have_tag('//office:body/*')
-    output.should have_tag('//office:text')
-  end
-
-  it "should have paragraphs" do
-    output = ODF::Text.create { |doc|
-      doc.paragraph "Hello"
-      doc.p "World!"
-    }
-    output.should have_tag('//office:text/*')
-    output.should have_tag('//text:p')
-    ps = Hpricot(output).search('text:p')
-    ps.size.should == 2
-    ps.first.innerHTML.should == 'Hello'
-    ps.last.innerHTML.should == 'World!'
+    def xml
+      Builder::XmlMarkup.new.tag!('text:p', @content)
+    end
   end
 end
-

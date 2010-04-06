@@ -17,27 +17,13 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/text'
+require 'odf/paragraph'
 
-describe ODF::Text do
-  it "should have the expected structure" do
-    output = ODF::Text.create
-    output.should have_tag('//office:document-content/*')
-    output.should have_tag('//office:body/*')
-    output.should have_tag('//office:text')
-  end
-
-  it "should have paragraphs" do
-    output = ODF::Text.create { |doc|
-      doc.paragraph "Hello"
-      doc.p "World!"
-    }
-    output.should have_tag('//office:text/*')
+describe ODF::Paragraph do
+  it "should allow text content inside" do
+    output = ODF::Paragraph.new('Hello').xml
     output.should have_tag('//text:p')
-    ps = Hpricot(output).search('text:p')
-    ps.size.should == 2
-    ps.first.innerHTML.should == 'Hello'
-    ps.last.innerHTML.should == 'World!'
+    Hpricot(output).at('text:p').innerHTML.should == 'Hello'
   end
 end
 

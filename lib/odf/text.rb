@@ -20,9 +20,14 @@ require 'rubygems'
 require 'builder'
 
 require 'odf/document'
+require 'odf/paragraph'
 
 module ODF
   class Text < Document
+    contains :paragraphs
+
+    alias :p :paragraph
+
     def xml
       b = Builder::XmlMarkup.new
 
@@ -35,7 +40,9 @@ module ODF
                                         'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" do
       |xml|
         xml.office:body do
-          xml.office:text
+          xml.office:text do
+            xml << paragraphs_xml
+          end
         end
       end
     end
