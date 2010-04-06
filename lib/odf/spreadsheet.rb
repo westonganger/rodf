@@ -33,7 +33,7 @@ module ODF
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
       ods_file.get_output_stream('styles.xml') {|f| f << skeleton.styles }
       ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton.manifest('spreadsheet') }
-      
+
       yield(spreadsheet = new)
 
       ods_file.get_output_stream('content.xml') {|f| f << spreadsheet.xml}
