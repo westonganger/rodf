@@ -21,6 +21,7 @@ require 'builder'
 require 'zip/zip'
 
 require 'odf/container'
+require 'odf/skeleton'
 require 'odf/style'
 require 'odf/table'
 
@@ -30,8 +31,8 @@ module ODF
 
     def self.file(ods_file_name)
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
-      ods_file.get_output_stream('styles.xml') {|f| f << skeleton('styles.xml')}
-      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton('manifest.xml')}
+      ods_file.get_output_stream('styles.xml') {|f| f << skeleton.styles }
+      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton.manifest('spreadsheet') }
       
       yield(spreadsheet = new)
 
@@ -63,8 +64,8 @@ module ODF
     end
 
   private
-    def self.skeleton(fname)
-      File.open(File.dirname(__FILE__) + '/skeleton/' + fname).read
+    def self.skeleton
+      @skeleton ||= Skeleton.new
     end
   end
 end
