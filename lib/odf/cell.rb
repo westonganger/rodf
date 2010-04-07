@@ -48,7 +48,7 @@ module ODF
     def contains_string?
       :string == @type && !@value.nil? && !@value.empty?
     end
-    
+
     def contains_url?
       !@url.blank?
     end
