@@ -24,11 +24,11 @@ module ODF
       value = args.first || ''
       opts = args.last.instance_of?(Hash) ? args.last : {}
 
+      @url = opts[:url]
       @type = opts[:type] || :string
       @value = value.to_s.strip unless value.instance_of? Hash
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
-      @url = opts[:url].nil? ? nil : opts[:url]
       @mutiply = (opts[:span] || 1).to_i
     end
 
