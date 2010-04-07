@@ -95,4 +95,10 @@ describe ODF::Cell do
     doc.at('table:table-cell')['table:number-columns-spanned'].should == '4'
     doc.search('table:table-cell').size.should == 4
   end
+  
+  it "should have the URL set correctly when requested" do
+    cell = ODF::Cell.new 'Example Link', :type => :link, :url => 'http://www.example.org'
+    doc = Hpricot(cell.xml)
+    doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
+  end
 end
