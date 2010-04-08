@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Thiago Arrais", "Merul Patel"]
-  s.date = %q{2010-04-06}
+  s.authors = ["Thiago Arrais"]
+  s.date = %q{2010-04-08}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
   s.extra_rdoc_files = ["CHANGELOG", "LICENSE.LGPL", "README.rdoc", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/container.rb", "lib/odf/property.rb", "lib/odf/row.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/spreadsheet.rb", "lib/odf/style.rb", "lib/odf/table.rb"]
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    s.specification_version = 4
+    s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<builder>, [">= 2.1.2"])
