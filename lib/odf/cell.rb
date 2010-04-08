@@ -35,10 +35,10 @@ module ODF
     def xml
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
-        if contains_string?
-          xml.text(:p, @value)
-        elsif contains_url?
+        if contains_url?
           xml.text(:p){|x| x.text(:a, @value, 'xlink:href' => @url)}
+        elsif contains_string?
+          xml.text(:p, @value)
         end
       end
       (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
@@ -50,7 +50,7 @@ module ODF
     end
 
     def contains_url?
-      !@url.blank?
+      !@url.nil? && !@url.empty?
     end
 
     def make_element_attributes(type, value, opts)
