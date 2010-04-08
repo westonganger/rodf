@@ -101,7 +101,7 @@ describe ODF::Cell do
     doc = Hpricot(cell.xml)
     doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
   end
-  
+
   it "should have the URL set correctly when requested on a float" do
     cell = ODF::Cell.new(47.1, :type => :float, :url => 'http://www.example.org')
     doc = Hpricot(cell.xml)
