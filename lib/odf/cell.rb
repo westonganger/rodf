@@ -24,6 +24,7 @@ module ODF
       value = args.first || ''
       opts = args.last.instance_of?(Hash) ? args.last : {}
 
+      @url = opts[:url]
       @type = opts[:type] || :string
       @value = value.to_s.strip unless value.instance_of? Hash
 
@@ -34,7 +35,11 @@ module ODF
     def xml
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
-        xml.text(:p, @value) if contains_string?
+        if contains_url?
+          xml.text(:p){|x| x.text(:a, @value, 'xlink:href' => @url)}
+        elsif contains_string?
+          xml.text(:p, @value)
+        end
       end
       (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
       text
@@ -42,6 +47,10 @@ module ODF
 
     def contains_string?
       :string == @type && !@value.nil? && !@value.empty?
+    end
+
+    def contains_url?
+      !@url.nil? && !@url.empty?
     end
 
     def make_element_attributes(type, value, opts)
