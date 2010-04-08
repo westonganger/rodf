@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Thiago Arrais"]
+  s.authors = ["Thiago Arrais", "Merul Patel"]
   s.date = %q{2010-04-08}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
