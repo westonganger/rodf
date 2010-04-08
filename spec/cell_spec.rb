@@ -96,9 +96,16 @@ describe ODF::Cell do
     doc.search('table:table-cell').size.should == 4
   end
 
-  it "should have the URL set correctly when requested" do
-    cell = ODF::Cell.new 'Example Link', :type => :link, :url => 'http://www.example.org'
+  it "should have the URL set correctly when requested on a string" do
+    cell = ODF::Cell.new 'Example Link', :url => 'http://www.example.org'
     doc = Hpricot(cell.xml)
     doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
+  end
+  
+  it "should have the URL set correctly when requested on a float" do
+    cell = ODF::Cell.new(47.1, :type => :float, :url => 'http://www.example.org')
+    doc = Hpricot(cell.xml)
+    doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
+    doc.at('text:a').innerHTML.should == '47.1'
   end
 end
