@@ -110,11 +110,10 @@ describe ODF::Cell do
   end
   
   it "should have the date set correctly" do
-    time = Time.now
-    cell = ODF::Cell.new(time.strftime("%d/%m/%Y"), :type => :date, :date => time.strftime("%Y-%m-%d"))
-    doc = Hpricot(cell.xml)
-    doc.at('table:table-cell')['office:value-type'].should == 'date'
-    doc.at('table:table-cell')['office:date-value'].should == time.strftime("%Y-%m-%d")
-    doc.at('table:table-cell')['office:value'].should be_nil
+    cell = Hpricot(ODF::Cell.new('2010-04-15', :type => :date).xml).
+      at('table:table-cell')
+    cell['office:value-type'].should == 'date'
+    cell['office:date-value'].should == '2010-04-15'
+    cell['office:value'].should be_nil
   end
 end

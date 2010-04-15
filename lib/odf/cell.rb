@@ -25,7 +25,6 @@ module ODF
       opts = args.last.instance_of?(Hash) ? args.last : {}
 
       @url = opts[:url]
-      @date = opts[:date]
       @type = opts[:type] || :string
       @value = value.to_s.strip unless value.instance_of? Hash
 
@@ -38,7 +37,7 @@ module ODF
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
         if contains_url?
           xml.text(:p){|x| x.text(:a, @value, 'xlink:href' => @url)}
-        elsif contains_string? || contains_date?
+        elsif contains_string?
           xml.text(:p, @value)
         end
       end
@@ -53,18 +52,11 @@ module ODF
     def contains_url?
       !@url.nil? && !@url.empty?
     end
-    
-    def contains_date?
-      :date == @type && !@date.nil? && !@date.empty?
-    end
 
     def make_element_attributes(type, value, opts)
       attrs = {'office:value-type' => type}
-      if contains_date?
-        attrs['office:date-value'] = @date
-      elsif !contains_string?
-        attrs['office:value'] = value
-      end
+      attrs['office:date-value'] = value if :date == type
+      attrs['office:value'] = value if :float == type
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
       attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
