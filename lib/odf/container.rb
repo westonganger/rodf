@@ -25,7 +25,7 @@ module ODF
     def self.contains(*stuffs_array)
       stuffs_array.map {|sym| sym.to_s}.each do |stuffs|
         stuff = stuffs.to_s.singularize
-        stuff_class = eval(stuff.capitalize)
+        stuff_class = eval(stuff.camelize)
 
         self.class_eval "
           def #{stuffs}

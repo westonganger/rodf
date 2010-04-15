@@ -69,5 +69,13 @@ describe ODF::SpreadSheet do
     Hpricot(output).at('//style:style')['style:name'].should == 'even-row-cell'
     Hpricot(output).at('//style:style')['style:family'].should == 'table-cell'
   end
+
+  it "should have data styles" do
+    output = ODF::SpreadSheet.create do |ss|
+      ss.data_style :date, 'year-to-day-long'
+    end
+    output.should have_tag('//office:automatic-styles/*', :count => 1)
+    output.should have_tag('//number:date-style')
+  end
 end
 
