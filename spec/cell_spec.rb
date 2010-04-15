@@ -102,11 +102,14 @@ describe ODF::Cell do
     doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
   end
 
-  it "should have the URL set correctly when requested on a float" do
+  it "should ignore the URL requested on anything other than a string" do
     cell = ODF::Cell.new(47.1, :type => :float, :url => 'http://www.example.org')
-    doc = Hpricot(cell.xml)
-    doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
-    doc.at('text:a').innerHTML.should == '47.1'
+    cell.xml.should_not have_tag('text:p')
+    cell.xml.should_not have_tag('text:a')
+
+    cell = ODF::Cell.new('2009-15-04', :type => :date, :url => 'http://www.example.org')
+    cell.xml.should_not have_tag('text:p')
+    cell.xml.should_not have_tag('text:a')
   end
   
   it "should have the date set correctly" do
