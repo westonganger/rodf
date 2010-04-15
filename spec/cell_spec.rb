@@ -108,4 +108,13 @@ describe ODF::Cell do
     doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
     doc.at('text:a').innerHTML.should == '47.1'
   end
+  
+  it "should have the date set correctly" do
+    time = Time.now
+    cell = ODF::Cell.new(time.strftime("%d/%m/%Y"), :type => :date, :date => time.strftime("%Y-%m-%d"))
+    doc = Hpricot(cell.xml)
+    doc.at('table:table-cell')['office:value-type'].should == 'date'
+    doc.at('table:table-cell')['office:date-value'].should == time.strftime("%Y-%m-%d")
+    doc.at('table:table-cell')['office:value'].should be_nil
+  end
 end
