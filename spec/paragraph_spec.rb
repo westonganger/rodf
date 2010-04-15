@@ -25,5 +25,28 @@ describe ODF::Paragraph do
     output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == 'Hello'
   end
+
+  it "should accept an input sequence" do
+    output = ODF::Paragraph.create { |p|
+      p << "Hello, "
+      p << "world!"
+    }
+    output.should have_tag('//text:p')
+    Hpricot(output).at('text:p').innerHTML.should == 'Hello, world!'
+  end
+
+  it "should accept styled spans" do
+    output = ODF::Paragraph.create { |p|
+      p << "Hello, "
+      p.span :bold, "world! "
+      p << "This is not bold. "
+      p.bold "But this is."
+    }
+    spans = Hpricot(output).at('text:p').search('text:span')
+    spans.first.innerHTML.should == 'world! '
+    spans.first['text:style-name'].should == 'bold'
+    spans.last.innerHTML.should == 'But this is.'
+    spans.last['text:style-name'].should == 'bold'
+  end
 end
 

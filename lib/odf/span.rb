@@ -15,32 +15,17 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-require 'builder'
-
-require 'odf/container'
-require 'odf/span'
-
 module ODF
-  class Paragraph < Container
-    contains :spans
-
-    def initialize(content = nil)
-      span(content)
+  class Span
+    def initialize(first, second = nil)
+      @content = first if second.nil?
+      @style, @content = first, second unless second.nil?
     end
 
     def xml
-      Builder::XmlMarkup.new.text:p do |xml|
-        xml << spans_xml
-      end
-    end
-
-    def <<(content)
-      span(content)
-    end
-
-    def method_missing(style, *args)
-      span(style, *args)
+      return @content if @style.nil?
+      Builder::XmlMarkup.new.text:span, @content, 'text:style-name' => @style
     end
   end
 end
+

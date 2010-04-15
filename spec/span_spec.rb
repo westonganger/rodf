@@ -15,32 +15,20 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-require 'builder'
+require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/container'
 require 'odf/span'
 
-module ODF
-  class Paragraph < Container
-    contains :spans
+describe ODF::Span do
+  it "should print non-styled spans in pure text" do
+    ODF::Span.new('no style').xml.should == 'no style'
+  end
 
-    def initialize(content = nil)
-      span(content)
-    end
-
-    def xml
-      Builder::XmlMarkup.new.text:p do |xml|
-        xml << spans_xml
-      end
-    end
-
-    def <<(content)
-      span(content)
-    end
-
-    def method_missing(style, *args)
-      span(style, *args)
-    end
+  it "should wrap styled output in span tags" do
+    output = ODF::Span.new(:italics, 'styled text').xml
+    output.should have_tag('text:span')
+    span = Hpricot(output).at('text:span')
+    span['text:style-name'].should == 'italics'
+    span.innerHTML.should == 'styled text'
   end
 end
