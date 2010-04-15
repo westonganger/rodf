@@ -51,6 +51,7 @@ module ODF
                                         'xmlns:oooc' => "http://openoffice.org/2004/calc",
                                         'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
                                         'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
+                                        'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
                                         'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
       |xml|
         xml.tag! 'office:automatic-styles' do
