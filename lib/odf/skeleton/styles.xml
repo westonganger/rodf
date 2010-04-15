@@ -17,6 +17,13 @@
     <number:number-style style:name="integer-grouped">
       <number:number number:decimal-places="0" number:min-integer-digits="1" number:grouping="true" />
     </number:number-style>
+    <number:date-style style:name="year-to-day-long">
+      <number:year number:style="long"/>
+      <number:text>-</number:text>
+      <number:month number:style="long"/>
+      <number:text>-</number:text>
+      <number:day number:style="long"/>
+    </number:date-style>
   </office:styles>
 </office:document-styles>
 
