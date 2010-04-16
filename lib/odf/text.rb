@@ -24,7 +24,7 @@ require 'odf/paragraph'
 
 module ODF
   class Text < Document
-    contains :paragraphs
+    contains :paragraphs, :styles
 
     alias :p :paragraph
 
@@ -39,6 +39,9 @@ module ODF
                                         'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
                                         'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" do
       |xml|
+        xml.tag! 'office:automatic-styles' do
+          xml << styles_xml
+        end unless styles.empty?
         xml.office:body do
           xml.office:text do
             xml << paragraphs_xml

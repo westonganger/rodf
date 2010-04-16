@@ -39,5 +39,17 @@ describe ODF::Text do
     ps.first.innerHTML.should == 'Hello'
     ps.last.innerHTML.should == 'World!'
   end
+
+  it "should allow styles" do
+    ODF::Text.create.should_not have_tag('//office:automatic-styles')
+    output = ODF::Text.create { |doc|
+      doc.style('bold', :family => 'text') {|s|
+        s.property(:text, 'font-weight' => 'bold') }
+      doc.style('italic', :family => 'text') {|s|
+        s.property(:text, 'font-weight' => 'italic') }
+    }
+    output.should have_tag('//office:automatic-styles/*', :count => 2)
+    output.should have_tag('//style:style')
+  end
 end
 
