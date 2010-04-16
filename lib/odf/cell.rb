@@ -28,9 +28,9 @@ module ODF
       @type = opts[:type] || :string
       unless value.instance_of?(Hash)
         if [Date, DateTime, Time].include? value.class
-          @value = value
+          @value = value.strftime("%Y-%m-%d")
         else
-          @value = value.to_s.strip 
+          @value = value.to_s.strip
         end
       end
 
@@ -65,7 +65,7 @@ module ODF
 
     def make_element_attributes(type, value, opts)
       attrs = {'office:value-type' => type}
-      attrs['office:date-value'] = value.strftime("%Y-%m-%d") if :date == type
+      attrs['office:date-value'] = value if :date == type
       attrs['office:value'] = value if :float == type
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
