@@ -30,5 +30,13 @@ describe ODF::StyleSection do
     output = ODF::StyleSection.new(:month, :textual => true).xml
     Hpricot(output).at('number:month')['number:textual'].should == 'true'
   end
+
+  it "should allow text to be inserted" do
+    Hpricot(ODF::StyleSection.new(:text, 'content').xml).
+      at('number:text').innerHTML.should == 'content'
+
+    Hpricot(ODF::StyleSection.new(:day).xml).
+      at('number:day').innerHTML.should == ''
+  end
 end
 

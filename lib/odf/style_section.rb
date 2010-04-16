@@ -21,13 +21,17 @@ require 'builder'
 
 module ODF
   class StyleSection
-    def initialize(type, opts = {})
+    def initialize(type, second = {})
       @type = type
-      @elem_attrs = make_element_attributes(opts)
+      if second.instance_of?(Hash)
+        @elem_attrs = make_element_attributes(second)
+      else
+        @content, @elem_attrs = second, {}
+      end
     end
 
     def xml
-      Builder::XmlMarkup.new.number @type, @elem_attrs
+      Builder::XmlMarkup.new.number @type, @content, @elem_attrs
     end
 
     def make_element_attributes(opts)
