@@ -119,4 +119,9 @@ describe ODF::Cell do
     cell['office:date-value'].should == '2010-04-15'
     cell['office:value'].should be_nil
   end
+
+  it "should also accept strings as date values" do
+    Hpricot(ODF::Cell.new(Date.parse('16 Apr 2010'), :type => :date).xml).
+      at('table:table-cell')['office:date-value'] = '2010-04-16'
+  end
 end
