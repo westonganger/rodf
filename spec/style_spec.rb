@@ -26,7 +26,7 @@ describe ODF::Style do
     output = ODF::Style.create 'odd-row-cell', :family => :cell do |s|
       s.property :cell, 'background-color' => '#b3b3b3',
                         'border' => '0.002cm solid #000000'
-      s.property :text, 'color' => '#4c4c4c'
+      s.property :text, 'color' => '#4c4c4c', 'font-weight' => 'bold'
     end
 
     output.should have_tag('//style:style/*', :count => 2)
@@ -39,6 +39,7 @@ describe ODF::Style do
 
     text_elem = Hpricot(output).at('style:text-properties')
     text_elem['fo:color'].should == '#4c4c4c'
+    text_elem['fo:font-weight'].should == 'bold'
   end
 
   it "should allow data styles" do
