@@ -111,7 +111,7 @@ describe ODF::Cell do
     cell.xml.should_not have_tag('text:p')
     cell.xml.should_not have_tag('text:a')
   end
-  
+
   it "should have the date set correctly" do
     cell = Hpricot(ODF::Cell.new('2010-04-15', :type => :date).xml).
       at('table:table-cell')

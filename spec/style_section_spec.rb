@@ -25,5 +25,10 @@ describe ODF::StyleSection do
     output.should have_tag('number:year')
     Hpricot(output).at('number:year')['number:style'].should == 'long'
   end
+
+  it "should allow textual flag" do
+    output = ODF::StyleSection.new(:month, :textual => true).xml
+    Hpricot(output).at('number:month')['number:textual'].should == 'true'
+  end
 end
 

@@ -23,11 +23,15 @@ module ODF
   class StyleSection
     def initialize(type, opts = {})
       @type = type
-      @style = opts[:style]
+      @elem_attrs = make_element_attributes(opts)
     end
 
     def xml
-      Builder::XmlMarkup.new.number @type, 'number:style' => @style
+      Builder::XmlMarkup.new.number @type, @elem_attrs
+    end
+
+    def make_element_attributes(opts)
+      {'number:style' => opts[:style], 'number:textual' => opts[:textual]}
     end
   end
 end
