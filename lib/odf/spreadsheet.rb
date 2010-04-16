@@ -19,13 +19,14 @@ require 'rubygems'
 
 require 'builder'
 
+require 'odf/data_style'
 require 'odf/document'
 require 'odf/style'
 require 'odf/table'
 
 module ODF
   class Spreadsheet < Document
-    contains :tables, :styles
+    contains :tables, :styles, :data_styles
 
     def xml
       b = Builder::XmlMarkup.new
@@ -37,11 +38,13 @@ module ODF
                                         'xmlns:oooc' => "http://openoffice.org/2004/calc",
                                         'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
                                         'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
+                                        'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
                                         'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
       |xml|
         xml.tag! 'office:automatic-styles' do
           xml << styles_xml
-        end unless styles.empty?
+          xml << data_styles_xml
+        end unless styles.empty? && data_styles.empty?
         xml.office:body do
           xml.office:spreadsheet do
             xml << tables_xml

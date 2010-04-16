@@ -26,7 +26,13 @@ module ODF
 
       @url = opts[:url]
       @type = opts[:type] || :string
-      @value = value.to_s.strip unless value.instance_of? Hash
+      unless value.instance_of?(Hash)
+        if [Date, DateTime, Time].include? value.class
+          @value = value.strftime("%Y-%m-%d")
+        else
+          @value = value.to_s.strip
+        end
+      end
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
       @mutiply = (opts[:span] || 1).to_i
@@ -35,10 +41,14 @@ module ODF
     def xml
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
-        if contains_url?
-          xml.text(:p){|x| x.text(:a, @value, 'xlink:href' => @url)}
-        elsif contains_string?
-          xml.text(:p, @value)
+        if contains_string?
+          xml.text:p do |p|
+            if contains_url?
+              p.text:a, @value, 'xlink:href' => @url
+            else
+              p << @value
+            end
+          end
         end
       end
       (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
@@ -55,7 +65,8 @@ module ODF
 
     def make_element_attributes(type, value, opts)
       attrs = {'office:value-type' => type}
-      attrs['office:value'] = value unless contains_string?
+      attrs['office:date-value'] = value if :date == type
+      attrs['office:value'] = value if :float == type
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
       attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
