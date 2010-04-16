@@ -107,13 +107,13 @@ describe ODF::Cell do
     cell.xml.should_not have_tag('text:p')
     cell.xml.should_not have_tag('text:a')
 
-    cell = ODF::Cell.new('2009-15-04', :type => :date, :url => 'http://www.example.org')
+    cell = ODF::Cell.new(Date.parse('15 Apr 2010'), :type => :date, :url => 'http://www.example.org')
     cell.xml.should_not have_tag('text:p')
     cell.xml.should_not have_tag('text:a')
   end
 
   it "should have the date set correctly" do
-    cell = Hpricot(ODF::Cell.new('2010-04-15', :type => :date).xml).
+    cell = Hpricot(ODF::Cell.new(Date.parse('15 Apr 2010'), :type => :date).xml).
       at('table:table-cell')
     cell['office:value-type'].should == 'date'
     cell['office:date-value'].should == '2010-04-15'

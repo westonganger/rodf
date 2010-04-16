@@ -19,6 +19,7 @@ require 'rubygems'
 
 require 'builder'
 
+require 'odf/container'
 require 'odf/style_section'
 
 module ODF

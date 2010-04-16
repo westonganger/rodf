@@ -26,7 +26,13 @@ module ODF
 
       @url = opts[:url]
       @type = opts[:type] || :string
-      @value = value.to_s.strip unless value.instance_of? Hash
+      unless value.instance_of?(Hash)
+        if [Date, DateTime, Time].include? value.class
+          @value = value
+        else
+          @value = value.to_s.strip 
+        end
+      end
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
       @mutiply = (opts[:span] || 1).to_i
@@ -59,7 +65,7 @@ module ODF
 
     def make_element_attributes(type, value, opts)
       attrs = {'office:value-type' => type}
-      attrs['office:date-value'] = value if :date == type
+      attrs['office:date-value'] = value.strftime("%Y-%m-%d") if :date == type
       attrs['office:value'] = value if :float == type
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
