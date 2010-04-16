@@ -28,7 +28,7 @@ module ODF
 
     alias section style_section
 
-    def initialize(type, name)
+    def initialize(name, type)
       @type, @name = type, name
     end
 

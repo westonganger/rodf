@@ -21,7 +21,7 @@ require 'odf/data_style'
 
 describe ODF::DataStyle do
   it "should have sections" do
-    output = ODF::DataStyle.create :date, 'year-to-day' do |s|
+    output = ODF::DataStyle.create 'year-to-day', :date do |s|
       s.section :year, :style => 'long'
       s.section :month, :style => 'long'
       s.section :day
@@ -36,7 +36,7 @@ describe ODF::DataStyle do
   end
 
   it "should allow short section names" do
-    output = ODF::DataStyle.create :date, 'year-to-day' do |number|
+    output = ODF::DataStyle.create 'year-to-day', :date do |number|
       number.year :style => 'long'
       number.month :style => 'long'
       number.day

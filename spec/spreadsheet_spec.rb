@@ -72,7 +72,7 @@ describe ODF::SpreadSheet do
 
   it "should have data styles" do
     output = ODF::SpreadSheet.create do |ss|
-      ss.data_style :date, 'year-to-day-long'
+      ss.data_style 'year-to-day-long', :date
     end
     output.should have_tag('//office:automatic-styles/*', :count => 1)
     output.should have_tag('//number:date-style')
