@@ -18,6 +18,8 @@
 require 'rubygems'
 require 'builder'
 
+require 'odf/paragraph'
+
 module ODF
   class Cell
     def initialize(*args)
@@ -36,20 +38,24 @@ module ODF
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
       @mutiply = (opts[:span] || 1).to_i
+
+      make_value_paragraph
+    end
+
+    def paragraph(*args)
+      @paragraph = Paragraph.new(*args)
+      yield @paragraph if block_given?
+    end
+
+    def paragraph_xml
+      return '' if @paragraph.nil?
+      @paragraph.xml
     end
 
     def xml
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
-        if contains_string?
-          xml.text:p do |p|
-            if contains_url?
-              p.text:a, @value, 'xlink:href' => @url
-            else
-              p << @value
-            end
-          end
-        end
+        xml << paragraph_xml
       end
       (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
       text
@@ -73,6 +79,14 @@ module ODF
       attrs['table:number-matrix-columns-spanned'] =
         attrs['table:number-matrix-rows-spanned'] = 1 if opts[:matrix_formula]
       attrs
+    end
+
+    def make_value_paragraph
+      if contains_string?
+        paragraph(contains_url? ?
+          Builder::XmlMarkup.new.text(:a, @value, 'xlink:href' => @url) :
+          @value)
+      end
     end
   end
 end
