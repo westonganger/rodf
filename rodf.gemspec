@@ -2,15 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rodf}
-  s.version = "0.1.6"
+  s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Thiago Arrais"]
-  s.date = %q{2010-04-16}
+  s.date = %q{2010-04-19}
   s.description = %q{ODF generation library for Ruby}
   s.email = %q{thiago.arrais@gmail.com}
-  s.extra_rdoc_files = ["CHANGELOG", "LICENSE.LGPL", "README.rdoc", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/container.rb", "lib/odf/property.rb", "lib/odf/row.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/spreadsheet.rb", "lib/odf/style.rb", "lib/odf/table.rb"]
-  s.files = ["CHANGELOG", "LICENSE.LGPL", "Manifest", "README.rdoc", "Rakefile", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/container.rb", "lib/odf/property.rb", "lib/odf/row.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/spreadsheet.rb", "lib/odf/style.rb", "lib/odf/table.rb", "rodf.gemspec", "spec/cell_spec.rb", "spec/property_spec.rb", "spec/row_spec.rb", "spec/spec_helper.rb", "spec/spreadsheet_spec.rb", "spec/style_spec.rb", "spec/table_spec.rb"]
+  s.extra_rdoc_files = ["CHANGELOG", "LICENSE.LGPL", "README.rdoc", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/container.rb", "lib/odf/data_style.rb", "lib/odf/property.rb", "lib/odf/row.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/spreadsheet.rb", "lib/odf/style_section.rb", "lib/odf/style.rb", "lib/odf/table.rb"]
+  s.files = ["CHANGELOG", "LICENSE.LGPL", "Manifest", "README.rdoc", "Rakefile", "lib/odf/cell.rb", "lib/odf/column.rb", "lib/odf/container.rb", "lib/odf/data_style.rb", "lib/odf/property.rb", "lib/odf/row.rb", "lib/odf/skeleton/manifest.xml", "lib/odf/skeleton/styles.xml", "lib/odf/spreadsheet.rb", "lib/odf/style_section.rb", "lib/odf/style.rb", "lib/odf/table.rb", "rodf.gemspec", "spec/cell_spec.rb", "spec/data_style_spec.rb", "spec/property_spec.rb", "spec/row_spec.rb", "spec/spec_helper.rb", "spec/spreadsheet_spec.rb", "spec/style_section_spec.rb", "spec/style_spec.rb", "spec/table_spec.rb"]
   s.homepage = %q{http://github.com/thiagoarrais/rodf/tree}
   s.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Rodf", "--main", "README.rdoc"]
   s.require_paths = ["lib"]
