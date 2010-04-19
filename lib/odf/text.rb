@@ -21,6 +21,7 @@ require 'builder'
 
 require 'odf/document'
 require 'odf/paragraph'
+require 'odf/style'
 
 module ODF
   class Text < Document
