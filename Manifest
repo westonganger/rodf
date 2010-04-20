@@ -10,6 +10,7 @@ lib/odf/data_style.rb
 lib/odf/document.rb
 lib/odf/hyperlink.rb
 lib/odf/paragraph.rb
+lib/odf/paragraph_container.rb
 lib/odf/property.rb
 lib/odf/row.rb
 lib/odf/skeleton.rb

@@ -18,12 +18,10 @@
 require 'rubygems'
 require 'builder'
 
-require 'odf/container'
-require 'odf/hyperlink'
-require 'odf/span'
+require 'odf/paragraph_container'
 
 module ODF
-  class Paragraph < Container
+  class Paragraph < ParagraphContainer
     def initialize(content = nil)
       span(content)
     end
@@ -32,37 +30,6 @@ module ODF
       Builder::XmlMarkup.new.text:p do |xml|
         xml << content_parts_xml
       end
-    end
-
-    def content_parts
-      @content_parts ||= []
-    end
-
-    def content_parts_xml
-      content_parts.map {|p| p.xml}.join
-    end
-
-    def span(*args)
-      s = Span.new(*args)
-      yield s if block_given?
-      content_parts << s
-      s
-    end
-
-    def link(*args)
-      l = Hyperlink.new(*args)
-      yield l if block_given?
-      content_parts << l
-      l
-    end
-    alias a link
-
-    def <<(content)
-      span(content)
-    end
-
-    def method_missing(style, *args)
-      span(style, *args)
     end
   end
 end

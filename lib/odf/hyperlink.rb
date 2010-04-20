@@ -18,6 +18,8 @@
 require 'rubygems'
 require 'builder'
 
+require 'odf/paragraph_container'
+
 module ODF
   class Hyperlink
     def initialize(text, second = {})
@@ -30,6 +32,16 @@ module ODF
         a << @content
       end
     end
+  end
+
+  class ParagraphContainer < Container
+    def link(*args)
+      l = Hyperlink.new(*args)
+      yield l if block_given?
+      content_parts << l
+      l
+    end
+    alias a link
   end
 end
 

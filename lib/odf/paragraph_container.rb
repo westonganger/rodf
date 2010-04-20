@@ -18,38 +18,21 @@
 require 'rubygems'
 require 'builder'
 
-require 'odf/paragraph_container'
+require 'odf/container'
+require 'odf/hyperlink'
+require 'odf/span'
 
 module ODF
-  class TextNode
-    def initialize(content)
-      @content = content
-    end
-
-    def xml
-      @content
-    end
-  end
-
-  class Span < ParagraphContainer
-    def initialize(first, second = nil)
-      if first.instance_of?(Symbol)
-        @style = first
-        content_parts << TextNode.new(second) unless second.nil?
-      else
-        content_parts << TextNode.new(first)
-      end
-    end
-
-    def xml
-      return content_parts_xml if @style.nil?
-      Builder::XmlMarkup.new.text:span, 'text:style-name' => @style do |xml|
-        xml << content_parts_xml
-      end
-    end
-  end
-
+  # Container for all kinds of paragraph content
   class ParagraphContainer < Container
+    def content_parts
+      @content_parts ||= []
+    end
+
+    def content_parts_xml
+      content_parts.map {|p| p.xml}.join
+    end
+
     def span(*args)
       s = Span.new(*args)
       yield s if block_given?
@@ -57,8 +40,20 @@ module ODF
       s
     end
 
+    def link(*args)
+      l = Hyperlink.new(*args)
+      yield l if block_given?
+      content_parts << l
+      l
+    end
+    alias a link
+
     def <<(content)
       span(content)
+    end
+
+    def method_missing(style, *args)
+      span(style, *args)
     end
   end
 end
