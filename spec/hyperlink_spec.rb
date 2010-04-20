@@ -28,5 +28,13 @@ describe ODF::Hyperlink do
     link.innerHTML.should == 'link somewhere'
     link['xlink:href'].should == 'http://www.example.org/'
   end
+
+  it "should accept ref both in second argument as in argument hash" do
+    Hpricot(ODF::Hyperlink.new('link somewhere', :href => 'http://www.example.org/').xml).
+      at('text:a')['xlink:href'].should == 'http://www.example.org/'
+
+    Hpricot(ODF::Hyperlink.new('link somewhere', 'http://www.example.org/').xml).
+      at('text:a')['xlink:href'].should == 'http://www.example.org/'
+  end
 end
 

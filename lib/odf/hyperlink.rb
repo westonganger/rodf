@@ -20,9 +20,9 @@ require 'builder'
 
 module ODF
   class Hyperlink
-    def initialize(text, opts = {})
+    def initialize(text, second = {})
       @content = text
-      @href = opts[:href]
+      @href = second.instance_of?(Hash) ? second[:href] : second
     end
 
     def xml
