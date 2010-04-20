@@ -36,5 +36,18 @@ describe ODF::Hyperlink do
     Hpricot(ODF::Hyperlink.new('link somewhere', 'http://www.example.org/').xml).
       at('text:a')['xlink:href'].should == 'http://www.example.org/'
   end
+
+  it "should allow nested span elements" do
+    output = ODF::Hyperlink.create 'http://www.example.com/' do |link|
+      link.strong 'important link'
+    end
+
+    output.should have_tag('//text:a/*', :count => 1)
+    tree = Hpricot(output)
+    tree.at('//text:a')['xlink:href'].should == 'http://www.example.com/'
+    span = tree.at('//text:span')
+    span['text:style-name'].should == 'strong'
+    span.innerHTML.should == 'important link'
+  end
 end
 

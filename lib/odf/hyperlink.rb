@@ -21,15 +21,19 @@ require 'builder'
 require 'odf/paragraph_container'
 
 module ODF
-  class Hyperlink
-    def initialize(text, second = {})
-      @content = text
-      @href = second.instance_of?(Hash) ? second[:href] : second
+  class Hyperlink < ParagraphContainer
+    def initialize(first, second = {})
+      if second.instance_of?(Hash) && second.empty?
+        @href = first
+      else
+        span(first)
+        @href = second.instance_of?(Hash) ? second[:href] : second
+      end
     end
 
     def xml
       Builder::XmlMarkup.new.text:a, 'xlink:href' => @href do |a|
-        a << @content
+        a << content_parts_xml
       end
     end
   end
