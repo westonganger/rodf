@@ -48,5 +48,17 @@ describe ODF::Paragraph do
     spans.last.innerHTML.should == 'But this is.'
     spans.last['text:style-name'].should == 'bold'
   end
+
+  it "should be able to hold hyperlinks" do
+    output = ODF::Paragraph.create {|p|
+      p << "please visit "
+      p.a "example.org", :href => "http://www.example.org/"
+      p << " for more details"
+    }
+    output.should have_tag("//text:p/*", :count => 3)
+    output.should have_tag("//text:a")
+
+    Hpricot(output).at('text:a').innerHTML.should == 'example.org'
+  end
 end
 
