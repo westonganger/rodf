@@ -74,5 +74,10 @@ describe ODF::Style do
     xml.should have_tag('//style:style/*', :count => 1)
     xml.should have_tag('//style:table-column-properties')
   end
+
+  it "should accept the text family" do
+    Hpricot(ODF::Style.create('text-style', :family => :text)).
+      at('//style:style')['style:family'].should == 'text'
+  end
 end
 

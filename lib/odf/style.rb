@@ -39,7 +39,9 @@ module ODF
     end
 
     def make_element_attributes(name, opts)
-      attrs = {'style:name' => name, 'style:family' => FAMILIES[opts[:family]]}
+      attrs = {
+        'style:name' => name,
+        'style:family' => (FAMILIES[opts[:family]] || opts[:family])}
       attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
       attrs['style:parent-style-name'] = opts[:parent].to_s unless opts[:parent].nil?
       attrs
