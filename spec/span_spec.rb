@@ -41,4 +41,21 @@ describe ODF::Span do
     Hpricot(output).search('//text:span')[1].
       innerHTML.should == 'highlighted text'
   end
+
+  it "should allow links" do
+    output = ODF::Span.create :bold do |s|
+      s.link 'there', 'http://www.example.org/'
+      s << ' and '
+      s.a 'back again', 'http://www.example.com/'
+    end
+
+    output.should have_tag('//text:a', :count => 2)
+    elem = Hpricot(output)
+
+    links = elem.search('//text:a')
+    links.first.innerHTML.should == 'there'
+    links.last.innerHTML.should == 'back again'
+
+    elem.at('//text:span').children[1].to_plain_text.should == " and "
+  end
 end

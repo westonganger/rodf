@@ -19,6 +19,7 @@ require 'rubygems'
 require 'builder'
 
 require 'odf/container'
+require 'odf/hyperlink'
 
 module ODF
   class TextNode
@@ -61,6 +62,18 @@ module ODF
       yield s if block_given?
       content_parts << s
       s
+    end
+
+    def link(*args)
+      l = Hyperlink.new(*args)
+      yield l if block_given?
+      content_parts << l
+      l
+    end
+    alias a link
+
+    def <<(content)
+      span(content)
     end
 
     def method_missing(style, *args)
