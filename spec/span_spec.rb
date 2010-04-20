@@ -31,4 +31,14 @@ describe ODF::Span do
     span['text:style-name'].should == 'italics'
     span.innerHTML.should == 'styled text'
   end
+
+  it "should allow nesting" do
+    output = ODF::Span.create :bold do |s|
+      s.italics 'highlighted text'
+    end
+
+    output.should have_tag('//text:span/*', :count => 2)
+    Hpricot(output).search('//text:span')[1].
+      innerHTML.should == 'highlighted text'
+  end
 end

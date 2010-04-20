@@ -15,16 +15,56 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'rubygems'
+require 'builder'
+
+require 'odf/container'
+
 module ODF
-  class Span
-    def initialize(first, second = nil)
-      @content = first if second.nil?
-      @style, @content = first, second unless second.nil?
+  class TextNode
+    def initialize(content)
+      @content = content
     end
 
     def xml
-      return @content if @style.nil?
-      Builder::XmlMarkup.new.text:span, @content, 'text:style-name' => @style
+      @content
+    end
+  end
+
+  class Span < Container
+    def initialize(first, second = nil)
+      if first.instance_of?(Symbol)
+        @style = first
+        content_parts << TextNode.new(second) unless second.nil?
+      else
+        content_parts << TextNode.new(first)
+      end
+    end
+
+    def xml
+      return content_parts_xml if @style.nil?
+      Builder::XmlMarkup.new.text:span, 'text:style-name' => @style do |xml|
+        xml << content_parts_xml
+      end
+    end
+
+    def content_parts
+      @content_parts ||= []
+    end
+
+    def content_parts_xml
+      content_parts.map {|p| p.xml}.join
+    end
+
+    def span(*args)
+      s = Span.new(*args)
+      yield s if block_given?
+      content_parts << s
+      s
+    end
+
+    def method_missing(style, *args)
+      span(style, *args)
     end
   end
 end
