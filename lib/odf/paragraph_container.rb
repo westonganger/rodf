@@ -19,8 +19,6 @@ require 'rubygems'
 require 'builder'
 
 require 'odf/container'
-require 'odf/hyperlink'
-require 'odf/span'
 
 module ODF
   # Container for all kinds of paragraph content
@@ -31,25 +29,6 @@ module ODF
 
     def content_parts_xml
       content_parts.map {|p| p.xml}.join
-    end
-
-    def span(*args)
-      s = Span.new(*args)
-      yield s if block_given?
-      content_parts << s
-      s
-    end
-
-    def link(*args)
-      l = Hyperlink.new(*args)
-      yield l if block_given?
-      content_parts << l
-      l
-    end
-    alias a link
-
-    def <<(content)
-      span(content)
     end
 
     def method_missing(style, *args)
