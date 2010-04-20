@@ -83,9 +83,13 @@ module ODF
 
     def make_value_paragraph
       if contains_string?
-        paragraph(contains_url? ?
-          Builder::XmlMarkup.new.text(:a, @value, 'xlink:href' => @url) :
-          @value)
+        paragraph do |p|
+          if contains_url?
+            p.link @value, :href => @url
+          else
+            p << @value
+          end
+        end
       end
     end
   end
