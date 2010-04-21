@@ -46,7 +46,7 @@ module ODF
             if contains_url?
               p.text:a, @value, 'xlink:href' => @url
             else
-              p << @value
+              p.text! @value
             end
           end
         end
