@@ -21,6 +21,8 @@ require 'builder'
 
 require 'odf/document'
 require 'odf/paragraph'
+require 'odf/span'
+require 'odf/hyperlink'
 require 'odf/style'
 
 module ODF
