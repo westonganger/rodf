@@ -30,10 +30,6 @@ module ODF
     def content_parts_xml
       content_parts.map {|p| p.xml}.join
     end
-
-    def method_missing(style, *args)
-      span(style, *args)
-    end
   end
 end
 

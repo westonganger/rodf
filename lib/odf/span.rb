@@ -60,6 +60,10 @@ module ODF
     def <<(content)
       span(content)
     end
+
+    def method_missing(style, *args)
+      span(style, *args)
+    end
   end
 end
 
