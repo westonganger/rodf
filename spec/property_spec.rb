@@ -109,5 +109,10 @@ describe ODF::Property do
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-left'].should == "0.1in solid #ffff00"
   end
+
+  it "should prefix underline property with style namespace" do
+    Hpricot(ODF::Property.new(:text, 'text-underline-type' => 'single').xml).
+      at('style:text-properties')['style:text-underline-type'].should == 'single'
+  end
 end
 
