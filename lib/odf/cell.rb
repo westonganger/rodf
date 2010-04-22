@@ -39,6 +39,9 @@ module ODF
     end
 
     def xml
+      return '' if (@value.nil? || @value.empty?) &&
+        @elem_attrs['table:formula'].nil? &&
+        :string != @type
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
         if contains_string?

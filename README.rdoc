@@ -36,7 +36,7 @@ Some basic formatting is also possible:
       table.row {|row|  row.cell 'Red', :style => 'red-cell' }
     end
   end
-  
+
 === Gotchas
 
 The ODF spec doesn't allow :type to be set for cells with no values or formulas.

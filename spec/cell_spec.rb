@@ -124,11 +124,18 @@ describe ODF::Cell do
     Hpricot(ODF::Cell.new(Date.parse('16 Apr 2010'), :type => :date).xml).
       at('table:table-cell')['office:date-value'] = '2010-04-16'
   end
-  
+
   it "should escape entities" do
     output = ODF::Cell.new('Fish & Chips').xml
     output.should have_tag('//table:table-cell/*')
     output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == 'Fish &amp; Chips'
+  end
+
+  it "should not render non-string nil values" do
+    Hpricot(ODF::Cell.new(nil, :type => :string).xml).
+      at('table:table-cell').innerHTML.should == ''
+
+    ODF::Cell.new(nil, :type => :float).xml.should == ''
   end
 end
