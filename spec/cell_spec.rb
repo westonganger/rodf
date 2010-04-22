@@ -132,10 +132,16 @@ describe ODF::Cell do
     Hpricot(output).at('text:p').innerHTML.should == 'Fish &amp; Chips'
   end
 
-  it "should not render non-string nil values" do
+  it "should not render value type for non-string nil values" do
     Hpricot(ODF::Cell.new(nil, :type => :string).xml).
       at('table:table-cell').innerHTML.should == ''
 
-    ODF::Cell.new(nil, :type => :float).xml.should == ''
+    [:float, :date].each do |t|
+      cell = Hpricot(ODF::Cell.new(nil, :type => t).xml).at('table:table-cell')
+      cell.innerHTML.should == ''
+      cell['office:value'].should be_nil
+      cell['office:date-value'].should be_nil
+      cell['office:value-type'].should be_nil
+    end
   end
 end

@@ -39,9 +39,6 @@ module ODF
     end
 
     def xml
-      return '' if (@value.nil? || @value.empty?) &&
-        @elem_attrs['table:formula'].nil? &&
-        :string != @type
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
         if contains_string?
@@ -67,15 +64,22 @@ module ODF
     end
 
     def make_element_attributes(type, value, opts)
-      attrs = {'office:value-type' => type}
-      attrs['office:date-value'] = value if :date == type
-      attrs['office:value'] = value if :float == type
+      attrs = {}
+      attrs['office:value-type'] = type if :string == type || !empty(value) || !opts[:formula].nil?
+      attrs['office:date-value'] = value if :date == type && !empty(value)
+      attrs['office:value'] = value if :float == type && !empty(value)
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
       attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
       attrs['table:number-matrix-columns-spanned'] =
         attrs['table:number-matrix-rows-spanned'] = 1 if opts[:matrix_formula]
       attrs
+    end
+
+  private
+
+    def empty(value)
+      value.nil? || value.empty?
     end
   end
 end
