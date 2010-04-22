@@ -147,5 +147,12 @@ describe ODF::Cell do
 
     Hpricot(output).at('text:p').innerHTML.should == 'final'
   end
+
+  it "should not render non-string nil values" do
+    Hpricot(ODF::Cell.new(nil, :type => :string).xml).
+      at('table:table-cell').innerHTML.should == ''
+
+    ODF::Cell.new(nil, :type => :float).xml.should == ''
+  end
 end
 

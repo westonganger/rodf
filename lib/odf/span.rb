@@ -27,7 +27,7 @@ module ODF
     end
 
     def xml
-      @content
+      @content.to_s.to_xs
     end
   end
 

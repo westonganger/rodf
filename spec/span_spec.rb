@@ -58,4 +58,8 @@ describe ODF::Span do
 
     elem.at('//text:span').children[1].to_plain_text.should == " and "
   end
+
+  it "should escape entities" do
+    ODF::Span.create('Fish & Chips').should == 'Fish &amp; Chips'
+  end
 end

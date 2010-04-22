@@ -37,3 +37,8 @@ Some basic formatting is also possible:
     end
   end
 
+=== Gotchas
+
+The ODF spec doesn't allow :type to be set for cells with no values or formulas.
+It's up to users to ensure that cells are not passed nil values for :type s other
+than :string
