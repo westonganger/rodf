@@ -60,5 +60,10 @@ describe ODF::Paragraph do
 
     Hpricot(output).at('text:a').innerHTML.should == 'example.org'
   end
+
+  it "should support style attribute" do
+    Hpricot(ODF::Paragraph.create('styled paragraph', :style => 'highlight')).
+      at('text:p')['text:style-name'].should == 'highlight'
+  end
 end
 

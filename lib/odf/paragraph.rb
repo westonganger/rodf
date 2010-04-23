@@ -22,14 +22,24 @@ require 'odf/paragraph_container'
 
 module ODF
   class Paragraph < ParagraphContainer
-    def initialize(content = nil)
+    def initialize(content = nil, opts = {})
       span(content)
+      @elem_attrs = make_element_attributes(opts)
     end
 
     def xml
-      Builder::XmlMarkup.new.text:p do |xml|
+      Builder::XmlMarkup.new.text:p, @elem_attrs do |xml|
         xml << content_parts_xml
       end
     end
+
+  private
+
+    def make_element_attributes(opts)
+      attrs = {}
+      attrs['text:style-name'] = opts[:style] unless opts[:style].nil?
+      attrs
+    end
+
   end
 end
