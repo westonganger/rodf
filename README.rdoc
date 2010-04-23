@@ -1,7 +1,7 @@
 = rODF
 
 This is a library for writing to ODF output with Ruby. It currently only
-supports creating spreadsheets (ODS). Text documents (ODT) and slide shows (ODP)
+supports creating spreadsheets (ODS) and text documents (ODT). Slide shows (ODP)
 may be added some time in the future.
 
 This is NOT an ODF reading library.
