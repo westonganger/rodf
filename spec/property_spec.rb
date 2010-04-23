@@ -114,5 +114,10 @@ describe ODF::Property do
     Hpricot(ODF::Property.new(:text, 'text-underline-type' => 'single').xml).
       at('style:text-properties')['style:text-underline-type'].should == 'single'
   end
+
+  it "should support paragraph properties" do
+    ODF::Property.new(:paragraph).xml.
+      should have_tag('style:paragraph-properties')
+  end
 end
 

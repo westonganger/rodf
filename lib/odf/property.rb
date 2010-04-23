@@ -21,13 +21,12 @@ require 'builder'
 module ODF
   class Property
     PROPERTY_NAMES = {:cell => 'style:table-cell-properties',
-                      :text => 'style:text-properties',
                       :column => 'style:table-column-properties'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
     STYLE_ATTRIBUTES = ['column-width', 'text-underline-type']
 
     def initialize(type, specs={})
-      @name = PROPERTY_NAMES[type]
+      @name = PROPERTY_NAMES[type] || "style:#{type}-properties"
       @specs = translate(specs).map { |k, v| [k.to_s, v] }
     end
 
