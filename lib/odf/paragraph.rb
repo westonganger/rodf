@@ -22,9 +22,10 @@ require 'odf/paragraph_container'
 
 module ODF
   class Paragraph < ParagraphContainer
-    def initialize(content = nil, opts = {})
-      span(content)
-      @elem_attrs = make_element_attributes(opts)
+    def initialize(fst = nil, snd = {})
+      first_is_hash = fst.instance_of? Hash
+      span(fst) unless first_is_hash
+      @elem_attrs = make_element_attributes(first_is_hash ? fst : snd)
     end
 
     def xml
