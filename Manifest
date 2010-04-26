@@ -9,6 +9,7 @@ lib/odf/container.rb
 lib/odf/data_style.rb
 lib/odf/document.rb
 lib/odf/hyperlink.rb
+lib/odf/page_layout.rb
 lib/odf/paragraph.rb
 lib/odf/paragraph_container.rb
 lib/odf/property.rb
@@ -26,6 +27,7 @@ rodf.gemspec
 spec/cell_spec.rb
 spec/data_style_spec.rb
 spec/hyperlink_spec.rb
+spec/page_layout_spec.rb
 spec/paragraph_spec.rb
 spec/property_spec.rb
 spec/row_spec.rb
