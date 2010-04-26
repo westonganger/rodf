@@ -51,5 +51,13 @@ describe ODF::Text do
     output.should have_tag('//office:automatic-styles/*', :count => 2)
     output.should have_tag('//style:style')
   end
+
+  it "should support page layout as auto-style" do
+    output = ODF::Text.create { |doc|
+      doc.page_layout 'main-layout'
+    }
+    output.should have_tag('//office:automatic-styles/*', :count => 1)
+    output.should have_tag('//style:page-layout')
+  end
 end
 
