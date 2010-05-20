@@ -32,7 +32,7 @@ module ODF
 
     def xml
       specs = @specs.inject({}) do |acc, kv|
-        prefix = 'column-width' == kv.first ? 'style' : 'fo'
+        prefix = ('column-width' == kv.first || 'rotation-angle' == kv.first) ? 'style' : 'fo'
         acc.merge prefix + ':' + kv.first => kv.last
       end
       Builder::XmlMarkup.new.tag! @name, specs
