@@ -20,6 +20,7 @@ require 'rubygems'
 require 'builder'
 
 require 'odf/document'
+require 'odf/master_page'
 require 'odf/page_layout'
 require 'odf/paragraph'
 require 'odf/span'
@@ -28,7 +29,7 @@ require 'odf/style'
 
 module ODF
   class Text < Document
-    contains :paragraphs, :styles, :page_layouts
+    contains :paragraphs, :styles, :page_layouts, :master_pages
 
     alias :p :paragraph
 
@@ -48,6 +49,9 @@ module ODF
           xml << styles_xml
           xml << page_layouts_xml
         end unless styles.empty? && page_layouts.empty?
+        xml.tag! 'office:master-styles' do
+          xml << master_pages_xml
+        end unless master_pages.empty?
         xml.office:body do
           xml.office:text do
             xml << paragraphs_xml

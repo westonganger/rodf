@@ -59,5 +59,13 @@ describe ODF::Text do
     output.should have_tag('//office:automatic-styles/*', :count => 1)
     output.should have_tag('//style:page-layout')
   end
+
+  it "should support master pages" do
+    output = ODF::Text.create do |doc|
+      doc.master_page 'standard', :layout => 'letter'
+    end
+    output.should have_tag('//office:master-styles/*', :count => 1)
+    output.should have_tag('//style:master-page')
+  end
 end
 
