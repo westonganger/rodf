@@ -24,6 +24,7 @@ module ODF
                       :text => 'style:text-properties',
                       :column => 'style:table-column-properties'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
+    STYLE_PROPERTIES = ['column-width', 'rotation-angle']
 
     def initialize(type, specs={})
       @name = PROPERTY_NAMES[type]
@@ -32,7 +33,7 @@ module ODF
 
     def xml
       specs = @specs.inject({}) do |acc, kv|
-        prefix = ('column-width' == kv.first || 'rotation-angle' == kv.first) ? 'style' : 'fo'
+        prefix = STYLE_PROPERTIES.include?(kv.first) ? 'style' : 'fo'
         acc.merge prefix + ':' + kv.first => kv.last
       end
       Builder::XmlMarkup.new.tag! @name, specs
