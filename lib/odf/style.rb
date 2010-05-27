@@ -44,6 +44,7 @@ module ODF
         'style:family' => (FAMILIES[opts[:family]] || opts[:family])}
       attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
       attrs['style:parent-style-name'] = opts[:parent].to_s unless opts[:parent].nil?
+      attrs['style:master-page-name'] = opts[:master_page] unless opts[:master_page].nil?
       attrs
     end
 

@@ -65,6 +65,14 @@ describe ODF::Style do
     style['style:parent-style-name'].should == 'cell-default'
   end
 
+  it "should allow master pages" do
+    xml = ODF::Style.create 'standard',
+      :family => :paragraph,
+      :master_page => 'letter'
+
+    Hpricot(xml).at('//style:style')['style:master-page-name'].should == 'letter'
+  end
+
   it "should be able to describe column styles" do
     xml = ODF::Style.create 'column-style', :family => :column do |style|
       style.property :column, 'column-width' => '2cm'
