@@ -136,16 +136,18 @@ describe ODF::Cell do
     Hpricot(output).at('text:p').innerHTML.should == 'testing'
   end
 
-  it "should contain only one paragraph" do
-    c = ODF::Cell.new
-    c.paragraph "removed"
-    c.paragraph "final"
-    output = c.xml
+  it "should be able to hold multiple paragraphs" do
+    output = ODF::Cell.create do |c|
+      c.paragraph "first"
+      c.paragraph "second"
+    end
 
-    output.should have_tag("//table:table-cell/*", :count => 1)
+    output.should have_tag("//table:table-cell/*", :count => 2)
     output.should have_tag("//text:p")
 
-    Hpricot(output).at('text:p').innerHTML.should == 'final'
+    ps = Hpricot(output).search('text:p')
+    ps[0].innerHTML.should == 'first'
+    ps[1].innerHTML.should == 'second'
   end
 
   it "should not render value type for non-string nil values" do

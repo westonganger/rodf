@@ -18,10 +18,15 @@
 require 'rubygems'
 require 'builder'
 
+require 'odf/container'
 require 'odf/paragraph'
 
 module ODF
-  class Cell
+  class Cell < Container
+    contains :paragraphs
+
+    alias :p :paragraph
+
     def initialize(*args)
       value = args.first || ''
       opts = args.last.instance_of?(Hash) ? args.last : {}
@@ -42,20 +47,10 @@ module ODF
       make_value_paragraph
     end
 
-    def paragraph(*args)
-      @paragraph = Paragraph.new(*args)
-      yield @paragraph if block_given?
-    end
-
-    def paragraph_xml
-      return '' if @paragraph.nil?
-      @paragraph.xml
-    end
-
     def xml
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
-        xml << paragraph_xml
+        xml << paragraphs_xml
       end
       (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
       text
