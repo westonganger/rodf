@@ -36,6 +36,15 @@ describe ODF::Property do
     elem['style:column-width'].should == '2cm'
   end
 
+  it "should prefix rotation-angle property with style namespace" do
+    property = ODF::Property.new :cell, 'rotation-angle' => '-90'
+
+    property.xml.should have_tag('//style:table-cell-properties')
+
+    elem = Hpricot(property.xml).at('//style:table-cell-properties')
+    elem['style:rotation-angle'].should == '-90'
+  end
+
   it "should accept full perimeter border specs" do
     property = ODF::Property.new :cell, :border => "0.025in solid #000000"
 
