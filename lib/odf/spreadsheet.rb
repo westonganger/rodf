@@ -21,6 +21,8 @@ require 'builder'
 
 require 'odf/data_style'
 require 'odf/document'
+require 'odf/hyperlink'
+require 'odf/span'
 require 'odf/style'
 require 'odf/table'
 
