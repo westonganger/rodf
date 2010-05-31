@@ -22,6 +22,7 @@ lib/odf/span.rb
 lib/odf/spreadsheet.rb
 lib/odf/style.rb
 lib/odf/style_section.rb
+lib/odf/tab.rb
 lib/odf/table.rb
 lib/odf/text.rb
 rodf.gemspec
@@ -38,5 +39,6 @@ spec/spec_helper.rb
 spec/spreadsheet_spec.rb
 spec/style_section_spec.rb
 spec/style_spec.rb
+spec/tab_spec.rb
 spec/table_spec.rb
 spec/text_spec.rb
