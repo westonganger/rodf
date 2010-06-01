@@ -128,5 +128,10 @@ describe ODF::Property do
     ODF::Property.new(:paragraph).xml.
       should have_tag('style:paragraph-properties')
   end
+
+  it "should should prefix tab stop distance property with style namespace" do
+    Hpricot(ODF::Property.new(:paragraph, 'tab-stop-distance' => '0.4925in').xml).
+      at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
+  end
 end
 
