@@ -25,11 +25,10 @@ require 'odf/page_layout'
 require 'odf/paragraph'
 require 'odf/span'
 require 'odf/hyperlink'
-require 'odf/style'
 
 module ODF
   class Text < Document
-    contains :paragraphs, :styles, :page_layouts, :master_pages, :default_styles
+    contains :paragraphs, :page_layouts, :master_pages
 
     alias :p :paragraph
 

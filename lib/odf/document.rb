@@ -21,9 +21,12 @@ require 'zip/zip'
 
 require 'odf/container'
 require 'odf/skeleton'
+require 'odf/style'
 
 module ODF
   class Document < Container
+    contains :styles, :default_styles
+
     def self.file(ods_file_name)
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
       ods_file.get_output_stream('styles.xml') {|f| f << skeleton.styles }

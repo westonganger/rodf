@@ -23,12 +23,11 @@ require 'odf/data_style'
 require 'odf/document'
 require 'odf/hyperlink'
 require 'odf/span'
-require 'odf/style'
 require 'odf/table'
 
 module ODF
   class Spreadsheet < Document
-    contains :tables, :styles, :data_styles
+    contains :tables, :data_styles
 
     def xml
       b = Builder::XmlMarkup.new
@@ -43,6 +42,9 @@ module ODF
                                         'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
                                         'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
       |xml|
+        xml.tag! 'office:styles' do
+          xml << default_styles_xml
+        end unless default_styles.empty?
         xml.tag! 'office:automatic-styles' do
           xml << styles_xml
           xml << data_styles_xml
