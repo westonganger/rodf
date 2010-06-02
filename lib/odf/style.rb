@@ -27,13 +27,13 @@ module ODF
     
     FAMILIES = {:cell => 'table-cell', :column => 'table-column'}
 
-    def initialize(name='', opts={})
-      @name = name
+    def initialize(name='', opts={}, node_tag='style:style')
+      @name, @node_tag = name, node_tag
       @elem_attrs = make_element_attributes(@name, opts)
     end
 
     def xml
-      Builder::XmlMarkup.new.style:style, @elem_attrs do |xml|
+      Builder::XmlMarkup.new.tag!(@node_tag, @elem_attrs) do |xml|
         xml << properties_xml
       end
     end
@@ -51,6 +51,12 @@ module ODF
     def to_s
       @name
     end
-  end 
+  end
+
+  class DefaultStyle < Style
+    def initialize(opts={})
+      super(nil, opts, 'style:default-style')
+    end
+  end
 end
 

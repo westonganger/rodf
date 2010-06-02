@@ -29,7 +29,7 @@ require 'odf/style'
 
 module ODF
   class Text < Document
-    contains :paragraphs, :styles, :page_layouts, :master_pages
+    contains :paragraphs, :styles, :page_layouts, :master_pages, :default_styles
 
     alias :p :paragraph
 
@@ -45,6 +45,9 @@ module ODF
                                         'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
                                         'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
       |xml|
+        xml.tag! 'office:styles' do
+          xml << default_styles_xml
+        end unless default_styles.empty?
         xml.tag! 'office:automatic-styles' do
           xml << styles_xml
           xml << page_layouts_xml

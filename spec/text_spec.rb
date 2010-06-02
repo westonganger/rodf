@@ -67,5 +67,13 @@ describe ODF::Text do
     output.should have_tag('//office:master-styles/*', :count => 1)
     output.should have_tag('//style:master-page')
   end
+
+  it "should support default styles" do
+    output = ODF::Text.create do |doc|
+      doc.default_style :family => 'paragraph'
+    end
+    output.should have_tag('//office:styles/*', :count => 1)
+    output.should have_tag('//style:default-style')
+  end
 end
 
