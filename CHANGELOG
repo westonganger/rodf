@@ -1,3 +1,4 @@
+v0.2.1. Update to newer libraries and Ruby 1.9
 v0.1.6. Fix date handling
 v0.1.5. Bug fix
 v0.1.4. Allow the setting of an entire cell's content to a hyperlink (by Merul Patel)
