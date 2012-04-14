@@ -1,7 +1,7 @@
 require 'rubygems'
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
  
-Spec::Rake::SpecTask.new
+RSpec::Core::RakeTask.new
 task :default => :spec
 task :test => :spec
 
@@ -13,11 +13,11 @@ Echoe.new('rodf') do |gem|
   gem.summary = "ODF generation library for Ruby"
 
   gem.runtime_dependencies = [
-    ["builder", ">= 2.1.2"],
-    ["rubyzip", ">= 0.9.1"],
-    ["activesupport", ">= 2.1.2"]]
+    ["builder", "~> 3.0"],
+    ["rubyzip", "~> 0.9.1"],
+    ["activesupport", "~> 3.0"]]
   gem.development_dependencies = [
-    ["rspec", ">= 1.1.11"],
-    ["rspec_hpricot_matchers" , ">= 1.0"],
-    ["echoe" , ">= 3.0.2"]]
+    ["rspec", "~> 2.9"],
+    ["rspec_hpricot_matchers" , "~> 1.0"],
+    ["echoe" , "~> 4.6"]]
 end

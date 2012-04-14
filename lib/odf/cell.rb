@@ -34,7 +34,7 @@ module ODF
       @url = opts[:url]
       @type = opts[:type] || :string
       unless value.instance_of?(Hash)
-        if [Date, DateTime, Time].include? value.class
+        if value.respond_to? :strftime
           @value = value.strftime("%Y-%m-%d")
         else
           @value = value.to_s.strip

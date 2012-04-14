@@ -27,7 +27,7 @@ module ODF
     end
 
     def xml
-      @content.to_s.to_xs
+      Builder::XChar.encode @content.to_s
     end
   end
 
