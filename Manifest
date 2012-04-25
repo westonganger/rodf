@@ -1,10 +1,12 @@
 CHANGELOG
+Gemfile
 LICENSE.LGPL
 Manifest
 README.rdoc
 Rakefile
 lib/odf/cell.rb
 lib/odf/column.rb
+lib/odf/compatibility.rb
 lib/odf/container.rb
 lib/odf/data_style.rb
 lib/odf/document.rb
