@@ -18,6 +18,7 @@
 require 'rubygems'
 require 'builder'
 
+require 'odf/compatibility'
 require 'odf/paragraph_container'
 
 module ODF
@@ -27,7 +28,7 @@ module ODF
     end
 
     def xml
-      Builder::XChar.encode @content.to_s
+      @content.to_s.to_xs
     end
   end
 
