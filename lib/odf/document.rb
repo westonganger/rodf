@@ -27,12 +27,12 @@ module ODF
   class Document < Container
     contains :styles, :default_styles
 
-    def self.file(ods_file_name)
+    def self.file(ods_file_name, &contents)
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
       ods_file.get_output_stream('styles.xml') {|f| f << skeleton.styles }
       ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton.manifest(doc_type) }
 
-      yield(doc = new)
+      (doc = new).instance_eval(&contents)
 
       ods_file.get_output_stream('content.xml') {|f| f << doc.xml}
 
