@@ -18,9 +18,9 @@ rODF works pretty much like Builder, but with ODF-aware constructs. Try this:
 
   require 'odf/spreadsheet'
 
-  ODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
-    spreadsheet.table 'My first table from Ruby' do |table|
-      table.row {|row|  row.cell 'Hello, rODF world!' }
+  ODF::Spreadsheet.file("my-spreadsheet.ods") do
+    table 'My first table from Ruby' do
+      row {cell 'Hello, rODF world!' }
     end
   end
 
@@ -28,12 +28,12 @@ Some basic formatting is also possible:
 
   require 'odf/spreadsheet'
 
-  ODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
-    spreadsheet.style 'red-cell', :family => :cell do |style|
-      style.property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
+  ODF::Spreadsheet.file("my-spreadsheet.ods") do
+    style 'red-cell', :family => :cell do
+      property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
     end
-    spreadsheet.table 'Red text table' do |table|
-      table.row {|row|  row.cell 'Red', :style => 'red-cell' }
+    table 'Red text table' do
+      row {cell 'Red', :style => 'red-cell' }
     end
   end
 
