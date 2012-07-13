@@ -47,9 +47,9 @@ module ODF
       end
     end
 
-    def self.create(*args)
+    def self.create(*args, &contents)
       container = self.new(*args)
-      yield container if block_given?
+      container.instance_eval(&contents) if block_given?
       container.xml
     end
   end

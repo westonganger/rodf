@@ -55,4 +55,13 @@ describe ODF::Table do
     column = Hpricot(xml).at('table:table-column')
     column['table:style-name'].should == 'wide'
   end
+
+  it "should accept parameterless block" do
+    output = ODF::Table.create('MyTable') {
+      row
+      row
+    }
+    output.should have_tag('//table:table/*', :count => 2)
+    output.should have_tag('//table:table-row')
+  end
 end

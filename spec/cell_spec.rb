@@ -164,5 +164,19 @@ describe ODF::Cell do
       cell['office:value-type'].should be_nil
     end
   end
+
+  it "should accept parameterless blocks" do
+    output = ODF::Cell.create do
+      paragraph "first"
+      paragraph "second"
+    end
+
+    output.should have_tag("//table:table-cell/*", :count => 2)
+    output.should have_tag("//text:p")
+
+    ps = Hpricot(output).search('text:p')
+    ps[0].innerHTML.should == 'first'
+    ps[1].innerHTML.should == 'second'
+  end
 end
 

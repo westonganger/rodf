@@ -49,5 +49,14 @@ describe ODF::Hyperlink do
     span['text:style-name'].should == 'strong'
     span.innerHTML.should == 'important link'
   end
+
+  it "should accept parameterless blocks" do
+    output = ODF::Hyperlink.create 'http://www.example.com/' do
+      strong 'important link'
+    end
+
+    output.should have_tag('//text:a/*')
+    output.should have_tag('//text:span/*')
+  end
 end
 

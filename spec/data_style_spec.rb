@@ -46,5 +46,16 @@ describe ODF::DataStyle do
     output.should have_tag('number:month')
     output.should have_tag('number:day')
   end
+
+  it "should accept parameterless blocks" do
+    output = ODF::DataStyle.create 'year-to-day', :date do
+      section :year, :style => 'long'
+      section :month, :style => 'long'
+      section :day
+    end
+
+    output.should have_tag('number:date-style')
+    output.should have_tag('number:year')
+  end
 end
 

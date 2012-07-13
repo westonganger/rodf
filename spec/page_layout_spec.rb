@@ -33,5 +33,13 @@ describe ODF::PageLayout do
     output.should have_tag('//style:page-layout/*', :count => 1)
     output.should have_tag('style:page-layout-properties')
   end
+
+  it "should accept parameterless blocks" do
+    output = ODF::PageLayout.create 'main-layout' do
+      property 'page-layout'
+    end
+    output.should have_tag('//style:page-layout/*', :count => 1)
+    output.should have_tag('style:page-layout-properties')
+  end
 end
 

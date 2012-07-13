@@ -22,7 +22,7 @@ require 'odf/style'
 describe ODF::Style do
   it "should output properties when they're added" do
     ODF::Style.create.should_not have_tag('//style:style/*')
-    
+
     output = ODF::Style.create 'odd-row-cell', :family => :cell do |s|
       s.property :cell, 'background-color' => '#b3b3b3',
                         'border' => '0.002cm solid #000000'
@@ -89,6 +89,14 @@ describe ODF::Style do
 
     Hpricot(ODF::Style.create('text-style', :family => :paragraph)).
       at('//style:style')['style:family'].should == 'paragraph'
+  end
+
+  it "should accept parameterless blocks" do
+    output = ODF::Style.create 'odd-row-cell', :family => :cell do
+      property :text, 'color' => '#4c4c4c', 'font-weight' => 'bold'
+    end
+
+    output.should have_tag('//style:style/*')
   end
 end
 

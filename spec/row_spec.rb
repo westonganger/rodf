@@ -32,4 +32,13 @@ describe ODF::Row do
     output.should have_tag('//table:table-row/*', :count => 2)
     output.should have_tag('//table:table-cell')
   end
+
+  it "should accept parameterless blocks" do
+    output = ODF::Row.create do
+      cell
+      cell
+    end
+    output.should have_tag('//table:table-row/*', :count => 2)
+    output.should have_tag('//table:table-cell')
+  end
 end
