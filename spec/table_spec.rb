@@ -64,4 +64,14 @@ describe ODF::Table do
     output.should have_tag('//table:table/*', :count => 2)
     output.should have_tag('//table:table-row')
   end
+
+  it "should have children that accept parameterless blocks too" do
+    output = ODF::Table.create('MyTable') {
+      row {cell}
+      row
+    }
+    output.should have_tag('//table:table/*', :count => 2)
+    output.should have_tag('//table:table-row')
+    output.should have_tag('//table:table-cell')
+  end
 end

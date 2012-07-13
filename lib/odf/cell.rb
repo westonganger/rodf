@@ -56,14 +56,14 @@ module ODF
       text
     end
 
+    def contains_url?
+      !@url.nil? && !@url.empty?
+    end
+
   private
 
     def contains_string?
       :string == @type && !@value.nil? && !@value.empty?
-    end
-
-    def contains_url?
-      !@url.nil? && !@url.empty?
     end
 
     def make_element_attributes(type, value, opts)
@@ -81,11 +81,12 @@ module ODF
 
     def make_value_paragraph
       if contains_string?
-        paragraph do |p|
-          if contains_url?
-            p.link @value, :href => @url
+        cell, value, url = self, @value, @url
+        paragraph do
+          if cell.contains_url?
+            link value, :href => url
           else
-            p << @value
+            self << value
           end
         end
       end

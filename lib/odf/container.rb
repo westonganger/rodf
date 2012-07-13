@@ -33,9 +33,9 @@ module ODF
           end"
 
         self.class_eval "
-          def #{stuff}(*args)
+          def #{stuff}(*args, &contents)
             c = #{stuff_class}.new(*args)
-            yield c if block_given?
+            c.instance_eval(&contents) if block_given?
             #{stuffs} << c
             c
           end"
