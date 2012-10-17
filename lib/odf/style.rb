@@ -53,6 +53,9 @@ module ODF
     end
   end
 
+  class OfficeStyle < Style
+  end
+
   class DefaultStyle < Style
     def initialize(opts={})
       super(nil, opts, 'style:default-style')
