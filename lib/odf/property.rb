@@ -20,15 +20,17 @@ require 'builder'
 
 module ODF
   class Property
-    PROPERTY_NAMES = {:cell => 'style:table-cell-properties',
-                      :text => 'style:text-properties',
-                      :column => 'style:table-column-properties'}
+    PROPERTY_NAMES = {:cell => 'table-cell-properties',
+                      :text => 'text-properties',
+                      :column => 'table-column-properties',
+                      :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
     STYLE_ATTRIBUTES = ['column-width', 'rotation-angle', 'text-underline-type',
-                        'tab-stop-distance']
+                        'tab-stop-distance', 'condition', 'apply-style-name',
+                        'base-cell-address']
 
     def initialize(type, specs={})
-      @name = PROPERTY_NAMES[type] || "style:#{type}-properties"
+      @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")
       @specs = translate(specs).map { |k, v| [k.to_s, v] }
     end
 

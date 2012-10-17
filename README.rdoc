@@ -37,3 +37,27 @@ Some basic formatting is also possible:
     end
   end
 
+Some basic conditional formatting is also possible:
+
+  require 'odf/spreadsheet'
+
+  ODF::Spreadsheet.file("my-spreadsheet.ods") do
+    office_style 'red-cell', :family => :cell do
+      property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
+    end
+
+    # conditional formating must be defined as style and the value of
+    # apply-style-name must be an office_style
+    style 'cond1', :family => :cell do
+      property :conditional,
+                'condition' => 'cell-content()!=0',
+                'apply-style-name' => 'red-cell'
+    end
+
+    table 'Red text table' do
+      row {cell 'Red force', :style => 'red-cell' }
+      row {cell 'Red cond', :style => 'cond1' }
+      row {cell '0', :type => :float, :style => 'cond1' }
+      row {cell '5', :type => :float, :style => 'cond1' }
+    end
+  end
