@@ -27,7 +27,7 @@ require 'odf/table'
 
 module ODF
   class Spreadsheet < Document
-    contains :tables, :data_styles, :office_styles
+    contains :tables, :data_styles
 
     def xml
       b = Builder::XmlMarkup.new

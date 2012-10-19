@@ -77,5 +77,47 @@ describe ODF::SpreadSheet do
     output.should have_tag('//office:automatic-styles/*', :count => 1)
     output.should have_tag('//number:date-style')
   end
+
+  it "should allow conditional styles to be added" do
+    output = ODF::SpreadSheet.create do |s|
+      s.style 'cond-cell', :family => :cell do
+        property :conditional,
+        'condition' => 'cell-content()!=0',
+        'apply-style-name' => 'red-cell'
+      end
+    end
+
+    output.should have_tag('//style:map')
+    Hpricot(output).at('//style:map')['style:apply-style-name'].should == 'red-cell'
+  end
+
+  it "should allow office styles to be added" do
+    spread = ODF::SpreadSheet.new
+    spread.office_style 'red-cell', :family => :cell
+
+    output = spread.office_styles_xml
+
+    output.should have_tag('//style:style')
+    Hpricot(output).at('//style:style')['style:name'].should == 'red-cell'
+    spread.xml.should_not have_tag('//style:style')
+  end
+
+  it "should support mixed office and conditional styles to be added" do
+    spread = ODF::SpreadSheet.new
+    spread.office_style 'red-cell', :family => :cell
+    spread.style 'cond-cell', :family => :cell do
+      property :conditional,
+      'condition' => 'cell-content()!=0',
+      'apply-style-name' => 'red-cell'
+    end
+
+    output = spread.styles_xml
+    output.should have_tag('//style:map')
+    Hpricot(output).at('//style:map')['style:apply-style-name'].should == 'red-cell'
+
+    output = spread.office_styles_xml
+    output.should have_tag('//style:style')
+    Hpricot(output).at('//style:style')['style:name'].should == 'red-cell'
+  end
 end
 
