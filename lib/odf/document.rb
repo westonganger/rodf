@@ -25,7 +25,7 @@ require 'odf/style'
 
 module ODF
   class Document < Container
-    contains :styles, :default_styles
+    contains :styles, :default_styles, :office_styles
 
     def self.file(ods_file_name, &contents)
       ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
