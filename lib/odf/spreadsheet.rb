@@ -33,14 +33,15 @@ module ODF
       b = Builder::XmlMarkup.new
 
       b.instruct! :xml, :version => '1.0', :encoding => 'UTF-8'
-      b.tag! 'office:document-content', 'xmlns:office' => "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
-                                        'xmlns:table' => "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
-                                        'xmlns:text' => "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
-                                        'xmlns:oooc' => "http://openoffice.org/2004/calc",
-                                        'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
-                                        'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
-                                        'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
-                                        'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
+      b.tag! 'office:document-content',
+              'xmlns:office' => "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
+              'xmlns:table' => "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
+              'xmlns:text' => "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
+              'xmlns:oooc' => "http://openoffice.org/2004/calc",
+              'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
+              'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
+              'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
+              'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
       |xml|
         xml.tag! 'office:styles' do
           xml << default_styles_xml
