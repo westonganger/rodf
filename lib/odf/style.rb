@@ -24,7 +24,7 @@ require 'odf/property'
 module ODF
   class Style < Container
     contains :properties
-    
+
     FAMILIES = {:cell => 'table-cell', :column => 'table-column'}
 
     def initialize(name='', opts={}, node_tag='style:style')
