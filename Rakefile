@@ -7,7 +7,7 @@ task :test => :spec
 
 require 'echoe'
 Echoe.new('rodf') do |gem|
-  gem.author = "Thiago Arrais"
+  gem.author = ["Thiago Arrais", "Foivos Zakkak"]
   gem.email = "thiago.arrais@gmail.com"
   gem.url = "http://github.com/thiagoarrais/rodf/tree"
   gem.summary = "ODF generation library for Ruby"

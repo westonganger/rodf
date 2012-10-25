@@ -36,6 +36,7 @@ spec/page_layout_spec.rb
 spec/paragraph_spec.rb
 spec/property_spec.rb
 spec/row_spec.rb
+spec/skeleton_spec.rb
 spec/span_spec.rb
 spec/spec_helper.rb
 spec/spreadsheet_spec.rb
