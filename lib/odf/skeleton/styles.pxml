@@ -25,5 +25,3 @@
       <number:text>-</number:text>
       <number:day number:style="long"/>
     </number:date-style>
-  </office:styles>
-</office:document-styles>

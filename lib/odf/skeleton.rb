@@ -24,7 +24,7 @@ module ODF
     end
 
     def styles
-      template('styles.xml')
+      template('styles.pxml')
     end
   private
     def template(fname)
