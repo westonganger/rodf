@@ -19,7 +19,7 @@ lib/odf/property.rb
 lib/odf/row.rb
 lib/odf/skeleton.rb
 lib/odf/skeleton/manifest.xml.erb
-lib/odf/skeleton/styles.xml
+lib/odf/skeleton/styles.pxml
 lib/odf/span.rb
 lib/odf/spreadsheet.rb
 lib/odf/style.rb
