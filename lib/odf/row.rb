@@ -25,13 +25,17 @@ module ODF
   class Row < Container
     contains :cells
     attr_reader :number
+    attr_writer :style
 
-    def initialize(number=0)
+    def initialize(number=0, opts={})
       @number = number
+      @style = opts[:style]
     end
 
     def xml
-      Builder::XmlMarkup.new.tag! 'table:table-row' do |xml|
+      elem_attrs = {}
+      elem_attrs['table:style-name'] = @style unless @style.nil?
+      Builder::XmlMarkup.new.tag! 'table:table-row', elem_attrs do |xml|
         xml << cells_xml
       end
     end

@@ -45,6 +45,12 @@ describe ODF::Property do
     elem['style:rotation-angle'].should == '-90'
   end
 
+  it "should generate row properties tag" do
+    property = ODF::Property.new :row, 'background-color' => '#f5f57a'
+
+    property.xml.should have_tag('//style:table-row-properties')
+  end
+
   it "should accept full perimeter border specs" do
     property = ODF::Property.new :cell, :border => "0.025in solid #000000"
 

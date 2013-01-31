@@ -41,4 +41,19 @@ describe ODF::Row do
     output.should have_tag('//table:table-row/*', :count => 2)
     output.should have_tag('//table:table-cell')
   end
+
+  it "should be stylable in the initialization" do
+    output = ODF::Row.create 0, :style => 'dark' do
+      cell
+    end
+    Hpricot(output).at('table:table-row')['table:style-name'].
+      should == 'dark'
+  end
+
+  it "should be attr_writer stylable" do
+    row = ODF::Row.new
+    row.style = 'dark'
+    Hpricot(row.xml).at('table:table-row')['table:style-name'].
+      should == 'dark'
+  end
 end

@@ -23,6 +23,7 @@ module ODF
     PROPERTY_NAMES = {:cell => 'table-cell-properties',
                       :text => 'text-properties',
                       :column => 'table-column-properties',
+                      :row => 'table-row-properties',
                       :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
     STYLE_ATTRIBUTES = ['column-width', 'rotation-angle', 'text-underline-type',
