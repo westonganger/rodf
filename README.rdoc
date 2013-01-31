@@ -71,3 +71,28 @@ Some basic conditional formatting is also possible:
       row {cell '5', :type => :float, :style => 'cond1' }
     end
   end
+
+==== Procedural style
+
+The declarative style shown above is just syntatic sugar. A more procedural
+style can also be used. Like so:
+
+    require 'odf/spreadsheet'
+
+    ss = ODF::Spreadsheet.new
+    t = ss.table 'My first table from Ruby'
+    r = t.row
+    c = r.cell 'Hello, rODF world!'
+
+    ss.write_to 'my-spreadsheet.ods'
+
+Both styles can be mixed and matched at will:
+
+    require 'odf/spreadsheet'
+
+    ss = ODF::Spreadsheet.new
+    ss.table 'My first table from Ruby' do
+      row { cell 'Hello, rODF world!' }
+    end
+
+    ss.write_to 'my-spreadsheet.ods'
