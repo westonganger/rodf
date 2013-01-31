@@ -28,17 +28,20 @@ module ODF
     contains :styles, :default_styles, :office_styles
 
     def self.file(ods_file_name, &contents)
-      ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
-      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << skeleton.manifest(doc_type) }
-
       (doc = new).instance_eval(&contents)
+      doc.write_to ods_file_name
+    end
+
+    def write_to(ods_file_name)
+      ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
+      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << self.class.skeleton.manifest(self.class.doc_type) }
 
       ods_file.get_output_stream('styles.xml') do |f|
-        f << skeleton.styles
-        f << doc.office_styles_xml unless doc.office_styles.empty?
+        f << self.class.skeleton.styles
+        f << self.office_styles_xml unless self.office_styles.empty?
         f << "</office:styles> </office:document-styles>"
       end
-      ods_file.get_output_stream('content.xml') {|f| f << doc.xml}
+      ods_file.get_output_stream('content.xml') {|f| f << self.xml}
 
       ods_file.close
     end
