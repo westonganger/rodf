@@ -1,3 +1,4 @@
+v0.3.3. Documents can now write themselves to disk
 v0.3.2. Fixes broken styles.xml
 v0.3.1. Adds support for conditional formatting
 v0.3. Allow parameterless blocks
