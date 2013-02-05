@@ -85,8 +85,15 @@ describe ODF::Cell do
     end
   end
 
-  it "should allow an style to be specified" do
+  it "should allow an style to be specified in the constructor" do
     cell = ODF::Cell.new 45.8, :type => :float, :style => 'left-column-cell'
+    Hpricot(cell.xml).at('table:table-cell')['table:style-name'].
+      should == 'left-column-cell'
+  end
+
+  it "should allow and style to be specified through a method call" do
+    cell = ODF::Cell.new 45.8, :type => :float
+    cell.style = 'left-column-cell'
     Hpricot(cell.xml).at('table:table-cell')['table:style-name'].
       should == 'left-column-cell'
   end

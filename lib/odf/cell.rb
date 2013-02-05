@@ -47,6 +47,10 @@ module ODF
       make_value_paragraph
     end
 
+    def style=(style_name)
+      @elem_attrs['table:style-name'] = style_name
+    end
+
     def xml
       markup = Builder::XmlMarkup.new
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
