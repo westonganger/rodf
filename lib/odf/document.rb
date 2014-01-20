@@ -17,7 +17,7 @@
 
 require 'rubygems'
 
-require 'zip/zip'
+require 'zip'
 
 require 'odf/container'
 require 'odf/skeleton'
@@ -33,7 +33,7 @@ module ODF
     end
 
     def write_to(ods_file_name)
-      ods_file = Zip::ZipFile.open(ods_file_name, Zip::ZipFile::CREATE)
+      ods_file = Zip::File.open(ods_file_name, Zip::File::CREATE)
       ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << self.class.skeleton.manifest(self.class.doc_type) }
 
       ods_file.get_output_stream('styles.xml') do |f|
