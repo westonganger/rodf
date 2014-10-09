@@ -33,17 +33,26 @@ module ODF
     end
 
     def write_to(ods_file_name)
-      ods_file = Zip::File.open(ods_file_name, Zip::File::CREATE)
-      ods_file.get_output_stream('META-INF/manifest.xml') {|f| f << self.class.skeleton.manifest(self.class.doc_type) }
+      File.open(ods_file_name, 'w') { |f| f << self.bytes }
+    end
 
-      ods_file.get_output_stream('styles.xml') do |f|
-        f << self.class.skeleton.styles
-        f << self.office_styles_xml unless self.office_styles.empty?
-        f << "</office:styles> </office:document-styles>"
+    def bytes
+      buffer = Zip::OutputStream::write_buffer do |zio|
+        zio.put_next_entry('META-INF/manifest.xml')
+        zio << self.class.skeleton.manifest(self.class.doc_type)
+
+        zio.put_next_entry('styles.xml')
+        zio << self.class.skeleton.styles
+        zio << self.office_styles_xml unless self.office_styles.empty?
+        zio << "</office:styles> </office:document-styles>"
+
+        zio.put_next_entry('content.xml')
+        zio << self.xml
       end
-      ods_file.get_output_stream('content.xml') {|f| f << self.xml}
 
-      ods_file.close
+      buffer.set_encoding('ASCII-8BIT')
+      buffer.rewind
+      buffer.sysread
     end
   private
     def self.skeleton
