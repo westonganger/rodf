@@ -28,7 +28,7 @@ module ODF
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
     STYLE_ATTRIBUTES = ['column-width', 'rotation-angle', 'text-underline-type',
                         'tab-stop-distance', 'condition', 'apply-style-name',
-                        'base-cell-address']
+                        'base-cell-address', 'row-height']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")
