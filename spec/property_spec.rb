@@ -134,7 +134,7 @@ describe ODF::Property do
     elem['fo:border-left'].should == "0.1in solid #ffff00"
   end
 
-  it "should prefix underline property with style namespace" do
+  it "should prefix text style properties with style namespace" do
     Hpricot(ODF::Property.new(:text, 'text-underline-type' => 'single').xml).
       at('style:text-properties')['style:text-underline-type'].should == 'single'
   end
@@ -147,6 +147,30 @@ describe ODF::Property do
   it "should should prefix tab stop distance property with style namespace" do
     Hpricot(ODF::Property.new(:paragraph, 'tab-stop-distance' => '0.4925in').xml).
       at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
+  end
+
+  it "should know the namespace for style:text-properties style properties" do
+    #see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416402_253892949
+    ['country-asian', 'country-complex', 'font-charset', 'font-charset-asian',
+     'font-charset-complex', 'font-family-asian', 'font-family-complex', 'font-family-generic',
+     'font-family-generic-asian', 'font-family-generic-complex', 'font-name', 'font-name-asian',
+     'font-name-complex', 'font-pitch', 'font-pitch-asian', 'font-pitch-complex', 'font-relief',
+     'font-size-asian', 'font-size-complex', 'font-size-rel', 'font-size-rel-asian',
+     'font-size-rel-complex', 'font-style-asian', 'font-style-complex', 'font-style-name',
+     'font-style-name-asian', 'font-style-name-complex', 'font-weight-asian', 'font-weight-complex',
+     'language-asian', 'language-complex', 'letter-kerning', 'rfc-language-tag',
+     'rfc-language-tag-asian', 'rfc-language-tag-complex', 'script-asian', 'script-complex',
+     'script-type', 'text-blinking', 'text-combine', 'text-combine-end-char',
+     'text-combine-start-char', 'text-emphasize', 'text-line-through-color',
+     'text-line-through-mode', 'text-line-through-style', 'text-line-through-text',
+     'text-line-through-text-style', 'text-line-through-type', 'text-line-through-width',
+     'text-outline', 'text-overline-color', 'text-overline-mode', 'text-overline-style',
+     'text-overline-type', 'text-overline-width', 'text-position', 'text-rotation-angle',
+     'text-rotation-scale', 'text-scale', 'text-underline-color', 'text-underline-mode',
+     'text-underline-style', 'text-underline-type', 'text-underline-width', 'use-window-font-color'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
   end
 end
 

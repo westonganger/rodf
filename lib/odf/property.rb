@@ -26,9 +26,27 @@ module ODF
                       :row => 'table-row-properties',
                       :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
-    STYLE_ATTRIBUTES = ['column-width', 'rotation-angle', 'text-underline-type',
-                        'tab-stop-distance', 'condition', 'apply-style-name',
-                        'base-cell-address', 'row-height']
+
+    STYLE_ATTRIBUTES =
+      ['column-width', 'rotation-angle', 'text-underline-type', 'tab-stop-distance',
+       'condition', 'apply-style-name', 'base-cell-address', 'row-height',
+       'country-asian', 'country-complex', 'font-charset', 'font-charset-asian',
+       'font-charset-complex', 'font-family-asian', 'font-family-complex', 'font-family-generic',
+       'font-family-generic-asian', 'font-family-generic-complex', 'font-name', 'font-name-asian',
+       'font-name-complex', 'font-pitch', 'font-pitch-asian', 'font-pitch-complex', 'font-relief',
+       'font-size-asian', 'font-size-complex', 'font-size-rel', 'font-size-rel-asian',
+       'font-size-rel-complex', 'font-style-asian', 'font-style-complex', 'font-style-name',
+       'font-style-name-asian', 'font-style-name-complex', 'font-weight-asian', 'font-weight-complex',
+       'language-asian', 'language-complex', 'letter-kerning', 'rfc-language-tag',
+       'rfc-language-tag-asian', 'rfc-language-tag-complex', 'script-asian', 'script-complex',
+       'script-type', 'text-blinking', 'text-combine', 'text-combine-end-char',
+       'text-combine-start-char', 'text-emphasize', 'text-line-through-color',
+       'text-line-through-mode', 'text-line-through-style', 'text-line-through-text',
+       'text-line-through-text-style', 'text-line-through-type', 'text-line-through-width',
+       'text-outline', 'text-overline-color', 'text-overline-mode', 'text-overline-style',
+       'text-overline-type', 'text-overline-width', 'text-position', 'text-rotation-angle',
+       'text-rotation-scale', 'text-scale', 'text-underline-color', 'text-underline-mode',
+       'text-underline-style', 'text-underline-width', 'use-window-font-color']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")
