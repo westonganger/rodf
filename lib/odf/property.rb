@@ -46,7 +46,13 @@ module ODF
        'text-outline', 'text-overline-color', 'text-overline-mode', 'text-overline-style',
        'text-overline-type', 'text-overline-width', 'text-position', 'text-rotation-angle',
        'text-rotation-scale', 'text-scale', 'text-underline-color', 'text-underline-mode',
-       'text-underline-style', 'text-underline-width', 'use-window-font-color']
+       'text-underline-style', 'text-underline-width', 'use-window-font-color',
+       'border-line-width', 'border-line-width-bottom', 'border-line-width-left',
+       'border-line-width-right', 'border-line-width-top', 'cell-protect', 'decimal-places',
+       'diagonal-bl-tr', 'diagonal-bl-tr-widths', 'diagonal-tl-br', 'diagonal-tl-br-widths',
+       'direction', 'glyph-orientation-vertical', 'print-content', 'repeat-content',
+       'rotation-align', 'shadow', 'shrink-to-fit', 'text-align-source',
+       'vertical-align', 'writing-mode']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")

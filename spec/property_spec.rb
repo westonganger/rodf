@@ -45,7 +45,8 @@ describe ODF::Property do
     elem['style:column-width'].should == '2cm'
   end
 
-  it "should prefix rotation-angle property with style namespace" do
+  # FIXME: group all these checks at the same place
+  it "should prefix table-cell style properties with looked up namespace" do
     property = ODF::Property.new :cell, 'rotation-angle' => '-90'
 
     property.xml.should have_tag('//style:table-cell-properties')
@@ -134,7 +135,7 @@ describe ODF::Property do
     elem['fo:border-left'].should == "0.1in solid #ffff00"
   end
 
-  it "should prefix text style properties with style namespace" do
+  it "should prefix text style properties with looked up namespace" do
     Hpricot(ODF::Property.new(:text, 'text-underline-type' => 'single').xml).
       at('style:text-properties')['style:text-underline-type'].should == 'single'
   end
@@ -172,5 +173,19 @@ describe ODF::Property do
       ODF::Property.lookup_namespace_for(prop).should == 'style'
     end
   end
+
+  it "should know the namespace for style:table-cell-properties style properties" do
+    #see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416518_253892949
+    ['border-line-width', 'border-line-width-bottom', 'border-line-width-left',
+     'border-line-width-right', 'border-line-width-top', 'cell-protect', 'decimal-places',
+     'diagonal-bl-tr', 'diagonal-bl-tr-widths', 'diagonal-tl-br', 'diagonal-tl-br-widths',
+     'direction', 'glyph-orientation-vertical', 'print-content', 'repeat-content',
+     'rotation-align', 'rotation-angle', 'shadow', 'shrink-to-fit', 'text-align-source',
+     'vertical-align', 'writing-mode'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
+
 end
 
