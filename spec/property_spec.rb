@@ -27,7 +27,7 @@ describe ODF::Property do
     elem['fo:font-weight'].should == 'bold'
   end
 
-  it "should prefix row-height property with style namespace" do
+  it "should prefix table-row style properties with looked up namespace" do
     property = ODF::Property.new :row, 'row-height' => '2cm'
 
     property.xml.should have_tag('//style:table-row-properties')
@@ -36,7 +36,7 @@ describe ODF::Property do
     elem['style:row-height'].should == '2cm'
   end
 
-  it "should prefix column-width property with style namespace" do
+  it "should prefix table-column style properties with looked up namespace" do
     property = ODF::Property.new :column, 'column-width' => '2cm'
 
     property.xml.should have_tag('//style:table-column-properties')
@@ -186,6 +186,21 @@ describe ODF::Property do
       ODF::Property.lookup_namespace_for(prop).should == 'style'
     end
   end
+
+  it "should know the namespace for style:table-cell-properties style properties" do
+    #see http://docs.oasis-open.org/office/v1.2/os/opendocument-v1.2-os-part1.html#__refheading__1416516_253892949
+    ['min-row-height', 'row-height', 'use-optimal-row-height'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
+
+  it "should know the namespace for style:table-row-properties style properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416514_253892949
+    ['column-width', 'rel-column-width', 'use-optimal-column-width'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
+
 
 end
 

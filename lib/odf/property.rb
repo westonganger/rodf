@@ -52,7 +52,8 @@ module ODF
        'diagonal-bl-tr', 'diagonal-bl-tr-widths', 'diagonal-tl-br', 'diagonal-tl-br-widths',
        'direction', 'glyph-orientation-vertical', 'print-content', 'repeat-content',
        'rotation-align', 'shadow', 'shrink-to-fit', 'text-align-source',
-       'vertical-align', 'writing-mode']
+       'vertical-align', 'writing-mode', 'min-row-height', 'use-optimal-row-height',
+       'rel-column-width', 'use-optimal-column-width']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")
