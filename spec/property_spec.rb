@@ -27,32 +27,17 @@ describe ODF::Property do
     elem['fo:font-weight'].should == 'bold'
   end
 
-  it "should prefix table-row style properties with looked up namespace" do
-    property = ODF::Property.new :row, 'row-height' => '2cm'
-
-    property.xml.should have_tag('//style:table-row-properties')
-
-    elem = Hpricot(property.xml).at('//style:table-row-properties')
-    elem['style:row-height'].should == '2cm'
-  end
-
-  it "should prefix table-column style properties with looked up namespace" do
-    property = ODF::Property.new :column, 'column-width' => '2cm'
-
-    property.xml.should have_tag('//style:table-column-properties')
-
-    elem = Hpricot(property.xml).at('//style:table-column-properties')
-    elem['style:column-width'].should == '2cm'
-  end
-
-  # FIXME: group all these checks at the same place
-  it "should prefix table-cell style properties with looked up namespace" do
-    property = ODF::Property.new :cell, 'rotation-angle' => '-90'
-
-    property.xml.should have_tag('//style:table-cell-properties')
-
-    elem = Hpricot(property.xml).at('//style:table-cell-properties')
-    elem['style:rotation-angle'].should == '-90'
+  it "should prefix style properties with looked up namespace" do
+    Hpricot(ODF::Property.new(:cell, 'rotation-angle' => '-90').xml).
+      at('//style:table-cell-properties')['style:rotation-angle'].should == '-90'
+    Hpricot(ODF::Property.new(:row, 'row-height' => '2cm').xml).
+      at('//style:table-row-properties')['style:row-height'].should == '2cm'
+    Hpricot(ODF::Property.new(:column, 'column-width' => '2cm').xml).
+      at('//style:table-column-properties')['style:column-width'].should == '2cm'
+    Hpricot(ODF::Property.new(:text, 'text-underline-type' => 'single').xml).
+      at('style:text-properties')['style:text-underline-type'].should == 'single'
+    Hpricot(ODF::Property.new(:paragraph, 'tab-stop-distance' => '0.4925in').xml).
+      at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
   end
 
   it "should generate row properties tag" do
@@ -135,19 +120,9 @@ describe ODF::Property do
     elem['fo:border-left'].should == "0.1in solid #ffff00"
   end
 
-  it "should prefix text style properties with looked up namespace" do
-    Hpricot(ODF::Property.new(:text, 'text-underline-type' => 'single').xml).
-      at('style:text-properties')['style:text-underline-type'].should == 'single'
-  end
-
   it "should support paragraph properties" do
     ODF::Property.new(:paragraph).xml.
       should have_tag('style:paragraph-properties')
-  end
-
-  it "should should prefix paragraph style properties with looked up namespace" do
-    Hpricot(ODF::Property.new(:paragraph, 'tab-stop-distance' => '0.4925in').xml).
-      at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
   end
 
   it "should know the namespace for style:text-properties style properties" do
