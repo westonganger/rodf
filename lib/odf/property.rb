@@ -37,10 +37,15 @@ module ODF
 
     def xml
       specs = @specs.inject({}) do |acc, kv|
-        prefix = STYLE_ATTRIBUTES.include?(kv.first) ? 'style' : 'fo'
-        acc.merge prefix + ':' + kv.first => kv.last
+        acc.merge Property.lookup_namespace_for(kv.first) + ':' + kv.first => kv.last
       end
       Builder::XmlMarkup.new.tag! @name, specs
+    end
+
+    class << self
+      def lookup_namespace_for(property_name)
+        STYLE_ATTRIBUTES.include?(property_name) ? 'style' : 'fo'
+      end
     end
   private
     def translate(specs)
