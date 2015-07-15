@@ -53,7 +53,11 @@ module ODF
        'direction', 'glyph-orientation-vertical', 'print-content', 'repeat-content',
        'rotation-align', 'shadow', 'shrink-to-fit', 'text-align-source',
        'vertical-align', 'writing-mode', 'min-row-height', 'use-optimal-row-height',
-       'rel-column-width', 'use-optimal-column-width']
+       'rel-column-width', 'use-optimal-column-width', 'auto-text-indent', 'background-transparency',
+       'font-independent-line-spacing', 'join-border', 'justify-single-word', 'line-break',
+       'line-height-at-least', 'line-spacing', 'page-number', 'punctuation-wrap', 'register-true',
+       'snap-to-layout-grid', 'text-autospace',
+       'writing-mode-automatic']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")

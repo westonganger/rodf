@@ -145,7 +145,7 @@ describe ODF::Property do
       should have_tag('style:paragraph-properties')
   end
 
-  it "should should prefix tab stop distance property with style namespace" do
+  it "should should prefix paragraph style properties with looked up namespace" do
     Hpricot(ODF::Property.new(:paragraph, 'tab-stop-distance' => '0.4925in').xml).
       at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
   end
@@ -201,6 +201,17 @@ describe ODF::Property do
     end
   end
 
-
+  it "should know the namespace for style:paragraph-properties style properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416494_253892949
+    ['auto-text-indent', 'background-transparency', 'border-line-width', 'border-line-width-bottom',
+     'border-line-width-left', 'border-line-width-right', 'border-line-width-top',
+     'font-independent-line-spacing', 'join-border', 'justify-single-word', 'line-break',
+     'line-height-at-least', 'line-spacing', 'page-number', 'punctuation-wrap', 'register-true',
+     'shadow', 'snap-to-layout-grid', 'tab-stop-distance', 'text-autospace', 'vertical-align',
+     'writing-mode', 'writing-mode-automatic'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
 end
 
