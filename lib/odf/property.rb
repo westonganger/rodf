@@ -24,6 +24,7 @@ module ODF
                       :text => 'text-properties',
                       :column => 'table-column-properties',
                       :row => 'table-row-properties',
+                      :page_layout => 'page-layout-properties',
                       :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
@@ -57,7 +58,13 @@ module ODF
        'font-independent-line-spacing', 'join-border', 'justify-single-word', 'line-break',
        'line-height-at-least', 'line-spacing', 'page-number', 'punctuation-wrap', 'register-true',
        'snap-to-layout-grid', 'text-autospace',
-       'writing-mode-automatic']
+       'writing-mode-automatic',
+       'first-page-number', 'footnote-max-height', 'layout-grid-base-height', 'layout-grid-base-width',
+       'layout-grid-color', 'layout-grid-display', 'layout-grid-lines', 'layout-grid-mode',
+       'layout-grid-print', 'layout-grid-ruby-below', 'layout-grid-ruby-height', 'layout-grid-snap-to',
+       'layout-grid-standard-mode', 'num-format', 'num-letter-sync', 'num-prefix', 'num-suffix',
+       'paper-tray-name', 'print', 'print-orientation', 'print-page-order',
+       'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'table-centering']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")

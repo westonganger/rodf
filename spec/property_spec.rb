@@ -38,6 +38,16 @@ describe ODF::Property do
       at('style:text-properties')['style:text-underline-type'].should == 'single'
     Hpricot(ODF::Property.new(:paragraph, 'tab-stop-distance' => '0.4925in').xml).
       at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
+    Hpricot(ODF::Property.new(:page_layout, 'border-line-width' => '2px').xml).
+      at('style:page-layout-properties')['style:border-line-width'].should == '2px'
+    # style:header-footer-properties
+    # style:ruby-properties
+    # style:section-properties
+    # style:table-properties
+    # style:list-level-properties
+    # style:graphic-properties
+    # style:chart-properties
+    # style:drawing-page-properties
   end
 
   it "should generate row properties tag" do
@@ -184,6 +194,21 @@ describe ODF::Property do
      'line-height-at-least', 'line-spacing', 'page-number', 'punctuation-wrap', 'register-true',
      'shadow', 'snap-to-layout-grid', 'tab-stop-distance', 'text-autospace', 'vertical-align',
      'writing-mode', 'writing-mode-automatic'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
+
+  it "should know the namespace for style:page-layout-properties style properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416486_253892949
+    ['border-line-width', 'border-line-width-bottom', 'border-line-width-left', 'border-line-width-right',
+     'border-line-width-top', 'first-page-number', 'footnote-max-height', 'layout-grid-base-height',
+     'layout-grid-base-width', 'layout-grid-color', 'layout-grid-display', 'layout-grid-lines',
+     'layout-grid-mode', 'layout-grid-print', 'layout-grid-ruby-below', 'layout-grid-ruby-height',
+     'layout-grid-snap-to', 'layout-grid-standard-mode', 'num-format', 'num-letter-sync',
+     'num-prefix', 'num-suffix', 'paper-tray-name', 'print', 'print-orientation', 'print-page-order',
+     'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'shadow', 'table-centering',
+     'writing-mode'].
     each do |prop|
       ODF::Property.lookup_namespace_for(prop).should == 'style'
     end
