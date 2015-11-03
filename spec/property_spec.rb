@@ -42,7 +42,8 @@ describe ODF::Property do
       at('style:page-layout-properties')['style:border-line-width'].should == '2px'
     Hpricot(ODF::Property.new(:header_footer, 'border-line-width' => '2px').xml).
       at('style:header-footer-properties')['style:border-line-width'].should == '2px'
-    # style:ruby-properties
+    Hpricot(ODF::Property.new(:ruby, 'ruby-position' => 'above').xml).
+      at('style:ruby-properties')['style:ruby-position'].should == 'above'
     # style:section-properties
     # style:table-properties
     # style:list-level-properties
@@ -228,6 +229,13 @@ describe ODF::Property do
     # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416492_253892949
     ['height'].each do |prop|
       ODF::Property.lookup_namespace_for(prop).should == 'svg'
+    end
+  end
+
+  it "should know the namespace for style:ruby-properties style properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416502_253892949
+    ['ruby-align', 'ruby-position'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
     end
   end
 end

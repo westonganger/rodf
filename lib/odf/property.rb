@@ -66,7 +66,8 @@ module ODF
        'layout-grid-standard-mode', 'num-format', 'num-letter-sync', 'num-prefix', 'num-suffix',
        'paper-tray-name', 'print', 'print-orientation', 'print-page-order',
        'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'table-centering',
-       'dynamic-spacing']
+       'dynamic-spacing',
+       'ruby-align', 'ruby-position']
 
     SVG_ATTRIBUTES = ['height']
 
