@@ -40,7 +40,8 @@ describe ODF::Property do
       at('style:paragraph-properties')['style:tab-stop-distance'].should == '0.4925in'
     Hpricot(ODF::Property.new(:page_layout, 'border-line-width' => '2px').xml).
       at('style:page-layout-properties')['style:border-line-width'].should == '2px'
-    # style:header-footer-properties
+    Hpricot(ODF::Property.new(:header_footer, 'border-line-width' => '2px').xml).
+      at('style:header-footer-properties')['style:border-line-width'].should == '2px'
     # style:ruby-properties
     # style:section-properties
     # style:table-properties
@@ -211,6 +212,22 @@ describe ODF::Property do
      'writing-mode'].
     each do |prop|
       ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
+
+  it "should know the namespace for style:header-footer-properties style properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416492_253892949
+    ['border-line-width', 'border-line-width-bottom', 'border-line-width-left', 'border-line-width-right',
+     'border-line-width-top', 'dynamic-spacing', 'shadow'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+  end
+
+  it "should know the namespace for style:header-footer-properties svg properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416492_253892949
+    ['height'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'svg'
     end
   end
 end

@@ -25,6 +25,7 @@ module ODF
                       :column => 'table-column-properties',
                       :row => 'table-row-properties',
                       :page_layout => 'page-layout-properties',
+                      :header_footer => 'header-footer-properties',
                       :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
@@ -64,7 +65,10 @@ module ODF
        'layout-grid-print', 'layout-grid-ruby-below', 'layout-grid-ruby-height', 'layout-grid-snap-to',
        'layout-grid-standard-mode', 'num-format', 'num-letter-sync', 'num-prefix', 'num-suffix',
        'paper-tray-name', 'print', 'print-orientation', 'print-page-order',
-       'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'table-centering']
+       'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'table-centering',
+       'dynamic-spacing']
+
+    SVG_ATTRIBUTES = ['height']
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")
@@ -80,7 +84,8 @@ module ODF
 
     class << self
       def lookup_namespace_for(property_name)
-        STYLE_ATTRIBUTES.include?(property_name) ? 'style' : 'fo'
+        STYLE_ATTRIBUTES.include?(property_name) ? 'style' :
+        SVG_ATTRIBUTES.include?(property_name) ? 'svg' : 'fo'
       end
     end
   private
