@@ -26,6 +26,7 @@ module ODF
                       :row => 'table-row-properties',
                       :page_layout => 'page-layout-properties',
                       :header_footer => 'header-footer-properties',
+                      :list_level => 'list-level-properties',
                       :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
@@ -68,9 +69,13 @@ module ODF
        'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'table-centering',
        'dynamic-spacing',
        'ruby-align', 'ruby-position',
-       'editable', 'protect'], 'style'],
-       [['height'], 'svg'],
-       [['dont-balance-text-columns'], 'text']]
+       'editable', 'protect',
+       'may-break-between-rows', 'rel-width', 'width',
+       'vertical-pos', 'vertical-rel'], 'style'],
+       [['height', 'y'], 'svg'],
+       [['dont-balance-text-columns', 'list-level-position-and-space-mode', 'min-label-distance',
+         'min-label-width', 'space-before'], 'text'],
+       [['align', 'border-model', 'display'], 'table']]
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")

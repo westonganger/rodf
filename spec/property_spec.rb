@@ -46,8 +46,10 @@ describe ODF::Property do
       at('style:ruby-properties')['style:ruby-position'].should == 'above'
     Hpricot(ODF::Property.new(:section, 'editable' => true).xml).
       at('style:section-properties')['style:editable'].should == 'true'
-    # style:table-properties
-    # style:list-level-properties
+    Hpricot(ODF::Property.new(:table, 'align' => 'left').xml).
+      at('style:table-properties')['table:align'].should == 'left'
+    Hpricot(ODF::Property.new(:list_level, 'space-before' => '2em').xml).
+      at('style:list-level-properties')['text:space-before'].should == '2em'
     # style:graphic-properties
     # style:chart-properties
     # style:drawing-page-properties
@@ -242,5 +244,27 @@ describe ODF::Property do
     ODF::Property.lookup_namespace_for('dont-balance-text-columns').should == 'text'
   end
 
+  it "should know the namespace for style:table-properties style and table properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#element-style_table-properties
+    ['may-break-between-rows', 'page-number', 'rel-width', 'shadow', 'width', 'writing-mode'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+    ['align', 'border-model', 'display'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'table'
+    end
+  end
+
+  it "should know the namespace for style:list-level-properties style, svg and text properties" do
+    ['font-name', 'vertical-pos', 'vertical-rel'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+    ODF::Property.lookup_namespace_for('y').should == 'svg'
+    ['list-level-position-and-space-mode', 'min-label-distance', 'min-label-width',
+     'space-before'].
+    each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'text'
+    end
+  end
 end
 
