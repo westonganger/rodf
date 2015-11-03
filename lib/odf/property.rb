@@ -29,7 +29,7 @@ module ODF
                       :conditional => 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
-    STYLE_ATTRIBUTES =
+    ATTRIBUTES_TO_NAMESPACES = [[
       ['column-width', 'rotation-angle', 'text-underline-type', 'tab-stop-distance',
        'condition', 'apply-style-name', 'base-cell-address', 'row-height',
        'country-asian', 'country-complex', 'font-charset', 'font-charset-asian',
@@ -67,9 +67,10 @@ module ODF
        'paper-tray-name', 'print', 'print-orientation', 'print-page-order',
        'register-truth-ref-style-name', 'scale-to', 'scale-to-pages', 'table-centering',
        'dynamic-spacing',
-       'ruby-align', 'ruby-position']
-
-    SVG_ATTRIBUTES = ['height']
+       'ruby-align', 'ruby-position',
+       'editable', 'protect'], 'style'],
+       [['height'], 'svg'],
+       [['dont-balance-text-columns'], 'text']]
 
     def initialize(type, specs={})
       @name = 'style:' + (PROPERTY_NAMES[type] || "#{type}-properties")
@@ -85,8 +86,8 @@ module ODF
 
     class << self
       def lookup_namespace_for(property_name)
-        STYLE_ATTRIBUTES.include?(property_name) ? 'style' :
-        SVG_ATTRIBUTES.include?(property_name) ? 'svg' : 'fo'
+        as = ATTRIBUTES_TO_NAMESPACES.select {|a| a[0].include? property_name}
+        as.empty? ? 'fo' : as[0][1]
       end
     end
   private

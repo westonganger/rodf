@@ -44,7 +44,8 @@ describe ODF::Property do
       at('style:header-footer-properties')['style:border-line-width'].should == '2px'
     Hpricot(ODF::Property.new(:ruby, 'ruby-position' => 'above').xml).
       at('style:ruby-properties')['style:ruby-position'].should == 'above'
-    # style:section-properties
+    Hpricot(ODF::Property.new(:section, 'editable' => true).xml).
+      at('style:section-properties')['style:editable'].should == 'true'
     # style:table-properties
     # style:list-level-properties
     # style:graphic-properties
@@ -216,20 +217,14 @@ describe ODF::Property do
     end
   end
 
-  it "should know the namespace for style:header-footer-properties style properties" do
+  it "should know the namespace for style:header-footer-properties style and svg properties" do
     # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416492_253892949
     ['border-line-width', 'border-line-width-bottom', 'border-line-width-left', 'border-line-width-right',
      'border-line-width-top', 'dynamic-spacing', 'shadow'].
     each do |prop|
       ODF::Property.lookup_namespace_for(prop).should == 'style'
     end
-  end
-
-  it "should know the namespace for style:header-footer-properties svg properties" do
-    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#__RefHeading__1416492_253892949
-    ['height'].each do |prop|
-      ODF::Property.lookup_namespace_for(prop).should == 'svg'
-    end
+    ODF::Property.lookup_namespace_for('height').should == 'svg'
   end
 
   it "should know the namespace for style:ruby-properties style properties" do
@@ -238,5 +233,14 @@ describe ODF::Property do
       ODF::Property.lookup_namespace_for(prop).should == 'style'
     end
   end
+
+  it "should know the namespace for style:section-properties style and text properties" do
+    # see http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html#element-style_section-properties
+    ['editable', 'protect', 'writing-mode'].each do |prop|
+      ODF::Property.lookup_namespace_for(prop).should == 'style'
+    end
+    ODF::Property.lookup_namespace_for('dont-balance-text-columns').should == 'text'
+  end
+
 end
 
