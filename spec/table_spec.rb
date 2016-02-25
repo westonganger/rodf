@@ -74,4 +74,17 @@ describe ODF::Table do
     output.should have_tag('//table:table-row')
     output.should have_tag('//table:table-cell')
   end
+
+  it "should have allow row styles" do
+    output = ODF::Table.create('MyTable') do
+      row style: :bold do
+        cell
+      end
+      row style: :underline do
+        cell
+      end
+    end
+    output.should include('table:table-row table:style-name="bold"')
+    output.should include('table:table-row table:style-name="underline"')
+  end
 end

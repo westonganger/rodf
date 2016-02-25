@@ -32,8 +32,8 @@ module ODF
     end
 
     alias create_row row
-    def row(&contents)
-      create_row(next_row) {instance_eval(&contents) if block_given?}
+    def row(options={}, &contents)
+      create_row(next_row, options) {instance_eval(&contents) if block_given?}
     end
 
     def xml
