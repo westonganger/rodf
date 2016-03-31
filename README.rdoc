@@ -1,8 +1,11 @@
 = rODF
 
-This is a library for writing to ODF output with Ruby. It currently only
+This is a library for writing to ODF output from Ruby. It currently only
 supports creating spreadsheets (ODS) and text documents (ODT). Slide shows (ODP)
 may be added some time in the future.
+
+Some knowledge of the [ODF spec](http://docs.oasis-open.org/office/v1.2/os/OpenDocument-v1.2-os-part1.html)
+is required.
 
 This is NOT an ODF reading library.
 
@@ -10,7 +13,7 @@ This is NOT an ODF reading library.
 
 You should be able to install the latest stable version by saying something like
 
-  sudo gem install rodf
+  gem install rodf
 
 === How do I use it?
 
