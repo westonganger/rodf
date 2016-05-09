@@ -38,7 +38,7 @@ describe "file storage" do
     File.exist?(@tempfilename).should be true
   end
 
-  it "should with with Encoding.default_internal" do
+  it "should work with Encoding.default_internal" do
     Encoding.default_internal = "UTF-8"
 
     ODF::Text.file(@tempfilename) {}
