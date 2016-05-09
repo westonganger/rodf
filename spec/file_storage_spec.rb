@@ -24,7 +24,7 @@ describe "file storage" do
 
   before do
     @default_internal = Encoding.default_internal
-    @tempfilename = Tempfile.create("text") { |f| f.path }
+    @tempfilename = Tempfile.new("text").path
   end
 
   after do
