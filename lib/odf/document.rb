@@ -33,7 +33,7 @@ module ODF
     end
 
     def write_to(ods_file_name)
-      File.open(ods_file_name, 'w') { |f| f << self.bytes }
+      File.open(ods_file_name, 'wb') { |f| f << self.bytes }
     end
 
     def bytes
