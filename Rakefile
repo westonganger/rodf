@@ -15,7 +15,7 @@ Echoe.new('rodf') do |gem|
   gem.runtime_dependencies = [
     ["builder", "~> 3.0"],
     ["rubyzip", "~> 1.0"],
-    ["activesupport", ">= 3.0", "< 5.0"]]
+    ["activesupport", ">= 3.0", "< 5.1"]]
   gem.development_dependencies = [
     ["rspec", "~> 2.9"],
     ["rspec_hpricot_matchers" , "~> 1.0"],
