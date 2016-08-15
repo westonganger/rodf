@@ -16,7 +16,7 @@
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
 require 'rubygems'
-gem 'activesupport', '>= 3.0', '< 5.1'
+gem 'activesupport', '>= 3.0', '< 6.0'
 
 require 'active_support/inflector'
 
