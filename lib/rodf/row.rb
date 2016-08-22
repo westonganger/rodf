@@ -1,4 +1,4 @@
-# Copyright (c) 2010 Thiago Arrais
+# Copyright (c) 2008 Thiago Arrais
 #
 # This file is part of rODF.
 #
@@ -15,20 +15,28 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/container'
+require 'rodf/container'
+require 'rodf/cell'
 
-module ODF
-  # Container for all kinds of paragraph content
-  class ParagraphContainer < Container
-    def content_parts
-      @content_parts ||= []
+module RODF
+  class Row < Container
+    contains :cells
+    attr_reader :number
+    attr_writer :style
+
+    def initialize(number=0, opts={})
+      @number = number
+      @style = opts[:style]
     end
 
-    def content_parts_xml
-      content_parts.map {|p| p.xml}.join
+    def xml
+      elem_attrs = {}
+      elem_attrs['table:style-name'] = @style unless @style.nil?
+      Builder::XmlMarkup.new.tag! 'table:table-row', elem_attrs do |xml|
+        xml << cells_xml
+      end
     end
   end
 end

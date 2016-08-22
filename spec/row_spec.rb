@@ -17,15 +17,15 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/row'
+require 'rodf/row'
 
-describe ODF::Row do
+describe RODF::Row do
   it "should allow cells to be added" do
-    output = ODF::Row.create
+    output = RODF::Row.create
     output.should have_tag('//table:table-row')
     output.should_not have_tag('//table:table-row/*')
 
-    output = ODF::Row.create {|r|
+    output = RODF::Row.create {|r|
       r.cell
       r.cell
     }
@@ -34,7 +34,7 @@ describe ODF::Row do
   end
 
   it "should accept parameterless blocks" do
-    output = ODF::Row.create do
+    output = RODF::Row.create do
       cell
       cell
     end
@@ -43,7 +43,7 @@ describe ODF::Row do
   end
 
   it "should be stylable in the initialization" do
-    output = ODF::Row.create 0, :style => 'dark' do
+    output = RODF::Row.create 0, :style => 'dark' do
       cell
     end
     Hpricot(output).at('table:table-row')['table:style-name'].
@@ -51,7 +51,7 @@ describe ODF::Row do
   end
 
   it "should be attr_writer stylable" do
-    row = ODF::Row.new
+    row = RODF::Row.new
     row.style = 'dark'
     Hpricot(row.xml).at('table:table-row')['table:style-name'].
       should == 'dark'

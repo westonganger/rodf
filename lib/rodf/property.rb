@@ -15,10 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-module ODF
+module RODF
   class Property
     PROPERTY_NAMES = {:cell => 'table-cell-properties',
                       :text => 'text-properties',

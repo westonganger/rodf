@@ -15,17 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
+require 'rodf/data_style'
+require 'rodf/document'
+require 'rodf/hyperlink'
+require 'rodf/span'
+require 'rodf/table'
 
-require 'builder'
-
-require 'odf/data_style'
-require 'odf/document'
-require 'odf/hyperlink'
-require 'odf/span'
-require 'odf/table'
-
-module ODF
+module RODF
   class Spreadsheet < Document
     contains :tables, :data_styles
 
@@ -61,4 +57,3 @@ module ODF
 
   SpreadSheet = Spreadsheet
 end
-

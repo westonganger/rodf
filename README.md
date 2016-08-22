@@ -8,6 +8,10 @@ Some knowledge of the [ODF spec](http://docs.oasis-open.org/office/v1.2/os/OpenD
 
 This is NOT an ODF reading library.
 
+### v1.0.0 Breaking Changes
+The main module ODF has been renamed to RODF. This has resulted in a change in the way to require rodf. 
+`require 'odf/spreadsheet'` must be changed to `require 'rodf'`
+
 ### Installation
 
 You should be able to install the latest stable version by saying something like
@@ -18,9 +22,9 @@ You should be able to install the latest stable version by saying something like
 
 rODF works pretty much like Builder, but with ODF-aware constructs. Try this:
 
-    require 'odf/spreadsheet'
+    require 'rodf'
 
-    ODF::Spreadsheet.file("my-spreadsheet.ods") do
+    RODF::Spreadsheet.file("my-spreadsheet.ods") do
       table 'My first table from Ruby' do
         row {cell 'Hello, rODF world!' }
       end
@@ -28,9 +32,9 @@ rODF works pretty much like Builder, but with ODF-aware constructs. Try this:
 
 Some basic formatting is also possible:
 
-    require 'odf/spreadsheet'
+    require 'rodf'
 
-    ODF::Spreadsheet.file("my-spreadsheet.ods") do
+    RODF::Spreadsheet.file("my-spreadsheet.ods") do
       style 'red-cell', :family => :cell do
         property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
       end
@@ -41,9 +45,9 @@ Some basic formatting is also possible:
 
 Some basic conditional formatting is also possible:
 
-    require 'odf/spreadsheet'
+    require 'rodf'
 
-    ODF::Spreadsheet.file("my-spreadsheet.ods") do
+    RODF::Spreadsheet.file("my-spreadsheet.ods") do
 
       office_style 'red-cell', :family => :cell do
         property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
@@ -79,9 +83,9 @@ Some basic conditional formatting is also possible:
 The declarative style shown above is just syntatic sugar. A more procedural
 style can also be used. Like so:
 
-    require 'odf/spreadsheet'
+    require 'rodf'
 
-    ss = ODF::Spreadsheet.new
+    ss = RODF::Spreadsheet.new
     t = ss.table 'My first table from Ruby'
     r = t.row
     c = r.cell 'Hello, rODF world!'
@@ -90,9 +94,9 @@ style can also be used. Like so:
 
 Both styles can be mixed and matched at will:
 
-    require 'odf/spreadsheet'
+    require 'rodf'
 
-    ss = ODF::Spreadsheet.new
+    ss = RODF::Spreadsheet.new
     ss.table 'My first table from Ruby' do
       row { cell 'Hello, rODF world!' }
     end

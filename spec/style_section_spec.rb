@@ -17,25 +17,25 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/style_section'
+require 'rodf/style_section'
 
-describe ODF::StyleSection do
+describe RODF::StyleSection do
   it "should allow style attribute" do
-    output = ODF::StyleSection.new(:year, :style => 'long').xml
+    output = RODF::StyleSection.new(:year, :style => 'long').xml
     output.should have_tag('number:year')
     Hpricot(output).at('number:year')['number:style'].should == 'long'
   end
 
   it "should allow textual flag" do
-    output = ODF::StyleSection.new(:month, :textual => true).xml
+    output = RODF::StyleSection.new(:month, :textual => true).xml
     Hpricot(output).at('number:month')['number:textual'].should == 'true'
   end
 
   it "should allow text to be inserted" do
-    Hpricot(ODF::StyleSection.new(:text, 'content').xml).
+    Hpricot(RODF::StyleSection.new(:text, 'content').xml).
       at('number:text').innerHTML.should == 'content'
 
-    Hpricot(ODF::StyleSection.new(:day).xml).
+    Hpricot(RODF::StyleSection.new(:day).xml).
       at('number:day').innerHTML.should == ''
   end
 end

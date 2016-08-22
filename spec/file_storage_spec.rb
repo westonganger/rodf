@@ -17,7 +17,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/text'
+require 'rodf/text'
 require "tempfile"
 
 describe "file storage" do
@@ -33,7 +33,7 @@ describe "file storage" do
   end
 
   it "should store files on disk" do
-    ODF::Text.file(@tempfilename) {}
+    RODF::Text.file(@tempfilename) {}
 
     File.exist?(@tempfilename).should be true
   end
@@ -41,7 +41,7 @@ describe "file storage" do
   it "should work with Encoding.default_internal" do
     Encoding.default_internal = "UTF-8"
 
-    ODF::Text.file(@tempfilename) {}
+    RODF::Text.file(@tempfilename) {}
     File.exist?(@tempfilename).should be true
   end
 end

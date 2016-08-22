@@ -15,13 +15,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/container'
-require 'odf/property'
+require 'rodf/container'
+require 'rodf/property'
 
-module ODF
+module RODF
   class Style < Container
     contains :properties
 

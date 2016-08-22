@@ -17,18 +17,18 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/text'
+require 'rodf/text'
 
-describe ODF::Text do
+describe RODF::Text do
   it "should have the expected structure" do
-    output = ODF::Text.create
+    output = RODF::Text.create
     output.should have_tag('//office:document-content/*')
     output.should have_tag('//office:body/*')
     output.should have_tag('//office:text')
   end
 
   it "should have paragraphs" do
-    output = ODF::Text.create { |doc|
+    output = RODF::Text.create { |doc|
       doc.paragraph "Hello"
       doc.p "World!"
     }
@@ -41,8 +41,8 @@ describe ODF::Text do
   end
 
   it "should allow styles" do
-    ODF::Text.create.should_not have_tag('//office:automatic-styles')
-    output = ODF::Text.create { |doc|
+    RODF::Text.create.should_not have_tag('//office:automatic-styles')
+    output = RODF::Text.create { |doc|
       doc.style('bold', :family => 'text') {|s|
         s.property(:text, 'font-weight' => 'bold') }
       doc.style('italic', :family => 'text') {|s|
@@ -53,7 +53,7 @@ describe ODF::Text do
   end
 
   it "should support page layout as auto-style" do
-    output = ODF::Text.create { |doc|
+    output = RODF::Text.create { |doc|
       doc.page_layout 'main-layout'
     }
     output.should have_tag('//office:automatic-styles/*', :count => 1)
@@ -61,7 +61,7 @@ describe ODF::Text do
   end
 
   it "should support master pages" do
-    output = ODF::Text.create do |doc|
+    output = RODF::Text.create do |doc|
       doc.master_page 'standard', :layout => 'letter'
     end
     output.should have_tag('//office:master-styles/*', :count => 1)
@@ -69,7 +69,7 @@ describe ODF::Text do
   end
 
   it "should support default styles" do
-    output = ODF::Text.create do |doc|
+    output = RODF::Text.create do |doc|
       doc.default_style :family => 'paragraph'
     end
     output.should have_tag('//office:styles/*', :count => 1)

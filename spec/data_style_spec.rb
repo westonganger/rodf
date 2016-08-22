@@ -17,11 +17,11 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/data_style'
+require 'rodf/data_style'
 
-describe ODF::DataStyle do
+describe RODF::DataStyle do
   it "should have sections" do
-    output = ODF::DataStyle.create 'year-to-day', :date do |s|
+    output = RODF::DataStyle.create 'year-to-day', :date do |s|
       s.section :year, :style => 'long'
       s.section :month, :style => 'long'
       s.section :day
@@ -36,7 +36,7 @@ describe ODF::DataStyle do
   end
 
   it "should allow short section names" do
-    output = ODF::DataStyle.create 'year-to-day', :date do |number|
+    output = RODF::DataStyle.create 'year-to-day', :date do |number|
       number.year :style => 'long'
       number.month :style => 'long'
       number.day
@@ -48,7 +48,7 @@ describe ODF::DataStyle do
   end
 
   it "should accept parameterless blocks" do
-    output = ODF::DataStyle.create 'year-to-day', :date do
+    output = RODF::DataStyle.create 'year-to-day', :date do
       section :year, :style => 'long'
       section :month, :style => 'long'
       section :day

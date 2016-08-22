@@ -1,4 +1,4 @@
-# Copyright (c) 2008 Thiago Arrais
+# Copyright (c) 2010 Thiago Arrais
 #
 # This file is part of rODF.
 #
@@ -15,30 +15,20 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-require 'builder'
+require 'erb'
 
-require 'odf/container'
-require 'odf/cell'
-
-module ODF
-  class Row < Container
-    contains :cells
-    attr_reader :number
-    attr_writer :style
-
-    def initialize(number=0, opts={})
-      @number = number
-      @style = opts[:style]
+module RODF
+  class Skeleton
+    def manifest(document_type)
+      ERB.new(template('manifest.xml.erb')).result(binding)
     end
 
-    def xml
-      elem_attrs = {}
-      elem_attrs['table:style-name'] = @style unless @style.nil?
-      Builder::XmlMarkup.new.tag! 'table:table-row', elem_attrs do |xml|
-        xml << cells_xml
-      end
+    def styles
+      template('styles.pxml')
+    end
+  private
+    def template(fname)
+      File.open(File.dirname(__FILE__) + '/skeleton/' + fname).read
     end
   end
 end
-

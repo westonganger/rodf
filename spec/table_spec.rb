@@ -17,19 +17,19 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/table'
+require 'rodf/table'
 
-describe ODF::Table do
+describe RODF::Table do
   it "should allow rows to be added" do
-    output = ODF::Table.create('Example') {|t| }
+    output = RODF::Table.create('Example') {|t| }
     output.should have_tag('//table:table')
     output.should_not have_tag('//table:table/*')
 
-    output = ODF::Table.create('MyTable') {|t| t.row }
+    output = RODF::Table.create('MyTable') {|t| t.row }
     output.should have_tag('//table:table/*', :count => 1)
     output.should have_tag('//table:table-row')
 
-    output = ODF::Table.create('MyTable') {|t|
+    output = RODF::Table.create('MyTable') {|t|
       t.row
       t.row
     }
@@ -38,7 +38,7 @@ describe ODF::Table do
   end
 
   it "should provide row numbers" do
-    output = ODF::Table.create('Row letter table') {|t|
+    output = RODF::Table.create('Row letter table') {|t|
       t.row {|row| row.cell}
       t.row {|row| row.cell(row.number)}
     }
@@ -47,7 +47,7 @@ describe ODF::Table do
   end
 
   it "should allow column style specifications" do
-    xml = ODF::Table.create('Styles columns table') do |t|
+    xml = RODF::Table.create('Styles columns table') do |t|
       t.column :style => 'wide'
     end
 
@@ -57,7 +57,7 @@ describe ODF::Table do
   end
 
   it "should accept parameterless block" do
-    output = ODF::Table.create('MyTable') {
+    output = RODF::Table.create('MyTable') {
       row
       row
     }
@@ -66,7 +66,7 @@ describe ODF::Table do
   end
 
   it "should have children that accept parameterless blocks too" do
-    output = ODF::Table.create('MyTable') {
+    output = RODF::Table.create('MyTable') {
       row {cell}
       row
     }
@@ -76,7 +76,7 @@ describe ODF::Table do
   end
 
   it "should have allow row styles" do
-    output = ODF::Table.create('MyTable') do
+    output = RODF::Table.create('MyTable') do
       row style: :bold do
         cell
       end

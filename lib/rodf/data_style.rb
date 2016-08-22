@@ -15,20 +15,29 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'erb'
+require 'builder'
 
-module ODF
-  class Skeleton
-    def manifest(document_type)
-      ERB.new(template('manifest.xml.erb')).result(binding)
+require 'rodf/container'
+require 'rodf/style_section'
+
+module RODF
+  class DataStyle < Container
+    contains :style_sections
+
+    alias section style_section
+
+    def initialize(name, type)
+      @type, @name = type, name
     end
 
-    def styles
-      template('styles.pxml')
+    def xml
+      Builder::XmlMarkup.new.tag! "number:#{@type}-style", 'style:name' => @name do |xml|
+        xml << style_sections_xml
+      end
     end
-  private
-    def template(fname)
-      File.open(File.dirname(__FILE__) + '/skeleton/' + fname).read
+
+    def method_missing(name, *args)
+      section(name, *args)
     end
   end
 end

@@ -17,17 +17,17 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/paragraph'
+require 'rodf/paragraph'
 
-describe ODF::Paragraph do
+describe RODF::Paragraph do
   it "should allow text content inside" do
-    output = ODF::Paragraph.new('Hello').xml
+    output = RODF::Paragraph.new('Hello').xml
     output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == 'Hello'
   end
 
   it "should accept an input sequence" do
-    output = ODF::Paragraph.create { |p|
+    output = RODF::Paragraph.create { |p|
       p << "Hello, "
       p << "world!"
     }
@@ -36,7 +36,7 @@ describe ODF::Paragraph do
   end
 
   it "should accept styled spans" do
-    output = ODF::Paragraph.create { |p|
+    output = RODF::Paragraph.create { |p|
       p << "Hello, "
       p.span :bold, "world! "
       p << "This is not bold. "
@@ -50,7 +50,7 @@ describe ODF::Paragraph do
   end
 
   it "should be able to hold hyperlinks" do
-    output = ODF::Paragraph.create {|p|
+    output = RODF::Paragraph.create {|p|
       p << "please visit "
       p.a "example.org", :href => "http://www.example.org/"
       p << " for more details"
@@ -62,12 +62,12 @@ describe ODF::Paragraph do
   end
 
   it "should support style attribute" do
-    Hpricot(ODF::Paragraph.create('styled paragraph', :style => 'highlight')).
+    Hpricot(RODF::Paragraph.create('styled paragraph', :style => 'highlight')).
       at('text:p')['text:style-name'].should == 'highlight'
   end
 
   it "should accept attributes in the first parameter too" do
-    para = Hpricot(ODF::Paragraph.create(:style => 'testing')).at('text:p')
+    para = Hpricot(RODF::Paragraph.create(:style => 'testing')).at('text:p')
     para.innerHTML.should be_empty
     para['text:style-name'].should == 'testing'
   end

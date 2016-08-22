@@ -15,32 +15,23 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/paragraph_container'
+require 'rodf/paragraph_container'
 
-module ODF
-  class Paragraph < ParagraphContainer
-    def initialize(fst = nil, snd = {})
-      first_is_hash = fst.instance_of? Hash
-      span(fst) unless first_is_hash
-      @elem_attrs = make_element_attributes(first_is_hash ? fst : snd)
-    end
-
+module RODF
+  class Tab
     def xml
-      Builder::XmlMarkup.new.text:p, @elem_attrs do |xml|
-        xml << content_parts_xml
-      end
+      Builder::XmlMarkup.new.text:tab
     end
+  end
 
-  private
-
-    def make_element_attributes(opts)
-      attrs = {}
-      attrs['text:style-name'] = opts[:style] unless opts[:style].nil?
-      attrs
+  class ParagraphContainer < Container
+    def tab(*args)
+      t = Tab.new
+      content_parts << t
+      t
     end
-
   end
 end
+

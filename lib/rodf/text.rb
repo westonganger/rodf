@@ -15,18 +15,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-
 require 'builder'
 
-require 'odf/document'
-require 'odf/master_page'
-require 'odf/page_layout'
-require 'odf/paragraph'
-require 'odf/span'
-require 'odf/hyperlink'
+require 'rodf/document'
+require 'rodf/master_page'
+require 'rodf/page_layout'
+require 'rodf/paragraph'
+require 'rodf/span'
+require 'rodf/hyperlink'
 
-module ODF
+module RODF
   class Text < Document
     contains :paragraphs, :page_layouts, :master_pages
 

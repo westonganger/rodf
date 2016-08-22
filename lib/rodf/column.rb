@@ -1,4 +1,4 @@
-# Copyright (c) 2010 Thiago Arrais
+# Copyright (c) 2008 Thiago Arrais
 #
 # This file is part of rODF.
 #
@@ -15,24 +15,17 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/container'
-require 'odf/property'
-
-module ODF
-  class PageLayout < Container
-    contains :properties
-
-    def initialize(name)
-      @name = name
+module RODF
+  class Column
+    def initialize(opts={})
+      @elem_attrs = {}
+      @elem_attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
     end
 
     def xml
-      Builder::XmlMarkup.new.tag! 'style:page-layout', 'style:name' => @name do |b|
-        b << properties_xml
-      end
+      Builder::XmlMarkup.new.tag! 'table:table-column', @elem_attrs
     end
   end
 end

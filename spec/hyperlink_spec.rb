@@ -17,11 +17,11 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/hyperlink'
+require 'rodf/hyperlink'
 
-describe ODF::Hyperlink do
+describe RODF::Hyperlink do
   it "should receive content text in first argument" do
-    output = ODF::Hyperlink.new('link somewhere', :href => 'http://www.example.org/').xml
+    output = RODF::Hyperlink.new('link somewhere', :href => 'http://www.example.org/').xml
     output.should have_tag('//text:a')
 
     link = Hpricot(output).at('text:a')
@@ -30,15 +30,15 @@ describe ODF::Hyperlink do
   end
 
   it "should accept ref both in second argument as in argument hash" do
-    Hpricot(ODF::Hyperlink.new('link somewhere', :href => 'http://www.example.org/').xml).
+    Hpricot(RODF::Hyperlink.new('link somewhere', :href => 'http://www.example.org/').xml).
       at('text:a')['xlink:href'].should == 'http://www.example.org/'
 
-    Hpricot(ODF::Hyperlink.new('link somewhere', 'http://www.example.org/').xml).
+    Hpricot(RODF::Hyperlink.new('link somewhere', 'http://www.example.org/').xml).
       at('text:a')['xlink:href'].should == 'http://www.example.org/'
   end
 
   it "should allow nested span elements" do
-    output = ODF::Hyperlink.create 'http://www.example.com/' do |link|
+    output = RODF::Hyperlink.create 'http://www.example.com/' do |link|
       link.strong 'important link'
     end
 
@@ -51,7 +51,7 @@ describe ODF::Hyperlink do
   end
 
   it "should accept parameterless blocks" do
-    output = ODF::Hyperlink.create 'http://www.example.com/' do
+    output = RODF::Hyperlink.create 'http://www.example.com/' do
       strong 'important link'
     end
 
