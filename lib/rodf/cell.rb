@@ -26,22 +26,34 @@ module RODF
 
     alias :p :paragraph
 
-    def initialize(*args)
-      value = args.first || ''
-      opts = args.last.instance_of?(Hash) ? args.last : {}
+    def initialize(value=nil, opts={})
+      opts = {} unless opts.is_a?(Hash)
 
-      @url = opts[:url]
-      @type = opts[:type] || :string
-      unless value.instance_of?(Hash)
-        if value.respond_to? :strftime
-          @value = value.strftime("%Y-%m-%d")
-        else
-          @value = value.to_s.strip
+      @value = value
+      @type = opts[:type]
+
+      if value
+        @url = opts[:url]
+
+        if !@type
+          if value.is_a?(Numeric)
+            @type = :float
+          elsif @value.respond_to?(:strftime)
+            @type = :date
+            if value.is_a?(Date)
+              @value = value.strftime("%Y-%m-%d")
+            else
+              @value = value.strftime("%Y%m%dT%H%M%S")
+            end
+          else
+            @type = :string
+            @value = value.to_s
+          end
         end
       end
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
-      @mutiply = (opts[:span] || 1).to_i
+      @multiplier = (opts[:span] || 1).to_i
 
       make_value_paragraph
     end
@@ -55,7 +67,7 @@ module RODF
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
         xml << paragraphs_xml
       end
-      (@mutiply - 1).times {text = markup.tag! 'table:table-cell'}
+      (@multiplier - 1).times {text = markup.tag! 'table:table-cell'}
       text
     end
 
@@ -66,20 +78,20 @@ module RODF
   private
 
     def contains_string?
-      :string == @type && !@value.nil? && !@value.empty?
+      :string == @type && !empty?(@value)
     end
 
     def make_element_attributes(type, value, opts)
       attrs = {}
-      attrs['office:value-type'] = type if :string == type || !empty(value) || !opts[:formula].nil?
-      attrs['office:date-value'] = value if :date == type && !empty(value)
-      attrs['office:value'] = value if :float == type && !empty(value)
+      attrs['office:value-type'] = type if type == :string || !empty?(value) || !opts[:formula].nil?
+      attrs['office:date-value'] = value if type == :date && !empty?(value)
+      attrs['office:value'] = value if type == :float && !empty?(value)
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
       attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
       attrs['table:number-matrix-columns-spanned'] =
         attrs['table:number-matrix-rows-spanned'] = 1 if opts[:matrix_formula]
-      attrs
+      return attrs
     end
 
     def make_value_paragraph
@@ -95,8 +107,8 @@ module RODF
       end
     end
 
-    def empty(value)
-      value.nil? || value.empty?
+    def empty?(value)
+      value.nil? || (value.respond_to?(:empty) ? value.empty? : false)
     end
   end
 end

@@ -1,3 +1,4 @@
 pkg/
 rodf-*.gem
 Gemfile.lock
+.rspec_deprecation_log
