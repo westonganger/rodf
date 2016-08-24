@@ -1,4 +1,4 @@
-# rODF
+# RODF
 
 This is a library for writing to ODF output from Ruby. It currently only
 supports creating spreadsheets (ODS) and text documents (ODT). Slide shows (ODP)
@@ -9,8 +9,8 @@ Some knowledge of the [ODF spec](http://docs.oasis-open.org/office/v1.2/os/OpenD
 This is NOT an ODF reading library.
 
 ### v1.0.0 Breaking Changes
-The main module ODF has been renamed to RODF. This has resulted in a change in the way to require rodf. 
-`require 'odf/spreadsheet'` must be changed to `require 'rodf'`
+The main module `ODF` should be changed to `RODF`
+`require 'odf/spreadsheet'` should be changed to `require 'rodf'`
 
 ### Installation
 

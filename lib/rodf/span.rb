@@ -24,6 +24,7 @@ module RODF
   class TextNode
     def initialize(content)
       @content = content
+      @style = nil
     end
 
     def xml
