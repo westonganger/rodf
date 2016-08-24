@@ -83,9 +83,9 @@ module RODF
 
     def make_element_attributes(type, value, opts)
       attrs = {}
-      attrs['office:value-type'] = type if type == :string || !empty?(value) || !opts[:formula].nil?
-      attrs['office:date-value'] = value if type == :date && !empty?(value)
-      attrs['office:value'] = value if type == :float && !empty?(value)
+      attrs['office:value-type'] = type if type == :string || !blank?(value) || !opts[:formula].nil?
+      attrs['office:date-value'] = value if type == :date && !blank?(value)
+      attrs['office:value'] = value if type == :float && !blank?(value)
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
       attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
@@ -107,8 +107,8 @@ module RODF
       end
     end
 
-    def empty?(value)
-      value.nil? || (value.respond_to?(:empty) ? value.empty? : false)
+    def blank?(value)
+      respond_to?(:empty?) ? value.empty? : value.nil?
     end
   end
 end
