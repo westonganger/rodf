@@ -40,11 +40,13 @@ module RODF
             @type = :float
           elsif @value.respond_to?(:strftime)
             @type = :date
-            if value.is_a?(Date)
-              @value = value.strftime("%Y-%m-%d")
-            else
-              @value = value.strftime("%Y%m%dT%H%M%S")
-            end
+            @value = value.to_s
+
+            #if value.is_a?(Date)
+            #  @value = value.strftime("%Y-%m-%d")
+            #else
+            #  @value = value.strftime("%Y%m%dT%H%M%S")
+            #end
           else
             @type = :string
             @value = value.to_s
@@ -72,13 +74,13 @@ module RODF
     end
 
     def contains_url?
-      !@url.nil? && !@url.empty?
+      !blank?(@url)
     end
 
   private
 
     def contains_string?
-      :string == @type && !empty?(@value)
+      :string == @type && !blank?(@value)
     end
 
     def make_element_attributes(type, value, opts)
