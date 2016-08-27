@@ -24,7 +24,6 @@ module RODF
   class TextNode
     def initialize(content)
       @content = content
-      @style = nil
     end
 
     def xml
@@ -34,6 +33,8 @@ module RODF
 
   class Span < ParagraphContainer
     def initialize(first, second = nil)
+      @style = nil
+
       if first.instance_of?(Symbol)
         @style = first
         content_parts << TextNode.new(second) unless second.nil?
