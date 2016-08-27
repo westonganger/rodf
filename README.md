@@ -1,5 +1,5 @@
-# RODF
 <a href='https://ko-fi.com/A5071NK' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a> 
+# RODF
 
 This is a library for writing to ODF output from Ruby. It mainly focuses creating ODS spreadsheets.
 
@@ -127,8 +127,6 @@ end
 ss.write_to 'my-spreadsheet.ods'
 ```
 
-### Alternative to 
-
 ### Style List
 ```ruby
 property :text, 
@@ -164,6 +162,8 @@ property :table,
 
 
 ### Credits
-Created by [`@thiagoarrais`](https://github.com/thiagoarrais). Currently maintained by [`@westonganger`](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [`spreadsheet_architect`](https://github.com/westonganger/spreadsheet_architect) gem
+Created by [`@thiagoarrais`](https://github.com/thiagoarrais). 
+
+Currently maintained by [`@westonganger`](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [`spreadsheet_architect`](https://github.com/westonganger/spreadsheet_architect) gem
 
 <a href='https://ko-fi.com/A5071NK' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a> 
