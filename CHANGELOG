@@ -1,3 +1,4 @@
+v0.3.7  Update dependencies for Rails 5
 v0.3.6. Resulting ODF files as bitstrings
 v0.3.5. Allows current libraries
 v0.3.4. Procedural cell styling
@@ -14,4 +15,3 @@ v0.1.3. Dependency fix (by Merul Patel)
 v0.1.2. Cell span
 v0.1.1. Basic spreadsheet styling support
 v0.1.   First version with very basic support for spreadsheet generation
-
