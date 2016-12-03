@@ -29,12 +29,6 @@ describe RODF::Cell do
     Hpricot(output).at('text:p').innerHTML.should == 'Test'
   end
 
-  it "should have string as default value type" do
-    [RODF::Cell.new('Test').xml, RODF::Cell.new(54).xml].each do |xml|
-      Hpricot(xml).at('table:table-cell')['office:value-type'].should=='string'
-    end
-  end
-
   it "should allow value types to be specified" do
     output = RODF::Cell.new(34.2, :type => :float).xml
     Hpricot(output).at('table:table-cell')['office:value-type'].should=='float'
@@ -42,6 +36,7 @@ describe RODF::Cell do
 
   it "should place strings in a paragraph tag and floats in value attribute" do
     output = RODF::Cell.new('Test').xml
+    output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == 'Test'
 
     output = RODF::Cell.new(47, :type => :float).xml
@@ -49,6 +44,7 @@ describe RODF::Cell do
     Hpricot(output).at('table:table-cell')['office:value'].should == '47'
 
     output = RODF::Cell.new(34.2, :type => :string).xml
+    output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == '34.2'
   end
 
@@ -186,4 +182,3 @@ describe RODF::Cell do
     ps[1].innerHTML.should == 'second'
   end
 end
-

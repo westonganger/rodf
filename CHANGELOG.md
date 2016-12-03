@@ -1,4 +1,5 @@
-v1.0.0 Rename main module ODF to RODF, Add Rails 5 support to gemspec
+v1.0.0 Rename main module ODF to RODF, Fix cell types
+v0.3.7 Add Rails 5 support to gemspec
 v0.3.6 Resulting ODF files as bitstrings
 v0.3.5 Allows current libraries
 v0.3.4 Procedural cell styling
@@ -15,4 +16,3 @@ v0.1.3 Dependency fix (by Merul Patel)
 v0.1.2 Cell span
 v0.1.1 Basic spreadsheet styling support
 v0.1.0 First version with very basic support for spreadsheet generation
-

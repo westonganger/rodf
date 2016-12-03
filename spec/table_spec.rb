@@ -39,11 +39,11 @@ describe RODF::Table do
 
   it "should provide row numbers" do
     output = RODF::Table.create('Row letter table') {|t|
-      t.row {|row| row.cell}
       t.row {|row| row.cell(row.number)}
     }
-    output.should have_tag('text:p')
-    Hpricot(output).at('text:p').innerHTML.should == '2'
+    output.should have_tag('table:table-cell')
+    Hpricot(output).at('table:table-cell')['office:value-type'].should == 'float'
+    Hpricot(output).at('table:table-cell')['office:value'].should == '1'
   end
 
   it "should allow column style specifications" do

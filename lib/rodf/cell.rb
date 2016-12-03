@@ -27,12 +27,20 @@ module RODF
     alias :p :paragraph
 
     def initialize(value=nil, opts={})
-      opts = {} unless opts.is_a?(Hash)
+      if value.is_a?(Hash)
+        opts = value
+        value = ''
+      else
+        if value.is_a?(String)
+          value = value.strip
+        end
+        opts = {} unless opts.is_a?(Hash)
+      end
 
-      @value = value
+      @value = value || ''
       @type = opts[:type]
 
-      if value
+      unless empty?(@value)
         @url = opts[:url]
 
         if !@type
@@ -74,20 +82,20 @@ module RODF
     end
 
     def contains_url?
-      !blank?(@url)
+      !empty?(@url)
     end
 
   private
 
     def contains_string?
-      :string == @type && !blank?(@value)
+      :string == @type && !empty?(@value)
     end
 
     def make_element_attributes(type, value, opts)
       attrs = {}
-      attrs['office:value-type'] = type if type == :string || !blank?(value) || !opts[:formula].nil?
-      attrs['office:date-value'] = value if type == :date && !blank?(value)
-      attrs['office:value'] = value if type == :float && !blank?(value)
+      attrs['office:value-type'] = type if type == :string || !empty?(value) || !opts[:formula].nil?
+      attrs['office:date-value'] = value if type == :date && !empty?(value)
+      attrs['office:value'] = value if type == :float && !empty?(value)
       attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
       attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
       attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
@@ -109,9 +117,9 @@ module RODF
       end
     end
 
-    def blank?(value)
-      respond_to?(:empty?) ? value.empty? : value.nil?
+    def empty?(value)
+      value.respond_to?(:empty?) ? value.empty? : value.nil?
+      #respond_to?(:empty?) ? (value.empty? || value =~ /\A[[:space:]]*\z/) : value.nil?
     end
   end
 end
-
