@@ -8,12 +8,11 @@ As well as writing ODS spreadsheets, this library also can write ODT text docume
 This is NOT an ODF reading library.
 
 ### v1.0.0 Breaking Changes
-The main module `ODF` should be changed to `RODF`
-`require 'odf/spreadsheet'` should be changed to `require 'rodf'`
+The main module `ODF` has changed to `RODF`
 
-### Installation
+`require 'odf/spreadsheet'` must be changed to `require 'rodf'`
 
-You should be able to install the latest stable version by saying something like
+### Install
 
 ```
 gem install rodf
@@ -121,7 +120,9 @@ require 'rodf'
 
 ss = RODF::Spreadsheet.new
 ss.table 'My first table from Ruby' do
-  row { cell 'Hello, rODF world!' }
+  row do
+    cell 'Hello, rODF world!'
+  end
 end
 
 ss.write_to 'my-spreadsheet.ods'
@@ -162,8 +163,8 @@ property :table,
 
 
 ### Credits
-Created by [`@thiagoarrais`](https://github.com/thiagoarrais). 
+Created by [@thiagoarrais](https://github.com/thiagoarrais)
 
-Currently maintained by [`@westonganger`](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [`spreadsheet_architect`](https://github.com/westonganger/spreadsheet_architect) gem
+Currently maintained by [@westonganger](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
 
 <a href='https://ko-fi.com/A5071NK' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a> 
