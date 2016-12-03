@@ -15,31 +15,26 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-
 require 'builder'
 
-require 'odf/container'
-require 'odf/style_section'
-
-module ODF
-  class DataStyle < Container
-    contains :style_sections
-
-    alias section style_section
-
-    def initialize(name, type)
-      @type, @name = type, name
-    end
-
-    def xml
-      Builder::XmlMarkup.new.tag! "number:#{@type}-style", 'style:name' => @name do |xml|
-        xml << style_sections_xml
+module RODF
+  class StyleSection
+    def initialize(type, second = {})
+      @type = type
+      if second.instance_of?(Hash)
+        @elem_attrs = make_element_attributes(second)
+      else
+        @content, @elem_attrs = second, {}
       end
     end
 
-    def method_missing(name, *args)
-      section(name, *args)
+    def xml
+      Builder::XmlMarkup.new.number @type, @content, @elem_attrs
+    end
+
+    def make_element_attributes(opts)
+      {'number:style' => opts[:style], 'number:textual' => opts[:textual]}
     end
   end
 end
+

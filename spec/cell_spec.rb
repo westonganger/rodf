@@ -19,42 +19,38 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 require 'date'
 
-require 'odf/cell'
+require 'rodf/cell'
 
-describe ODF::Cell do
+describe RODF::Cell do
   it "should hold text content in a paragraph tag" do
-    output = ODF::Cell.new('Test').xml
+    output = RODF::Cell.new('Test').xml
     output.should have_tag('//table:table-cell/*')
     output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == 'Test'
   end
 
-  it "should have string as default value type" do
-    [ODF::Cell.new('Test').xml, ODF::Cell.new(54).xml].each do |xml|
-      Hpricot(xml).at('table:table-cell')['office:value-type'].should=='string'
-    end
-  end
-
   it "should allow value types to be specified" do
-    output = ODF::Cell.new(34.2, :type => :float).xml
+    output = RODF::Cell.new(34.2, type: :float).xml
     Hpricot(output).at('table:table-cell')['office:value-type'].should=='float'
   end
 
   it "should place strings in a paragraph tag and floats in value attribute" do
-    output = ODF::Cell.new('Test').xml
+    output = RODF::Cell.new('Test').xml
+    output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == 'Test'
 
-    output = ODF::Cell.new(47, :type => :float).xml
+    output = RODF::Cell.new(47, type: :float).xml
     output.should_not have_tag('//table:table-cell/*')
     Hpricot(output).at('table:table-cell')['office:value'].should == '47'
 
-    output = ODF::Cell.new(34.2, :type => :string).xml
+    output = RODF::Cell.new(34.2, type: :string).xml
+    output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == '34.2'
   end
 
   it "should accept formulas" do
-    output = ODF::Cell.new(:type => :float,
-                           :formula => "oooc:=SUM([.A1:.A4])").xml
+    output = RODF::Cell.new(type: :float,
+                           formula: "oooc:=SUM([.A1:.A4])").xml
 
     elem = Hpricot(output).at('table:table-cell')
     elem['office:value-type'].should == 'float'
@@ -62,8 +58,8 @@ describe ODF::Cell do
   end
 
   it "should accept matrix formulas" do
-    output = ODF::Cell.new(:type => :float, :matrix_formula => true,
-                           :formula => "oooc:=SUM([.A1:.A4])").xml
+    output = RODF::Cell.new(type: :float, matrix_formula: true,
+                           formula: "oooc:=SUM([.A1:.A4])").xml
 
     elem = Hpricot(output).at('table:table-cell')
     elem['table:number-matrix-columns-spanned'].should == '1'
@@ -71,8 +67,8 @@ describe ODF::Cell do
   end
 
   it "should not make a matrix formula when asked not too" do
-    output = ODF::Cell.new(:type => :float, :matrix_formula => false,
-                           :formula => "oooc:=SUM([.A1:.A4])").xml
+    output = RODF::Cell.new(type: :float, matrix_formula: false,
+                           formula: "oooc:=SUM([.A1:.A4])").xml
 
     elem = Hpricot(output).at('table:table-cell')
     elem['table:number-matrix-columns-spanned'].should be_nil
@@ -80,49 +76,49 @@ describe ODF::Cell do
   end
 
   it "should not have an empty paragraph" do
-    [ODF::Cell.new, ODF::Cell.new(''), ODF::Cell.new('  ')].each do |cell|
+    [RODF::Cell.new, RODF::Cell.new(''), RODF::Cell.new('  ')].each do |cell|
       cell.xml.should_not have_tag('text:p')
     end
   end
 
   it "should allow an style to be specified in the constructor" do
-    cell = ODF::Cell.new 45.8, :type => :float, :style => 'left-column-cell'
+    cell = RODF::Cell.new 45.8, type: :float, style: 'left-column-cell'
     Hpricot(cell.xml).at('table:table-cell')['table:style-name'].
       should == 'left-column-cell'
   end
 
   it "should allow and style to be specified through a method call" do
-    cell = ODF::Cell.new 45.8, :type => :float
+    cell = RODF::Cell.new 45.8, type: :float
     cell.style = 'left-column-cell'
     Hpricot(cell.xml).at('table:table-cell')['table:style-name'].
       should == 'left-column-cell'
   end
 
   it "should span multiple cells when asked to" do
-    cell = ODF::Cell.new 'Spreadsheet title', :span => 4
+    cell = RODF::Cell.new 'Spreadsheet title', span: 4
     doc = Hpricot(cell.xml)
     doc.at('table:table-cell')['table:number-columns-spanned'].should == '4'
     doc.search('table:table-cell').size.should == 4
   end
 
   it "should have the URL set correctly when requested on a string" do
-    cell = ODF::Cell.new 'Example Link', :url => 'http://www.example.org'
+    cell = RODF::Cell.new 'Example Link', url: 'http://www.example.org'
     doc = Hpricot(cell.xml)
     doc.at('text:a')['xlink:href'].should == 'http://www.example.org'
   end
 
   it "should ignore the URL requested on anything other than a string" do
-    cell = ODF::Cell.new(47.1, :type => :float, :url => 'http://www.example.org')
+    cell = RODF::Cell.new(47.1, type: :float, url: 'http://www.example.org')
     cell.xml.should_not have_tag('text:p')
     cell.xml.should_not have_tag('text:a')
 
-    cell = ODF::Cell.new(Date.parse('15 Apr 2010'), :type => :date, :url => 'http://www.example.org')
+    cell = RODF::Cell.new(Date.parse('15 Apr 2010'), type: :date, url: 'http://www.example.org')
     cell.xml.should_not have_tag('text:p')
     cell.xml.should_not have_tag('text:a')
   end
 
   it "should have the date set correctly" do
-    cell = Hpricot(ODF::Cell.new(Date.parse('15 Apr 2010'), :type => :date).xml).
+    cell = Hpricot(RODF::Cell.new(Date.parse('15 Apr 2010'), type: :date).xml).
       at('table:table-cell')
     cell['office:value-type'].should == 'date'
     cell['office:date-value'].should == '2010-04-15'
@@ -130,28 +126,28 @@ describe ODF::Cell do
   end
 
   it "should also accept strings as date values" do
-    Hpricot(ODF::Cell.new(Date.parse('16 Apr 2010'), :type => :date).xml).
+    Hpricot(RODF::Cell.new(Date.parse('16 Apr 2010'), type: :date).xml).
       at('table:table-cell')['office:date-value'] = '2010-04-16'
   end
 
   it "should contain paragraph" do
-    c = ODF::Cell.new
+    c = RODF::Cell.new
     c.paragraph "testing"
     output = c.xml
 
-    output.should have_tag("//table:table-cell/*", :count => 1)
+    output.should have_tag("//table:table-cell/*", count: 1)
     output.should have_tag("//text:p")
 
     Hpricot(output).at('text:p').innerHTML.should == 'testing'
   end
 
   it "should be able to hold multiple paragraphs" do
-    output = ODF::Cell.create do |c|
+    output = RODF::Cell.create do |c|
       c.paragraph "first"
       c.paragraph "second"
     end
 
-    output.should have_tag("//table:table-cell/*", :count => 2)
+    output.should have_tag("//table:table-cell/*", count: 2)
     output.should have_tag("//text:p")
 
     ps = Hpricot(output).search('text:p')
@@ -160,11 +156,11 @@ describe ODF::Cell do
   end
 
   it "should not render value type for non-string nil values" do
-    Hpricot(ODF::Cell.new(nil, :type => :string).xml).
+    Hpricot(RODF::Cell.new(nil, type: :string).xml).
       at('table:table-cell').innerHTML.should == ''
 
     [:float, :date].each do |t|
-      cell = Hpricot(ODF::Cell.new(nil, :type => t).xml).at('table:table-cell')
+      cell = Hpricot(RODF::Cell.new(nil, type: t).xml).at('table:table-cell')
       cell.innerHTML.should == ''
       cell['office:value'].should be_nil
       cell['office:date-value'].should be_nil
@@ -173,12 +169,12 @@ describe ODF::Cell do
   end
 
   it "should accept parameterless blocks" do
-    output = ODF::Cell.create do
+    output = RODF::Cell.create do
       paragraph "first"
       paragraph "second"
     end
 
-    output.should have_tag("//table:table-cell/*", :count => 2)
+    output.should have_tag("//table:table-cell/*", count: 2)
     output.should have_tag("//text:p")
 
     ps = Hpricot(output).search('text:p')
@@ -186,4 +182,3 @@ describe ODF::Cell do
     ps[1].innerHTML.should == 'second'
   end
 end
-

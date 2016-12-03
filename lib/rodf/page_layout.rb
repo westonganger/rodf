@@ -15,37 +15,24 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/paragraph_container'
+require 'rodf/container'
+require 'rodf/property'
 
-module ODF
-  class Hyperlink < ParagraphContainer
-    def initialize(first, second = {})
-      if second.instance_of?(Hash) && second.empty?
-        @href = first
-      else
-        span(first)
-        @href = second.instance_of?(Hash) ? second[:href] : second
-      end
+module RODF
+  class PageLayout < Container
+    contains :properties
+
+    def initialize(name)
+      @name = name
     end
 
     def xml
-      Builder::XmlMarkup.new.text:a, 'xlink:href' => @href do |a|
-        a << content_parts_xml
+      Builder::XmlMarkup.new.tag! 'style:page-layout', 'style:name' => @name do |b|
+        b << properties_xml
       end
     end
-  end
-
-  class ParagraphContainer < Container
-    def link(*args)
-      l = Hyperlink.new(*args)
-      yield l if block_given?
-      content_parts << l
-      l
-    end
-    alias a link
   end
 end
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2010 Thiago Arrais
+# Copyright (c) 2008 Thiago Arrais
 #
 # This file is part of rODF.
 #
@@ -15,28 +15,35 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-
 require 'builder'
 
-module ODF
-  class StyleSection
-    def initialize(type, second = {})
-      @type = type
-      if second.instance_of?(Hash)
-        @elem_attrs = make_element_attributes(second)
-      else
-        @content, @elem_attrs = second, {}
-      end
+require 'rodf/column'
+require 'rodf/container'
+require 'rodf/row'
+
+module RODF
+  class Table < Container
+    contains :rows, :columns
+
+    def initialize(title)
+      @title = title
+      @last_row = 0
+    end
+
+    alias create_row row
+    def row(options={}, &contents)
+      create_row(next_row, options) {instance_eval(&contents) if block_given?}
     end
 
     def xml
-      Builder::XmlMarkup.new.number @type, @content, @elem_attrs
+      Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
+        xml << columns_xml
+        xml << rows_xml
+      end
     end
-
-    def make_element_attributes(opts)
-      {'number:style' => opts[:style], 'number:textual' => opts[:textual]}
+  private
+    def next_row
+      @last_row += 1
     end
   end
 end
-

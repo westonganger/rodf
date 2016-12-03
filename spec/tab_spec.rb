@@ -17,17 +17,17 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/paragraph'
-require 'odf/tab'
+require 'rodf/paragraph'
+require 'rodf/tab'
 
-describe ODF::Tab do
+describe RODF::Tab do
   it "should be placed inside paragraphs" do
-    output = ODF::Paragraph.create {|p|
+    output = RODF::Paragraph.create {|p|
       p << "Tab"
       p.tab
       p << "test"
     }
-    output.should have_tag("//text:p/*", :count => 3)
+    output.should have_tag("//text:p/*", count: 3)
     output.should have_tag("//text:tab")
   end
 end

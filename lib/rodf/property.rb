@@ -15,19 +15,18 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-module ODF
+module RODF
   class Property
-    PROPERTY_NAMES = {:cell => 'table-cell-properties',
-                      :text => 'text-properties',
-                      :column => 'table-column-properties',
-                      :row => 'table-row-properties',
-                      :page_layout => 'page-layout-properties',
-                      :header_footer => 'header-footer-properties',
-                      :list_level => 'list-level-properties',
-                      :conditional => 'map'}
+    PROPERTY_NAMES = {cell: 'table-cell-properties',
+                      text: 'text-properties',
+                      column: 'table-column-properties',
+                      row: 'table-row-properties',
+                      page_layout: 'page-layout-properties',
+                      header_footer: 'header-footer-properties',
+                      list_level: 'list-level-properties',
+                      conditional: 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
     ATTRIBUTES_TO_NAMESPACES = [[

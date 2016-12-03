@@ -15,13 +15,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/compatibility'
-require 'odf/paragraph_container'
+require 'rodf/compatibility'
+require 'rodf/paragraph_container'
 
-module ODF
+module RODF
   class TextNode
     def initialize(content)
       @content = content
@@ -34,6 +33,8 @@ module ODF
 
   class Span < ParagraphContainer
     def initialize(first, second = nil)
+      @style = nil
+
       if first.instance_of?(Symbol)
         @style = first
         content_parts << TextNode.new(second) unless second.nil?

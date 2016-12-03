@@ -17,19 +17,19 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'odf/style'
+require 'rodf/style'
 
-describe ODF::Style do
+describe RODF::Style do
   it "should output properties when they're added" do
-    ODF::Style.create.should_not have_tag('//style:style/*')
+    RODF::Style.create.should_not have_tag('//style:style/*')
 
-    output = ODF::Style.create 'odd-row-cell', :family => :cell do |s|
+    output = RODF::Style.create 'odd-row-cell', family: :cell do |s|
       s.property :cell, 'background-color' => '#b3b3b3',
                         'border' => '0.002cm solid #000000'
       s.property :text, 'color' => '#4c4c4c', 'font-weight' => 'bold'
     end
 
-    output.should have_tag('//style:style/*', :count => 2)
+    output.should have_tag('//style:style/*', count: 2)
     output.should have_tag('//style:table-cell-properties')
     output.should have_tag('//style:text-properties')
 
@@ -43,63 +43,63 @@ describe ODF::Style do
   end
 
   it "should allow data styles" do
-    xml = ODF::Style.create 'my-style', :family => :cell,
-                            :data_style => 'currency-grouped'
+    xml = RODF::Style.create 'my-style', family: :cell,
+                            data_style: 'currency-grouped'
 
     style = Hpricot(xml).at('//style:style')
     style['style:data-style-name'].should == 'currency-grouped'
   end
 
   it "should allow parent styles" do
-    xml = ODF::Style.create 'child-style', :family => :cell,
-                            :parent => 'cell-default'
+    xml = RODF::Style.create 'child-style', family: :cell,
+                            parent: 'cell-default'
 
     style = Hpricot(xml).at('//style:style')
     style['style:parent-style-name'].should == 'cell-default'
 
-    cell_style = ODF::Style.new('cell-default', :family => :cell)
-    xml = ODF::Style.create 'child-style', :family => :cell,
-                            :parent => cell_style
+    cell_style = RODF::Style.new('cell-default', family: :cell)
+    xml = RODF::Style.create 'child-style', family: :cell,
+                            parent: cell_style
 
     style = Hpricot(xml).at('//style:style')
     style['style:parent-style-name'].should == 'cell-default'
   end
 
   it "should allow master pages" do
-    xml = ODF::Style.create 'standard',
-      :family => :paragraph,
-      :master_page => 'letter'
+    xml = RODF::Style.create 'standard',
+      family: :paragraph,
+      master_page: 'letter'
 
     Hpricot(xml).at('//style:style')['style:master-page-name'].should == 'letter'
   end
 
   it "should be able to describe column styles" do
-    xml = ODF::Style.create 'column-style', :family => :column do |style|
+    xml = RODF::Style.create 'column-style', family: :column do |style|
       style.property :column, 'column-width' => '2cm'
     end
 
     Hpricot(xml).at('//style:style')['style:family'].should == 'table-column'
-    xml.should have_tag('//style:style/*', :count => 1)
+    xml.should have_tag('//style:style/*', count: 1)
     xml.should have_tag('//style:table-column-properties')
   end
 
   it "should be able to describe row styles" do
-    xml = ODF::Style.create 'column-style', :family => :row do |style|
+    xml = RODF::Style.create 'column-style', family: :row do |style|
     end
 
     Hpricot(xml).at('//style:style')['style:family'].should == 'table-row'
   end
 
   it "should accept other families" do
-    Hpricot(ODF::Style.create('text-style', :family => :text)).
+    Hpricot(RODF::Style.create('text-style', family: :text)).
       at('//style:style')['style:family'].should == 'text'
 
-    Hpricot(ODF::Style.create('text-style', :family => :paragraph)).
+    Hpricot(RODF::Style.create('text-style', family: :paragraph)).
       at('//style:style')['style:family'].should == 'paragraph'
   end
 
   it "should accept parameterless blocks" do
-    output = ODF::Style.create 'odd-row-cell', :family => :cell do
+    output = RODF::Style.create 'odd-row-cell', family: :cell do
       property :text, 'color' => '#4c4c4c', 'font-weight' => 'bold'
     end
 

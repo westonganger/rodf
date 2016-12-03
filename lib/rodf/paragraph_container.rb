@@ -15,23 +15,19 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
 require 'builder'
 
-require 'odf/paragraph_container'
+require 'rodf/container'
 
-module ODF
-  class Tab
-    def xml
-      Builder::XmlMarkup.new.text:tab
-    end
-  end
-
+module RODF
+  # Container for all kinds of paragraph content
   class ParagraphContainer < Container
-    def tab(*args)
-      t = Tab.new
-      content_parts << t
-      t
+    def content_parts
+      @content_parts ||= []
+    end
+
+    def content_parts_xml
+      content_parts.map {|p| p.xml}.join
     end
   end
 end

@@ -15,15 +15,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rubygems'
-
 require 'zip'
 
-require 'odf/container'
-require 'odf/skeleton'
-require 'odf/style'
+require 'rodf/container'
+require 'rodf/skeleton'
+require 'rodf/style'
 
-module ODF
+module RODF
   class Document < Container
     contains :styles, :default_styles, :office_styles
 
