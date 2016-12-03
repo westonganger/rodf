@@ -29,7 +29,7 @@ describe RODF::Row do
       r.cell
       r.cell
     }
-    output.should have_tag('//table:table-row/*', :count => 2)
+    output.should have_tag('//table:table-row/*', count: 2)
     output.should have_tag('//table:table-cell')
   end
 
@@ -38,12 +38,12 @@ describe RODF::Row do
       cell
       cell
     end
-    output.should have_tag('//table:table-row/*', :count => 2)
+    output.should have_tag('//table:table-row/*', count: 2)
     output.should have_tag('//table:table-cell')
   end
 
   it "should be stylable in the initialization" do
-    output = RODF::Row.create 0, :style => 'dark' do
+    output = RODF::Row.create 0, style: 'dark' do
       cell
     end
     Hpricot(output).at('table:table-row')['table:style-name'].

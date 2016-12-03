@@ -43,12 +43,12 @@ describe RODF::Text do
   it "should allow styles" do
     RODF::Text.create.should_not have_tag('//office:automatic-styles')
     output = RODF::Text.create { |doc|
-      doc.style('bold', :family => 'text') {|s|
+      doc.style('bold', family: 'text') {|s|
         s.property(:text, 'font-weight' => 'bold') }
-      doc.style('italic', :family => 'text') {|s|
+      doc.style('italic', family: 'text') {|s|
         s.property(:text, 'font-weight' => 'italic') }
     }
-    output.should have_tag('//office:automatic-styles/*', :count => 2)
+    output.should have_tag('//office:automatic-styles/*', count: 2)
     output.should have_tag('//style:style')
   end
 
@@ -56,23 +56,23 @@ describe RODF::Text do
     output = RODF::Text.create { |doc|
       doc.page_layout 'main-layout'
     }
-    output.should have_tag('//office:automatic-styles/*', :count => 1)
+    output.should have_tag('//office:automatic-styles/*', count: 1)
     output.should have_tag('//style:page-layout')
   end
 
   it "should support master pages" do
     output = RODF::Text.create do |doc|
-      doc.master_page 'standard', :layout => 'letter'
+      doc.master_page 'standard', layout: 'letter'
     end
-    output.should have_tag('//office:master-styles/*', :count => 1)
+    output.should have_tag('//office:master-styles/*', count: 1)
     output.should have_tag('//style:master-page')
   end
 
   it "should support default styles" do
     output = RODF::Text.create do |doc|
-      doc.default_style :family => 'paragraph'
+      doc.default_style family: 'paragraph'
     end
-    output.should have_tag('//office:styles/*', :count => 1)
+    output.should have_tag('//office:styles/*', count: 1)
     output.should have_tag('//style:default-style')
   end
 end

@@ -26,14 +26,14 @@ describe RODF::Table do
     output.should_not have_tag('//table:table/*')
 
     output = RODF::Table.create('MyTable') {|t| t.row }
-    output.should have_tag('//table:table/*', :count => 1)
+    output.should have_tag('//table:table/*', count: 1)
     output.should have_tag('//table:table-row')
 
     output = RODF::Table.create('MyTable') {|t|
       t.row
       t.row
     }
-    output.should have_tag('//table:table/*', :count => 2)
+    output.should have_tag('//table:table/*', count: 2)
     output.should have_tag('//table:table-row')
   end
 
@@ -48,7 +48,7 @@ describe RODF::Table do
 
   it "should allow column style specifications" do
     xml = RODF::Table.create('Styles columns table') do |t|
-      t.column :style => 'wide'
+      t.column style: 'wide'
     end
 
     xml.should have_tag('table:table-column')
@@ -61,7 +61,7 @@ describe RODF::Table do
       row
       row
     }
-    output.should have_tag('//table:table/*', :count => 2)
+    output.should have_tag('//table:table/*', count: 2)
     output.should have_tag('//table:table-row')
   end
 
@@ -70,7 +70,7 @@ describe RODF::Table do
       row {cell}
       row
     }
-    output.should have_tag('//table:table/*', :count => 2)
+    output.should have_tag('//table:table/*', count: 2)
     output.should have_tag('//table:table-row')
     output.should have_tag('//table:table-cell')
   end

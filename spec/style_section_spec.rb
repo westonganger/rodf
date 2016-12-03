@@ -21,13 +21,13 @@ require 'rodf/style_section'
 
 describe RODF::StyleSection do
   it "should allow style attribute" do
-    output = RODF::StyleSection.new(:year, :style => 'long').xml
+    output = RODF::StyleSection.new(:year, style: 'long').xml
     output.should have_tag('number:year')
     Hpricot(output).at('number:year')['number:style'].should == 'long'
   end
 
   it "should allow textual flag" do
-    output = RODF::StyleSection.new(:month, :textual => true).xml
+    output = RODF::StyleSection.new(:month, textual: true).xml
     Hpricot(output).at('number:month')['number:textual'].should == 'true'
   end
 

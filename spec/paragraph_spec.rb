@@ -52,22 +52,22 @@ describe RODF::Paragraph do
   it "should be able to hold hyperlinks" do
     output = RODF::Paragraph.create {|p|
       p << "please visit "
-      p.a "example.org", :href => "http://www.example.org/"
+      p.a "example.org", href: "http://www.example.org/"
       p << " for more details"
     }
-    output.should have_tag("//text:p/*", :count => 3)
+    output.should have_tag("//text:p/*", count: 3)
     output.should have_tag("//text:a")
 
     Hpricot(output).at('text:a').innerHTML.should == 'example.org'
   end
 
   it "should support style attribute" do
-    Hpricot(RODF::Paragraph.create('styled paragraph', :style => 'highlight')).
+    Hpricot(RODF::Paragraph.create('styled paragraph', style: 'highlight')).
       at('text:p')['text:style-name'].should == 'highlight'
   end
 
   it "should accept attributes in the first parameter too" do
-    para = Hpricot(RODF::Paragraph.create(:style => 'testing')).at('text:p')
+    para = Hpricot(RODF::Paragraph.create(style: 'testing')).at('text:p')
     para.innerHTML.should be_empty
     para['text:style-name'].should == 'testing'
   end

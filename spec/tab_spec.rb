@@ -27,7 +27,7 @@ describe RODF::Tab do
       p.tab
       p << "test"
     }
-    output.should have_tag("//text:p/*", :count => 3)
+    output.should have_tag("//text:p/*", count: 3)
     output.should have_tag("//text:tab")
   end
 end

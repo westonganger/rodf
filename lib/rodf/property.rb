@@ -19,14 +19,14 @@ require 'builder'
 
 module RODF
   class Property
-    PROPERTY_NAMES = {:cell => 'table-cell-properties',
-                      :text => 'text-properties',
-                      :column => 'table-column-properties',
-                      :row => 'table-row-properties',
-                      :page_layout => 'page-layout-properties',
-                      :header_footer => 'header-footer-properties',
-                      :list_level => 'list-level-properties',
-                      :conditional => 'map'}
+    PROPERTY_NAMES = {cell: 'table-cell-properties',
+                      text: 'text-properties',
+                      column: 'table-column-properties',
+                      row: 'table-row-properties',
+                      page_layout: 'page-layout-properties',
+                      header_footer: 'header-footer-properties',
+                      list_level: 'list-level-properties',
+                      conditional: 'map'}
     TRANSLATED_SPECS = [:border_color, :border_style, :border_width]
 
     ATTRIBUTES_TO_NAMESPACES = [[

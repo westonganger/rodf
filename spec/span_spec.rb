@@ -37,7 +37,7 @@ describe RODF::Span do
       s.italics 'highlighted text'
     end
 
-    output.should have_tag('//text:span/*', :count => 2)
+    output.should have_tag('//text:span/*', count: 2)
     Hpricot(output).search('//text:span')[1].
       innerHTML.should == 'highlighted text'
   end
@@ -49,7 +49,7 @@ describe RODF::Span do
       s.a 'back again', 'http://www.example.com/'
     end
 
-    output.should have_tag('//text:a', :count => 2)
+    output.should have_tag('//text:a', count: 2)
     elem = Hpricot(output)
 
     links = elem.search('//text:a')

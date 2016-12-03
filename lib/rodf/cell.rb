@@ -109,7 +109,7 @@ module RODF
         cell, value, url = self, @value, @url
         paragraph do
           if cell.contains_url?
-            link value, :href => url
+            link value, href: url
           else
             self << value
           end

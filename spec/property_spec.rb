@@ -21,7 +21,7 @@ require 'rodf/property'
 
 describe RODF::Property do
   it "should accept either strings or symbols as keys" do
-    property = RODF::Property.new :text, :color=>'#4c4c4c', 'font-weight'=>'bold'
+    property = RODF::Property.new :text, color:'#4c4c4c', 'font-weight'=>'bold'
     elem = Hpricot(property.xml).at('style:text-properties')
     elem['fo:color'].should == '#4c4c4c'
     elem['fo:font-weight'].should == 'bold'
@@ -62,25 +62,25 @@ describe RODF::Property do
   end
 
   it "should accept full perimeter border specs" do
-    property = RODF::Property.new :cell, :border => "0.025in solid #000000"
+    property = RODF::Property.new :cell, border: "0.025in solid #000000"
 
     Hpricot(property.xml).at('//style:table-cell-properties')['fo:border'].
       should == "0.025in solid #000000"
   end
 
   it "should accept splited full perimeter border specs" do
-    property = RODF::Property.new :cell, :border_width => '0.025in',
-                                        :border_color => '#000000',
-                                        :border_style => 'solid'
+    property = RODF::Property.new :cell, border_width: '0.025in',
+                                        border_color: '#000000',
+                                        border_style: 'solid'
 
     Hpricot(property.xml).at('//style:table-cell-properties')['fo:border'].
       should == "0.025in solid #000000"
   end
 
   it "should use the first value for vertical and second for horizontal border side specs" do
-    property = RODF::Property.new :cell, :border_width => '0.025in 0.3in',
-                                        :border_color => '#ff0000 #0000ff',
-                                        :border_style => 'solid'
+    property = RODF::Property.new :cell, border_width: '0.025in 0.3in',
+                                        border_color: '#ff0000 #0000ff',
+                                        border_style: 'solid'
 
     elem= Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-top'].should == "0.025in solid #ff0000"
@@ -90,46 +90,46 @@ describe RODF::Property do
   end
 
   it "should use the third value for bottom border specs when present" do
-    property = RODF::Property.new :cell, :border_width => '0.025in 0.3in 0.4in',
-                                        :border_color => '#ff0000 #0000ff',
-                                        :border_style => 'dotted solid solid'
+    property = RODF::Property.new :cell, border_width: '0.025in 0.3in 0.4in',
+                                        border_color: '#ff0000 #0000ff',
+                                        border_style: 'dotted solid solid'
 
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-bottom'].should == "0.4in solid #ff0000"
 
-    property = RODF::Property.new :cell, :border_width => '0.025in',
-                                        :border_color => '#ff0000 #0000ff #00ff00',
-                                        :border_style => 'dotted solid'
+    property = RODF::Property.new :cell, border_width: '0.025in',
+                                        border_color: '#ff0000 #0000ff #00ff00',
+                                        border_style: 'dotted solid'
 
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-bottom'].should == "0.025in dotted #00ff00"
   end
 
   it "should cascade left border specs from fourth to second to first" do
-    property = RODF::Property.new :cell, :border_width => '0.1in 0.2in 0.3in 0.4in',
-                                        :border_color => '#ff0000 #0000ff #00ff00',
-                                        :border_style => 'dotted solid'
+    property = RODF::Property.new :cell, border_width: '0.1in 0.2in 0.3in 0.4in',
+                                        border_color: '#ff0000 #0000ff #00ff00',
+                                        border_style: 'dotted solid'
 
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-left'].should == "0.4in solid #0000ff"
 
-    property = RODF::Property.new :cell, :border_width => '0.1in 0.2in 0.3in',
-                                        :border_color => '#ff0000 #0000ff',
-                                        :border_style => 'dotted'
+    property = RODF::Property.new :cell, border_width: '0.1in 0.2in 0.3in',
+                                        border_color: '#ff0000 #0000ff',
+                                        border_style: 'dotted'
 
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-left'].should == "0.2in dotted #0000ff"
 
-    property = RODF::Property.new :cell, :border_width => '0.1in 0.2in',
-                                        :border_color => '#ff0000',
-                                        :border_style => 'dotted solid dashed double'
+    property = RODF::Property.new :cell, border_width: '0.1in 0.2in',
+                                        border_color: '#ff0000',
+                                        border_style: 'dotted solid dashed double'
 
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-left'].should == "0.2in double #ff0000"
 
-    property = RODF::Property.new :cell, :border_width => '0.1in',
-                                        :border_color => '#ff0000 #0000ff #00ff00 #ffff00',
-                                        :border_style => 'dotted solid dashed'
+    property = RODF::Property.new :cell, border_width: '0.1in',
+                                        border_color: '#ff0000 #0000ff #00ff00 #ffff00',
+                                        border_style: 'dotted solid dashed'
 
     elem = Hpricot(property.xml).at('//style:table-cell-properties')
     elem['fo:border-left'].should == "0.1in solid #ffff00"

@@ -30,7 +30,7 @@ describe RODF::PageLayout do
     output = RODF::PageLayout.create 'main-layout' do |l|
       l.property 'page-layout'
     end
-    output.should have_tag('//style:page-layout/*', :count => 1)
+    output.should have_tag('//style:page-layout/*', count: 1)
     output.should have_tag('style:page-layout-properties')
   end
 
@@ -38,7 +38,7 @@ describe RODF::PageLayout do
     output = RODF::PageLayout.create 'main-layout' do
       property 'page-layout'
     end
-    output.should have_tag('//style:page-layout/*', :count => 1)
+    output.should have_tag('//style:page-layout/*', count: 1)
     output.should have_tag('style:page-layout-properties')
   end
 end

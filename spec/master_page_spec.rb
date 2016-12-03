@@ -28,7 +28,7 @@ describe RODF::MasterPage do
   end
 
   it "should accept a layout reference" do
-    Hpricot(RODF::MasterPage.new('my-master-page', :layout => 'A4').xml).
+    Hpricot(RODF::MasterPage.new('my-master-page', layout: 'A4').xml).
       at('style:master-page')['style:page-layout-name'].should == 'A4'
   end
 end

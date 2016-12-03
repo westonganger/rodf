@@ -22,8 +22,8 @@ require 'rodf/data_style'
 describe RODF::DataStyle do
   it "should have sections" do
     output = RODF::DataStyle.create 'year-to-day', :date do |s|
-      s.section :year, :style => 'long'
-      s.section :month, :style => 'long'
+      s.section :year, style: 'long'
+      s.section :month, style: 'long'
       s.section :day
     end
 
@@ -37,8 +37,8 @@ describe RODF::DataStyle do
 
   it "should allow short section names" do
     output = RODF::DataStyle.create 'year-to-day', :date do |number|
-      number.year :style => 'long'
-      number.month :style => 'long'
+      number.year style: 'long'
+      number.month style: 'long'
       number.day
     end
 
@@ -49,8 +49,8 @@ describe RODF::DataStyle do
 
   it "should accept parameterless blocks" do
     output = RODF::DataStyle.create 'year-to-day', :date do
-      section :year, :style => 'long'
-      section :month, :style => 'long'
+      section :year, style: 'long'
+      section :month, style: 'long'
       section :day
     end
 
