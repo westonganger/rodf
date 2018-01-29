@@ -1,5 +1,5 @@
-<a href='https://ko-fi.com/A5071NK' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a> 
 # RODF
+<a href='https://ko-fi.com/A5071NK' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a> 
 
 This is a library for writing to ODF output from Ruby. It mainly focuses creating ODS spreadsheets.
 
@@ -7,18 +7,18 @@ As well as writing ODS spreadsheets, this library also can write ODT text docume
 
 This is NOT an ODF reading library.
 
-### v1.0.0 Breaking Changes
-The main module `ODF` has changed to `RODF`
-
-`require 'odf/spreadsheet'` must be changed to `require 'rodf'`
-
-### Install
+## Install
 
 ```
 gem install rodf
 ```
 
-### How do I use it?
+#### v1.0.0 Breaking Changes
+The main module is now `RODF`. It previously was `ODF`.
+
+As such the require has been simplified as `require 'rodf'`. It previously was `require 'odf/spreadsheet'`.
+
+## How do I use it?
 
 rODF works pretty much like Builder, but with ODF-aware constructs. Try this:
 
@@ -92,7 +92,7 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do
 end
 ```
 
-### Procedural style
+## Procedural style
 
 The declarative style shown above is just syntatic sugar. A more procedural
 style can also be used. Like so:
@@ -128,7 +128,18 @@ end
 ss.write_to 'my-spreadsheet.ods'
 ```
 
-### Style List
+## Columns Types
+
+Available columns types are:
+
+- :string
+- :float
+- :date
+- :time
+- :currency
+- :percentage
+
+## Style List
 ```ruby
 property :text, 
   'font-weight' => :bold, #options are :bold, :thin
@@ -162,7 +173,7 @@ property :table,
 ```
 
 
-### Credits
+## Credits
 Created by [@thiagoarrais](https://github.com/thiagoarrais)
 
 Currently maintained by [@westonganger](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem

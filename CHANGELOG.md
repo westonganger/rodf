@@ -1,3 +1,6 @@
+* **v1.0.1**
+  * Improvements to Date/Time handling (Issue #19)
+  * Ensure tests for all available cell types
 * **v1.0.0** Rename main module ODF to RODF, Fix cell types
 * **v0.3.7** Add Rails 5 support to gemspec
 * **v0.3.6** Resulting ODF files as bitstrings

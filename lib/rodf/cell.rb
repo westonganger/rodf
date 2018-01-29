@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
+require 'date'
+
 require 'builder'
 
 require 'rodf/container'
@@ -44,21 +46,25 @@ module RODF
         @url = opts[:url]
 
         if !@type
-          if value.is_a?(Numeric)
+          if @value.is_a?(Numeric)
             @type = :float
           elsif @value.respond_to?(:strftime)
-            @type = :date
-            @value = value.to_s
-
-            #if value.is_a?(Date)
-            #  @value = value.strftime("%Y-%m-%d")
-            #else
-            #  @value = value.strftime("%Y%m%dT%H%M%S")
-            #end
+            if @value.is_a?(Date)
+              @type = :date
+            else
+              @type = :time
+            end
           else
             @type = :string
-            @value = value.to_s
+            @value = @value.to_s
           end
+        end
+
+        case @type.to_s
+        when 'date'
+          @value = @value.strftime("%Y-%m-%d") if @value.respond_to?(:strftime)
+        when 'time'
+          @value = @value.strftime("%Y%m%dT%H%M%S") if @value.respond_to?(:strftime)
         end
       end
 
@@ -93,14 +99,39 @@ module RODF
 
     def make_element_attributes(type, value, opts)
       attrs = {}
-      attrs['office:value-type'] = type if type == :string || !empty?(value) || !opts[:formula].nil?
-      attrs['office:date-value'] = value if type == :date && !empty?(value)
-      attrs['office:value'] = value if type == :float && !empty?(value)
-      attrs['table:formula'] = opts[:formula] unless opts[:formula].nil?
-      attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
-      attrs['table:number-columns-spanned'] = opts[:span] unless opts[:span].nil?
-      attrs['table:number-matrix-columns-spanned'] =
-        attrs['table:number-matrix-rows-spanned'] = 1 if opts[:matrix_formula]
+
+      if !empty?(value) || !opts[:formula].nil? || type == :string
+        attrs['office:value-type'] = type 
+      end
+      
+      if type != :string && !empty?(value)
+        case type
+        when :date
+          attrs['office:date-value'] = value
+        when :time
+          attrs['office:time-value'] = value
+        else ### :float, :percentage, :currency
+          attrs['office:value'] = value
+        end
+      end
+
+      unless opts[:formula].nil?
+        attrs['table:formula'] = opts[:formula]
+      end
+
+      unless opts[:style].nil?
+        attrs['table:style-name'] = opts[:style]
+      end
+
+      unless opts[:span].nil?
+        attrs['table:number-columns-spanned'] = opts[:span]
+      end
+
+      if opts[:matrix_formula] 
+        attrs['table:number-matrix-columns-spanned'] = 1
+        attrs['table:number-matrix-rows-spanned'] = 1 
+      end
+
       return attrs
     end
 
@@ -121,5 +152,6 @@ module RODF
       value.respond_to?(:empty?) ? value.empty? : value.nil?
       #respond_to?(:empty?) ? (value.empty? || value =~ /\A[[:space:]]*\z/) : value.nil?
     end
+
   end
 end
