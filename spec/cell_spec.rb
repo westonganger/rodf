@@ -23,8 +23,6 @@ require 'time'
 require 'rodf/cell'
 
 CELL_TYPES = [:float, :date, :time, :percentage, :currency].freeze
-TIME_FORMAT = "%Y%m%dT%H%M%S".freeze
-DATE_FORMAT = "%Y-%m-%d".freeze
 
 describe RODF::Cell do
   ### GENERAL & STRING
@@ -175,7 +173,7 @@ describe RODF::Cell do
     date = Date.parse('2010-04-15')
     cell = Hpricot(RODF::Cell.new(date, type: :date).xml).at('table:table-cell')
     cell['office:value-type'].should == 'date'
-    cell['office:date-value'].should == date.strftime(DATE_FORMAT)
+    cell['office:date-value'].should == date.strftime(RODF::Cell::DATE_FORMAT)
     cell['office:value'].should be_nil
     cell['office:time-value'].should be_nil
   end
@@ -185,7 +183,7 @@ describe RODF::Cell do
     time = Time.now
     cell = Hpricot(RODF::Cell.new(time, type: :time).xml).at('table:table-cell')
     cell['office:value-type'].should == 'time'
-    cell['office:time-value'].should == time.strftime(TIME_FORMAT)
+    cell['office:time-value'].should == time.strftime(RODF::Cell::TIME_FORMAT)
     cell['office:value'].should be_nil
     cell['office:date-value'].should be_nil
   end

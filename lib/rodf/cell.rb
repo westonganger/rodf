@@ -49,7 +49,7 @@ module RODF
           if @value.is_a?(Numeric)
             @type = :float
           elsif @value.respond_to?(:strftime)
-            if @value.is_a?(Date)
+            if @value.is_a?(Date) && !@value.is_a?(DateTime)
               @type = :date
             else
               @type = :time
@@ -62,9 +62,9 @@ module RODF
 
         case @type.to_s
         when 'date'
-          @value = @value.strftime("%Y-%m-%d") if @value.respond_to?(:strftime)
+          @value = @value.strftime(DATE_FORMAT) if @value.respond_to?(:strftime)
         when 'time'
-          @value = @value.strftime("%Y%m%dT%H%M%S") if @value.respond_to?(:strftime)
+          @value = @value.strftime(TIME_FORMAT) if @value.respond_to?(:strftime)
         end
       end
 
@@ -153,5 +153,7 @@ module RODF
       #respond_to?(:empty?) ? (value.empty? || value =~ /\A[[:space:]]*\z/) : value.nil?
     end
 
+    DATE_FORMAT = "%Y-%m-%d".freeze
+    TIME_FORMAT = "%Y-%m-%dT%H%M%S".freeze
   end
 end
