@@ -51,26 +51,14 @@ module RODF
           elsif @value.respond_to?(:strftime)
             ### for auto type inference force :date type because :time doesnt store any date info
             @type = :date
-            @value = @value.strftime
           else
             @type = :string
             @value = @value.to_s
           end
         end
-
-        if @value.respond_to?(:strftime)
-          ### After thought and looking at the XML its better if you only pass in pre-formatted strings that match
-          ### the time/datetime styles in your document. If not I can only guess what the default format should be.
-          ### At this time the guess will probably make your document wrong 
-          ### TODO: add a default style to the document for these cases.
-
-          if @type == :time
-            @value = @value.strftime(DEFAULT_TIME_FORMAT)
-          else
-            @value = @value.to_s
-          end
-        end
       end
+
+      ### TODO: set default DataStyle for the Spreadsheet for Date / Time / DateTime cells formatting
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
       @multiplier = (opts[:span] || 1).to_i
@@ -157,6 +145,5 @@ module RODF
       #respond_to?(:empty?) ? (value.empty? || value =~ /\A[[:space:]]*\z/) : value.nil?
     end
 
-    DEFAULT_TIME_FORMAT = "%H:%M:%S".freeze
   end
 end
