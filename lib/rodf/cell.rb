@@ -49,22 +49,26 @@ module RODF
           if @value.is_a?(Numeric)
             @type = :float
           elsif @value.respond_to?(:strftime)
-            if @value.is_a?(Date) && !@value.is_a?(DateTime)
-              @type = :date
-            else
-              @type = :time
-            end
+            ### for auto type inference force :date type because :time doesnt store any date info
+            @type = :date
+            @value = @value.strftime
           else
             @type = :string
             @value = @value.to_s
           end
         end
 
-        case @type.to_s
-        when 'date'
-          @value = @value.strftime(DATE_FORMAT) if @value.respond_to?(:strftime)
-        when 'time'
-          @value = @value.strftime(TIME_FORMAT) if @value.respond_to?(:strftime)
+        if @value.respond_to?(:strftime)
+          ### After thought and looking at the XML its better if you only pass in pre-formatted strings that match
+          ### the time/datetime styles in your document. If not I can only guess what the default format should be.
+          ### At this time the guess will probably make your document wrong 
+          ### TODO: add a default style to the document for these cases.
+
+          if @type == :time
+            @value = @value.strftime(DEFAULT_TIME_FORMAT)
+          else
+            @value = @value.to_s
+          end
         end
       end
 
@@ -153,7 +157,6 @@ module RODF
       #respond_to?(:empty?) ? (value.empty? || value =~ /\A[[:space:]]*\z/) : value.nil?
     end
 
-    DATE_FORMAT = "%Y-%m-%d".freeze
-    TIME_FORMAT = "%Y-%m-%dT%H%M%S".freeze
+    DEFAULT_TIME_FORMAT = "%H:%M:%S".freeze
   end
 end

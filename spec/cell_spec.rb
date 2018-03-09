@@ -173,7 +173,7 @@ describe RODF::Cell do
     date = Date.parse('2010-04-15')
     cell = Hpricot(RODF::Cell.new(date, type: :date).xml).at('table:table-cell')
     cell['office:value-type'].should == 'date'
-    cell['office:date-value'].should == date.strftime(RODF::Cell::DATE_FORMAT)
+    cell['office:date-value'].should == date.to_s
     cell['office:value'].should be_nil
     cell['office:time-value'].should be_nil
   end
@@ -183,7 +183,7 @@ describe RODF::Cell do
     time = Time.now
     cell = Hpricot(RODF::Cell.new(time, type: :time).xml).at('table:table-cell')
     cell['office:value-type'].should == 'time'
-    cell['office:time-value'].should == time.strftime(RODF::Cell::TIME_FORMAT)
+    cell['office:time-value'].should == time.strftime(RODF::Cell::DEFAULT_TIME_FORMAT)
     cell['office:value'].should be_nil
     cell['office:date-value'].should be_nil
   end
