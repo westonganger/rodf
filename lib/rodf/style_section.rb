@@ -33,8 +33,15 @@ module RODF
     end
 
     def make_element_attributes(opts)
-      {'number:style' => opts[:style], 'number:textual' => opts[:textual]}
+      attrs = {}
+
+      attrs['number:decimal-places'] = opts[:decimal_places] unless opts[:decimal_places].nil?
+      attrs['number:grouping'] = opts[:grouping] unless opts[:grouping].nil?
+      attrs['number:min-integer-digits'] = opts[:min_integer_digits] unless opts[:min_integer_digits].nil?
+      attrs['number:style'] = opts[:style] unless opts[:style].nil?
+      attrs['number:textual'] = opts[:textual] unless opts[:textual].nil?
+
+      attrs
     end
   end
 end
-
