@@ -1,4 +1,5 @@
-* **v1.0.1**
+* **v1.0.1** - UNRELEASED
+  * [#21](https://github.com/thiagoarrais/rodf/pull/21) - Allow more attributes for the `data_style` method
   * Improvements to Date/Time handling (Issue #19)
   * Ensure tests for all available cell types
 * **v1.0.0** Rename main module ODF to RODF, Fix cell types
