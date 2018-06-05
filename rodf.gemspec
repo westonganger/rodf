@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.version = RODF::VERSION
   s.homepage = 'https://github.com/thiagoarrais/rodf'
   s.authors = ['Weston Ganger', 'Thiago Arrais', 'Foivos Zakkak']
-  s.email = ["westonganger", "thiago.arrais@gmail.com"]
+  s.email = ["weston@westonganger.com", "thiago.arrais@gmail.com"]
 
   s.files = Dir.glob("{lib/**/*}") + %w{ LICENSE.LGPL README.md Rakefile CHANGELOG.md }
   s.require_path = 'lib'
