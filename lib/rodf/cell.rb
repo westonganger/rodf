@@ -130,11 +130,15 @@ module RODF
     def make_value_paragraph
       if contains_string?
         cell, value, url = self, @value, @url
-        paragraph do
-          if cell.contains_url?
-            link value, href: url
-          else
-            self << value
+
+        # Split out newlines to be new cells since the text has been escaped at this point
+        value.to_s.split("\n").each do |split_value|
+          paragraph do
+            if cell.contains_url?
+              link split_value, href: url
+            else
+              self << split_value
+            end
           end
         end
       end
