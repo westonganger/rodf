@@ -113,6 +113,17 @@ describe RODF::Cell do
     cell.xml.should_not have_tag('text:a')
   end
 
+  it "should respect newlines and split across multiple text:p cells" do
+    c = RODF::Cell.new("testing1\ntesting2")
+    output = c.xml
+
+    output.should have_tag("//text:p", count: 2)
+
+    ps = Hpricot(output).search('text:p')
+    ps[0].innerHTML.should == 'testing1'
+    ps[1].innerHTML.should == 'testing2'
+  end
+
   ### FLOAT
   it "should allow value types to be specified" do
     output = RODF::Cell.new(34.2, type: :float).xml
