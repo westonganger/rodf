@@ -32,6 +32,22 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do
 end
 ```
 
+For access to variables and methods from outer code you can use block parameter:
+
+```ruby
+require 'rodf'
+
+@data = 'Hello, rODF world!'
+
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
+  spreadsheet.table 'My first table from Ruby' do |table|
+    table.row do |row|
+      row.cell @data
+    end
+  end
+end
+```
+
 Styling and formatting is also possible:
 
 ```ruby

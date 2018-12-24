@@ -20,6 +20,8 @@ module RODF
 
   class Span < ParagraphContainer
     def initialize(first, second = nil)
+      super
+
       @style = nil
 
       if first.instance_of?(Symbol)

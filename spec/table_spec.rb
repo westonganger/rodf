@@ -44,12 +44,24 @@ describe RODF::Table do
   end
 
   it "should accept parameterless block" do
+    inner = nil
     output = RODF::Table.create('MyTable') {
       row
       row
+
+      inner = self
     }
+    expect(inner).to be_an_instance_of RODF::Table
     output.should have_tag('//table:table/*', count: 2)
     output.should have_tag('//table:table-row')
+  end
+
+  it "should not instance exec inside block with parameter" do
+    inner = nil
+    RODF::Table.create('MyTable') do |t|
+      inner = self
+    end
+    expect(inner).to be self
   end
 
   it "should have children that accept parameterless blocks too" do

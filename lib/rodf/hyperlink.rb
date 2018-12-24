@@ -9,6 +9,8 @@ require_relative 'paragraph_container'
 module RODF
   class Hyperlink < ParagraphContainer
     def initialize(first, second = {})
+      super
+
       if second.instance_of?(Hash) && second.empty?
         @href = first
       else

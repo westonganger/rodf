@@ -14,6 +14,8 @@ module RODF
     FAMILIES = {cell: 'table-cell', column: 'table-column', row: 'table-row'}
 
     def initialize(name='', opts={}, node_tag='style:style')
+      super
+
       @name, @node_tag = name, node_tag
       @elem_attrs = make_element_attributes(@name, opts)
     end

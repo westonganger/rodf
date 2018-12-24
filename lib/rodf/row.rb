@@ -16,6 +16,8 @@ module RODF
     def initialize(number=0, opts={})
       @number = number
       @style = opts[:style]
+
+      super
     end
 
     def xml
