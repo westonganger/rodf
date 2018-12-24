@@ -31,8 +31,10 @@ module RODF
     end
 
     alias create_row row
-    def row(options={}, &contents)
-      create_row(next_row, options) {instance_eval(&contents) if block_given?}
+    def row(options = {}, &contents)
+      create_row(next_row, options) do
+        instance_exec(self, &contents) if contents
+      end
     end
 
     def xml
