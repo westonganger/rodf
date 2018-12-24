@@ -25,7 +25,7 @@ module RODF
   class Table < Container
     contains :rows, :columns
 
-    def initialize(title)
+    def initialize(title = nil)
       @title = title
       @last_row = 0
     end

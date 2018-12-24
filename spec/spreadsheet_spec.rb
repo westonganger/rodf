@@ -47,6 +47,15 @@ describe RODF::SpreadSheet do
     output.should have_tag('//office:spreadsheet/*', count: 2)
   end
 
+  it "should allow tables without name" do
+    output = RODF::SpreadSheet.create { |s|
+      s.table
+    }
+    output.should have_tag('//office:spreadsheet/*', count: 1)
+    output.should have_tag('//table:table', count: 1)
+    Hpricot(output).at('//table:table')['table:name'].should be_empty
+  end
+
   it "should allow rows to be added inside tables" do
     output = RODF::SpreadSheet.create do |s|
       s.table('My table') do |t|
