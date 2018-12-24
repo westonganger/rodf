@@ -106,4 +106,3 @@ describe RODF::Style do
     output.should have_tag('//style:style/*')
   end
 end
-

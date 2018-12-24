@@ -42,4 +42,3 @@ describe RODF::PageLayout do
     output.should have_tag('style:page-layout-properties')
   end
 end
-

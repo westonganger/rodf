@@ -58,4 +58,3 @@ describe RODF::DataStyle do
     output.should have_tag('number:year')
   end
 end
-

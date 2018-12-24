@@ -93,9 +93,9 @@ module RODF
       attrs = {}
 
       if !empty?(value) || !opts[:formula].nil? || type == :string
-        attrs['office:value-type'] = type 
+        attrs['office:value-type'] = type
       end
-      
+
       if type != :string && !empty?(value)
         case type
         when :date
@@ -119,9 +119,9 @@ module RODF
         attrs['table:number-columns-spanned'] = opts[:span]
       end
 
-      if opts[:matrix_formula] 
+      if opts[:matrix_formula]
         attrs['table:number-matrix-columns-spanned'] = 1
-        attrs['table:number-matrix-rows-spanned'] = 1 
+        attrs['table:number-matrix-rows-spanned'] = 1
       end
 
       return attrs

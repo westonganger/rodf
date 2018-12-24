@@ -30,4 +30,3 @@ describe RODF::Skeleton do
     output.should have_tag('//number:date-style', count: 1)
   end
 end
-

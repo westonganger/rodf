@@ -120,4 +120,3 @@ describe RODF::SpreadSheet do
     Hpricot(output).at('//style:style')['style:name'].should == 'red-cell'
   end
 end
-
