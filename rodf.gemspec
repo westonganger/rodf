@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.authors = ['Weston Ganger', 'Thiago Arrais', 'Foivos Zakkak']
   s.email = ["weston@westonganger.com", "thiago.arrais@gmail.com"]
 
-  s.files = Dir.glob("{lib/**/*}") + %w{ LICENSE.LGPL README.md Rakefile CHANGELOG.md }
+  s.files = Dir.glob("{lib/**/*}") + %w{ LICENSE README.md Rakefile CHANGELOG.md }
   s.require_path = 'lib'
 
   s.required_ruby_version = '>= 1.9.3'
