@@ -17,9 +17,9 @@
 
 require 'builder'
 
-require 'rodf/column'
-require 'rodf/container'
-require 'rodf/row'
+require_relative 'column'
+require_relative 'container'
+require_relative 'row'
 
 module RODF
   class Table < Container

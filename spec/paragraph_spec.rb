@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/paragraph'
+require_relative '../lib/rodf/paragraph'
 
 describe RODF::Paragraph do
   it "should allow text content inside" do

@@ -17,8 +17,8 @@
 
 require 'builder'
 
-require 'rodf/container'
-require 'rodf/style_section'
+require_relative 'container'
+require_relative 'style_section'
 
 module RODF
   class DataStyle < Container

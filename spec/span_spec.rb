@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/span'
+require_relative '../lib/rodf/span'
 
 describe RODF::Span do
   it "should print non-styled spans in pure text" do

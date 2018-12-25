@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'rodf/data_style'
-require 'rodf/document'
-require 'rodf/hyperlink'
-require 'rodf/span'
-require 'rodf/table'
+require_relative 'data_style'
+require_relative 'document'
+require_relative 'hyperlink'
+require_relative 'span'
+require_relative 'table'
 
 module RODF
   class Spreadsheet < Document

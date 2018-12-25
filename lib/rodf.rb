@@ -1,5 +1,5 @@
 require 'builder'
-require 'rodf/spreadsheet'
+require_relative 'rodf/spreadsheet'
 
 module RODF
   

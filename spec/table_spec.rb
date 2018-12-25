@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with rODF.  If not, see <http://www.gnu.org/licenses/>.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/table'
+require_relative '../lib/rodf/table'
 
 describe RODF::Table do
   it "should allow rows to be added" do

@@ -17,8 +17,8 @@
 
 require 'builder'
 
-require 'rodf/compatibility'
-require 'rodf/paragraph_container'
+require_relative 'compatibility'
+require_relative 'paragraph_container'
 
 module RODF
   class TextNode

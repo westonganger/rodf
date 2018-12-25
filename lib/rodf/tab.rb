@@ -17,7 +17,7 @@
 
 require 'builder'
 
-require 'rodf/paragraph_container'
+require_relative 'paragraph_container'
 
 module RODF
   class Tab
