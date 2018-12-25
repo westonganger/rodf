@@ -20,7 +20,7 @@ module RODF
 
       if value.is_a?(Hash)
         opts = value
-        value = ''
+        value = opts[:value]
       else
         if value.is_a?(String)
           value = value.strip
