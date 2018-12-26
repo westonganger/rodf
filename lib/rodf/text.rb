@@ -4,12 +4,12 @@
 
 require 'builder'
 
-require 'rodf/document'
-require 'rodf/master_page'
-require 'rodf/page_layout'
-require 'rodf/paragraph'
-require 'rodf/span'
-require 'rodf/hyperlink'
+require_relative 'document'
+require_relative 'master_page'
+require_relative 'page_layout'
+require_relative 'paragraph'
+require_relative 'span'
+require_relative 'hyperlink'
 
 module RODF
   class Text < Document

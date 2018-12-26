@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/paragraph'
+require_relative '../lib/rodf/paragraph'
 
 describe RODF::Paragraph do
   it "should allow text content inside" do

@@ -2,10 +2,10 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/paragraph'
-require 'rodf/tab'
+require_relative '../lib/rodf/paragraph'
+require_relative '../lib/rodf/tab'
 
 describe RODF::Tab do
   it "should be placed inside paragraphs" do

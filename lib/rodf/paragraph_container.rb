@@ -4,7 +4,7 @@
 
 require 'builder'
 
-require 'rodf/container'
+require_relative 'container'
 
 module RODF
   # Container for all kinds of paragraph content

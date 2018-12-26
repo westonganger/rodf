@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/hyperlink'
+require_relative '../lib/rodf/hyperlink'
 
 describe RODF::Hyperlink do
   it "should receive content text in first argument" do

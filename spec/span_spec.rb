@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/span'
+require_relative '../lib/rodf/span'
 
 describe RODF::Span do
   it "should print non-styled spans in pure text" do

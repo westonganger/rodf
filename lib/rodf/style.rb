@@ -4,8 +4,8 @@
 
 require 'builder'
 
-require 'rodf/container'
-require 'rodf/property'
+require_relative 'container'
+require_relative 'property'
 
 module RODF
   class Style < Container

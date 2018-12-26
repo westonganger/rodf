@@ -6,8 +6,8 @@ require 'date'
 
 require 'builder'
 
-require 'rodf/container'
-require 'rodf/paragraph'
+require_relative 'container'
+require_relative 'paragraph'
 
 module RODF
   class Cell < Container

@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/spreadsheet'
+require_relative '../lib/rodf/spreadsheet'
 
 describe RODF::SpreadSheet do
   it "should have the expected structure" do

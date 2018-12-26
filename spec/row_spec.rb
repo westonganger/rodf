@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/row'
+require_relative '../lib/rodf/row'
 
 describe RODF::Row do
   it "should allow cells to be added" do

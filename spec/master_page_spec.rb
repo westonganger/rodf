@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/master_page'
+require_relative '../lib/rodf/master_page'
 
 describe RODF::MasterPage do
   it "should have a name" do

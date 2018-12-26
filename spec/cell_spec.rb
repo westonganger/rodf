@@ -2,12 +2,12 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
 require 'date'
 require 'time'
 
-require 'rodf/cell'
+require_relative '../lib/rodf/cell'
 
 CELL_TYPES = [:float, :date, :time, :percentage, :currency].freeze
 

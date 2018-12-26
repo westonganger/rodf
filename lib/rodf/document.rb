@@ -4,9 +4,9 @@
 
 require 'zip'
 
-require 'rodf/container'
-require 'rodf/skeleton'
-require 'rodf/style'
+require_relative 'container'
+require_relative 'skeleton'
+require_relative 'style'
 
 module RODF
   class Document < Container

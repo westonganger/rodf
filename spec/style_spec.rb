@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/style'
+require_relative '../lib/rodf/style'
 
 describe RODF::Style do
   it "should output properties when they're added" do

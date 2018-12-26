@@ -2,9 +2,9 @@
 #
 # This file is part of rODF.
 
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require_relative 'spec_helper'
 
-require 'rodf/property'
+require_relative '../lib/rodf/property'
 
 describe RODF::Property do
   it "should accept either strings or symbols as keys" do
