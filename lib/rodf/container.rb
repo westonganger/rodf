@@ -2,14 +2,16 @@
 #
 # This file is part of rODF.
 
-require 'active_support/inflector'
+require 'dry/inflector'
 
 module RODF
   class Container
+    INFLECTOR = Dry::Inflector.new.freeze
+
     def self.contains(*stuffs_array)
       stuffs_array.map {|sym| sym.to_s}.each do |stuffs|
-        stuff = stuffs.to_s.singularize
-        stuff_class = RODF.const_get(stuff.camelize)
+        stuff = INFLECTOR.singularize(stuffs.to_s)
+        stuff_class = RODF.const_get(INFLECTOR.camelize(stuff))
 
         define_method stuffs do
           instance_variable_name = :"@#{stuffs}"
