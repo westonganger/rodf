@@ -254,4 +254,3 @@ describe RODF::Property do
     end
   end
 end
-

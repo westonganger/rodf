@@ -34,4 +34,3 @@ module RODF
     alias a link
   end
 end
-

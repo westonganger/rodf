@@ -46,4 +46,3 @@ describe RODF::Hyperlink do
     output.should have_tag('//text:span/*')
   end
 end
-

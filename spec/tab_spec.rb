@@ -18,4 +18,3 @@ describe RODF::Tab do
     output.should have_tag("//text:tab")
   end
 end
-

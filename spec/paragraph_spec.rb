@@ -59,4 +59,3 @@ describe RODF::Paragraph do
     para['text:style-name'].should == 'testing'
   end
 end
-

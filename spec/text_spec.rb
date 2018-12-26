@@ -63,4 +63,3 @@ describe RODF::Text do
     output.should have_tag('//style:default-style')
   end
 end
-

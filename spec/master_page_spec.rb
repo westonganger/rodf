@@ -19,4 +19,3 @@ describe RODF::MasterPage do
       at('style:master-page')['style:page-layout-name'].should == 'A4'
   end
 end
-
