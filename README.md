@@ -110,8 +110,7 @@ c = r.cell 'Hello, rODF world!'
 # two methods to write to file
 ss.write_to 'my-spreadsheet.ods'
 # or
-File.write('my-spreadsheet.ods') do |f|
-  f.write ss.bytes # you can send your data in Rails over HTTP using the bytes method
+File.write('my-spreadsheet.ods', ss.bytes) # you can send your data in Rails over HTTP using the bytes method
 end
 ```
 
