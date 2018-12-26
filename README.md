@@ -1,5 +1,6 @@
 # RODF
 <a href="https://badge.fury.io/rb/rodf" target="_blank"><img height="21" style='border:0px;height:21px;' border='0' src="https://badge.fury.io/rb/rodf.svg" alt="Gem Version"></a>
+<a href='https://travis-ci.org/westonganger/rodf' target='_blank'><img height='21' style='border:0px;height:21px;' src='https://api.travis-ci.org/westonganger/rodf.svg?branch=master' border='0' alt='Build Status' /></a>
 <a href='https://rubygems.org/gems/rodf' target='_blank'><img height='21' style='border:0px;height:21px;' src='https://ruby-gem-downloads-badge.herokuapp.com/rodf?label=rubygems&type=total&total_label=downloads&color=brightgreen' border='0' alt='RubyGems Downloads' /></a>
 <a href='https://ko-fi.com/A5071NK' target='_blank'><img height='22' style='border:0px;height:22px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a>
 
@@ -14,11 +15,6 @@ This is NOT an ODF reading library.
 ```
 gem install rodf
 ```
-
-#### v1.0.0 Breaking Changes
-The main module is now `RODF`. It previously was `ODF`.
-
-As such the require has been simplified as `require 'rodf'`. It previously was `require 'odf/spreadsheet'`.
 
 ## How do I use it?
 
@@ -175,8 +171,6 @@ property :table,
 
 
 ## Credits
-Created by [@thiagoarrais](https://github.com/thiagoarrais)
+Created by Thiago Arrais [(@thiagoarrais)](https://github.com/thiagoarrais)
 
-Currently maintained by [@westonganger](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
-
-<a href='https://ko-fi.com/A5071NK' target='_blank'><img height='32' style='border:0px;height:32px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a>
+Created & Maintained by [Weston Ganger](https://westonganger.com) [(@westonganger)](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
