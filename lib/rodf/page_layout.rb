@@ -12,6 +12,8 @@ module RODF
     contains :properties
 
     def initialize(name)
+      super
+
       @name = name
     end
 

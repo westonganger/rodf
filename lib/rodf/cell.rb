@@ -16,6 +16,8 @@ module RODF
     alias :p :paragraph
 
     def initialize(value=nil, opts={})
+      super
+
       if value.is_a?(Hash)
         opts = value
         value = ''

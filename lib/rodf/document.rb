@@ -13,7 +13,12 @@ module RODF
     contains :styles, :default_styles, :office_styles
 
     def self.file(ods_file_name, &contents)
-      (doc = new).instance_exec(doc, &contents)
+      doc = new
+      if contents.arity.zero?
+        contents.call(doc)
+      else
+        doc.instance_exec(doc, &contents)
+      end
       doc.write_to ods_file_name
     end
 

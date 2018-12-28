@@ -15,12 +15,20 @@ module RODF
     def initialize(title = nil)
       @title = title
       @last_row = 0
+
+      super
     end
 
     alias create_row row
     def row(options = {}, &contents)
-      create_row(next_row, options) do
-        instance_exec(self, &contents) if contents
+      create_row(next_row, options) do |row|
+        if contents
+          if contents.arity.zero?
+            row.instance_exec(row, &contents)
+          else
+            yield(row)
+          end
+        end
       end
     end
 

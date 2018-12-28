@@ -14,6 +14,8 @@ module RODF
     alias section style_section
 
     def initialize(name, type)
+      super
+
       @type, @name = type, name
     end
 

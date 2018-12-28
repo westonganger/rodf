@@ -9,6 +9,8 @@ require_relative 'paragraph_container'
 module RODF
   class Paragraph < ParagraphContainer
     def initialize(fst = nil, snd = {})
+      super
+
       first_is_hash = fst.instance_of? Hash
       span(fst) unless first_is_hash
       @elem_attrs = make_element_attributes(first_is_hash ? fst : snd)
