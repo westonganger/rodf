@@ -29,6 +29,27 @@ describe RODF::Row do
     output.should have_tag('//table:table-cell')
   end
 
+  it "should has `add_cells` method" do
+    output = RODF::Row.create do
+      add_cells({ value: 1, type: :string }, 2, 3)
+      add_cells [{ value: 4, type: :string }, 5, 6]
+    end
+
+    cells = Hpricot(output).search('table:table-cell')
+
+    cells[0]['office:value-type'].should eq 'string'
+    cells[0].at('text:p').innerHTML.should eq '1'
+
+    cells[1]['office:value-type'].should eq 'float'
+    cells[1]['office:value'].should eq '2'
+
+    cells[3]['office:value-type'].should eq 'string'
+    cells[3].at('text:p').innerHTML.should eq '4'
+
+    cells[4]['office:value-type'].should eq 'float'
+    cells[4]['office:value'].should eq '5'
+  end
+
   it "should be stylable in the initialization" do
     output = RODF::Row.create 0, style: 'dark' do
       cell

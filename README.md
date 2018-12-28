@@ -48,6 +48,26 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
 end
 ```
 
+Bunches are also possible:
+
+```ruby
+require 'rodf'
+
+RODF::Spreadsheet.file("my-spreadsheet.ods") do
+  table 'My first table from Ruby' do
+    row do
+      add_cells ['ID', 'Name']
+    end
+
+    add_rows([
+      [1, 'Alice'],
+      [2, { value: 'Bob', color: '#ff0000'}],
+      [3, 'Carol']
+    ])
+  end
+end
+```
+
 Styling and formatting is also possible:
 
 ```ruby

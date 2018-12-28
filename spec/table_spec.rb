@@ -56,6 +56,57 @@ describe RODF::Table do
     output.should have_tag('//table:table-row')
   end
 
+  it "should has `add_rows` method" do
+    output = RODF::Table.create('MyTable') {
+      add_rows [{ value: 1, type: :string }, 2, 3], [4, 5, 6]
+      add_rows [[{ value: 7, type: :string }, 8, 9], [10, 11, 12]]
+      add_rows [[13, { value: 14, type: :string }, 15], [16, 17, 18]]
+    }
+    output.should have_tag('//table:table/*', count: 6)
+    output.should have_tag('//table:table-row')
+
+    rows = Hpricot(output).search('table:table-row')
+
+    cells0 = rows[0].search('table:table-cell')
+
+    cells0[0]['office:value-type'].should eq 'string'
+    cells0[0].at('text:p').innerHTML.should eq '1'
+
+    cells0[1]['office:value-type'].should eq 'float'
+    cells0[1]['office:value'].should eq '2'
+
+    cells1 = rows[1].search('table:table-cell')
+
+    cells1[0]['office:value-type'].should eq 'float'
+    cells1[0]['office:value'].should eq '4'
+
+    cells2 = rows[2].search('table:table-cell')
+
+    cells2[0]['office:value-type'].should eq 'string'
+    cells2[0].at('text:p').innerHTML.should eq '7'
+
+    cells2[1]['office:value-type'].should eq 'float'
+    cells2[1]['office:value'].should eq '8'
+
+    cells3 = rows[3].search('table:table-cell')
+
+    cells3[0]['office:value-type'].should eq 'float'
+    cells3[0]['office:value'].should eq '10'
+
+    cells4 = rows[4].search('table:table-cell')
+
+    cells4[0]['office:value-type'].should eq 'float'
+    cells4[0]['office:value'].should eq '13'
+
+    cells4[1]['office:value-type'].should eq 'string'
+    cells4[1].at('text:p').innerHTML.should eq '14'
+
+    cells5 = rows[5].search('table:table-cell')
+
+    cells5[0]['office:value-type'].should eq 'float'
+    cells5[0]['office:value'].should eq '16'
+  end
+
   it "should not instance exec inside block with parameter" do
     inner = nil
     RODF::Table.create('MyTable') do |t|

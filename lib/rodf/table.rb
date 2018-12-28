@@ -32,6 +32,14 @@ module RODF
       end
     end
 
+    def add_rows(*rows)
+      rows = rows.first if rows.first.first.is_a?(Array)
+      rows.each do |row|
+        created = self.row
+        created.add_cells row
+      end
+    end
+
     def xml
       Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
         xml << columns_xml
