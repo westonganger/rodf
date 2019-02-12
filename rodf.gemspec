@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.summary = 'This is a library for writing to ODF output from Ruby. It mainly focuses creating ODS spreadsheets.'
   s.version = RODF::VERSION
   s.homepage = 'https://github.com/thiagoarrais/rodf'
-  s.authors = ['Weston Ganger', 'Thiago Arrais', 'Foivos Zakkak']
+  s.authors = ['Weston Ganger', 'Thiago Arrais']
   s.email = ["weston@westonganger.com", "thiago.arrais@gmail.com"]
 
   s.files = Dir.glob("{lib/**/*}") + %w{ LICENSE README.md Rakefile CHANGELOG.md }

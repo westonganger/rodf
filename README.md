@@ -207,8 +207,7 @@ property :table,
 
 
 ## Credits
-Currently Maintained by [@westonganger](https://github.com/westonganger) for simplified ODS spreadsheet creation in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
 
 Originally Created by [@thiagoarrais](https://github.com/thiagoarrais)
 
-Created & Maintained by [Weston Ganger](https://westonganger.com) [(@westonganger)](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
+Currently Maintained by [@westonganger](https://github.com/westonganger) for simplified ODS spreadsheet creation in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
