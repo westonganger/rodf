@@ -48,24 +48,59 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
 end
 ```
 
-Bunches are also possible:
+Adding many rows or cells at once is supported as well:
 
 ```ruby
 require 'rodf'
 
 RODF::Spreadsheet.file("my-spreadsheet.ods") do
   table 'My first table from Ruby' do
-    row do
-      add_cells ['ID', 'Name']
-    end
-
     add_rows([
       [1, 'Alice'],
       [2, { value: 'Bob', color: '#ff0000'}],
       [3, 'Carol']
     ])
+
+    row do
+      add_cells ['ID', 'Name']
+    end
   end
 end
+```
+
+## Procedural style
+
+The declarative style shown above is just syntatic sugar. A more procedural
+style can also be used. Like so:
+
+```ruby
+require 'rodf'
+
+ss = RODF::Spreadsheet.new
+t = ss.table 'My first table from Ruby'
+r = t.row
+c = r.cell 'Hello, rODF world!'
+
+# two methods to write to file
+ss.write_to 'my-spreadsheet.ods'
+# or
+File.write('my-spreadsheet.ods', ss.bytes) # you can send your data in Rails over HTTP using the bytes method
+end
+```
+
+Both styles can be mixed and matched at will:
+
+```ruby
+require 'rodf'
+
+ss = RODF::Spreadsheet.new
+ss.table 'My first table from Ruby' do
+  row do
+    cell 'Hello, rODF world!'
+  end
+end
+
+ss.write_to 'my-spreadsheet.ods'
 ```
 
 Styling and formatting is also possible:
@@ -126,41 +161,6 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do
 end
 ```
 
-## Procedural style
-
-The declarative style shown above is just syntatic sugar. A more procedural
-style can also be used. Like so:
-
-```ruby
-require 'rodf'
-
-ss = RODF::Spreadsheet.new
-t = ss.table 'My first table from Ruby'
-r = t.row
-c = r.cell 'Hello, rODF world!'
-
-# two methods to write to file
-ss.write_to 'my-spreadsheet.ods'
-# or
-File.write('my-spreadsheet.ods', ss.bytes) # you can send your data in Rails over HTTP using the bytes method
-end
-```
-
-Both styles can be mixed and matched at will:
-
-```ruby
-require 'rodf'
-
-ss = RODF::Spreadsheet.new
-ss.table 'My first table from Ruby' do
-  row do
-    cell 'Hello, rODF world!'
-  end
-end
-
-ss.write_to 'my-spreadsheet.ods'
-```
-
 ## Columns Types
 
 Available columns types are:
@@ -207,6 +207,8 @@ property :table,
 
 
 ## Credits
-Created by Thiago Arrais [(@thiagoarrais)](https://github.com/thiagoarrais)
+Currently Maintained by [@westonganger](https://github.com/westonganger) for simplified ODS spreadsheet creation in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
+
+Originally Created by [@thiagoarrais](https://github.com/thiagoarrais)
 
 Created & Maintained by [Weston Ganger](https://westonganger.com) [(@westonganger)](https://github.com/westonganger) to support simplified ODS spreadsheet making in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
