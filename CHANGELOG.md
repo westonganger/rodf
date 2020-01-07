@@ -1,10 +1,13 @@
 # CHANGELOG
 
+## Unreleased
+- Fix gemspec require for Ruby 1.9
+
 ## v1.1.0
-  * [#34](https://github.com/westonganger/rodf/pull/34) - Add ability to add many rows or cells at once
-  * [#29](https://github.com/westonganger/rodf/pull/29) - Remove ActiveSupport dependency in favor of `dry-inflector`
-  * [#21](https://github.com/thiagoarrais/rodf/pull/21) - Allow more attributes for the `data_style` method
-  * [#19](https://github.com/westonganger/rodf/issues/19) - Changes to Date/Time handling
+- [#34](https://github.com/westonganger/rodf/pull/34) - Add ability to add many rows or cells at once
+- [#29](https://github.com/westonganger/rodf/pull/29) - Remove ActiveSupport dependency in favor of `dry-inflector`
+- [#21](https://github.com/thiagoarrais/rodf/pull/21) - Allow more attributes for the `data_style` method
+- [#19](https://github.com/westonganger/rodf/issues/19) - Changes to Date/Time handling
 
 ## v1.0.0
 - Rename main module ODF to RODF, Fix cell types
