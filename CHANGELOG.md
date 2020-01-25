@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## Unreleased
+- [Issue #36](https://github.com/westonganger/rodf/issues/36) - Improve compatibility for Float Cells
 - Fix gemspec require for Ruby 1.9
 - Cleanup File Commenting
 

@@ -88,7 +88,6 @@ describe RODF::Cell do
 
   it "should ignore the URL requested on anything other than a string" do
     cell = RODF::Cell.new(47.1, type: :float, url: 'http://www.example.org')
-    cell.xml.should_not have_tag('text:p')
     cell.xml.should_not have_tag('text:a')
 
     cell = RODF::Cell.new(Date.parse('15 Apr 2010'), type: :date, url: 'http://www.example.org')
@@ -113,15 +112,17 @@ describe RODF::Cell do
     Hpricot(output).at('table:table-cell')['office:value-type'].should=='float'
   end
 
-  it "should place strings in a paragraph tag and floats in value attribute" do
-    output = RODF::Cell.new('Test').xml
+  it "should place floats values in value attribute and paragraph tag" do
+    output = RODF::Cell.new(34.2, type: :float).xml
+
+    Hpricot(output).at('table:table-cell')['office:value'].should == '34.2'
+
+    #output.should_not have_tag('//table:table-cell/*')
     output.should have_tag('//text:p')
-    Hpricot(output).at('text:p').innerHTML.should == 'Test'
+    Hpricot(output).at('text:p').innerHTML.should == '34.2'
+  end
 
-    output = RODF::Cell.new(47, type: :float).xml
-    output.should_not have_tag('//table:table-cell/*')
-    Hpricot(output).at('table:table-cell')['office:value'].should == '47'
-
+  it "shoud allow float values in string cells" do
     output = RODF::Cell.new(34.2, type: :string).xml
     output.should have_tag('//text:p')
     Hpricot(output).at('text:p').innerHTML.should == '34.2'

@@ -70,10 +70,6 @@ module RODF
 
   private
 
-    def contains_string?
-      :string == @type && !empty?(@value)
-    end
-
     def make_element_attributes(type, value, opts)
       attrs = {}
 
@@ -113,16 +109,25 @@ module RODF
     end
 
     def make_value_paragraph
-      if contains_string?
-        cell, value, url = self, @value, @url
-
-        # Split out newlines to be new cells since the text has been escaped at this point
-        value.to_s.split("\n").each do |split_value|
+      if !empty?(@value)
+        case @type
+        when :float
+          ### https://github.com/westonganger/rodf/issues/36
+          value = @value
           paragraph do
-            if cell.contains_url?
-              link split_value, href: url
-            else
-              self << split_value
+            self << value
+          end
+        when :string
+          cell, value, url = self, @value, @url
+
+          # Split out newlines to be new cells since the text has been escaped at this point
+          value.to_s.split("\n").each do |split_value|
+            paragraph do
+              if cell.contains_url?
+                link split_value, href: url
+              else
+                self << split_value
+              end
             end
           end
         end
