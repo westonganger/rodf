@@ -1,7 +1,3 @@
-# Copyright (c) 2010 Thiago Arrais
-#
-# This file is part of rODF.
-
 require 'zip'
 
 require_relative 'container'

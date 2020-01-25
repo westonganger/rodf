@@ -1,7 +1,3 @@
-# Copyright (c) 2008 Thiago Arrais
-#
-# This file is part of rODF.
-
 require_relative 'data_style'
 require_relative 'document'
 require_relative 'hyperlink'

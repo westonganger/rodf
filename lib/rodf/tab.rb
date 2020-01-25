@@ -1,7 +1,3 @@
-# Copyright (c) 2010 Thiago Arrais
-#
-# This file is part of rODF.
-
 require 'builder'
 
 require_relative 'paragraph_container'
@@ -21,4 +17,3 @@ module RODF
     end
   end
 end
-

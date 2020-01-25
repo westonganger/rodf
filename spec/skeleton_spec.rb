@@ -1,7 +1,3 @@
-# Copyright (c) 2012 Foivos Zakkak
-#
-# This file is part of rODF.
-
 require_relative 'spec_helper'
 
 require_relative '../lib/rodf/skeleton'

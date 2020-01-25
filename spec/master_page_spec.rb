@@ -1,7 +1,3 @@
-# Copyright (c) 2010 Thiago Arrais
-#
-# This file is part of rODF.
-
 require_relative 'spec_helper'
 
 require_relative '../lib/rodf/master_page'

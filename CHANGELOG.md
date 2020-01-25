@@ -2,6 +2,7 @@
 
 ## Unreleased
 - Fix gemspec require for Ruby 1.9
+- Cleanup File Commenting
 
 ## v1.1.0
 - [#34](https://github.com/westonganger/rodf/pull/34) - Add ability to add many rows or cells at once
