@@ -1,14 +1,12 @@
 # RODF
 <a href="https://badge.fury.io/rb/rodf" target="_blank"><img height="21" style='border:0px;height:21px;' border='0' src="https://badge.fury.io/rb/rodf.svg" alt="Gem Version"></a>
-<a href='https://travis-ci.com/westonganger/rodf' target='_blank'><img height='21' style='border:0px;height:21px;' src='https://api.travis-ci.org/westonganger/rodf.svg?branch=master' border='0' alt='Build Status' /></a>
+<a href='https://travis-ci.com/westonganger/rodf' target='_blank'><img height='21' style='border:0px;height:21px;' src='https://travis-ci.com/westonganger/rodf.svg?branch=master' border='0' alt='Build Status' /></a>
 <a href='https://rubygems.org/gems/rodf' target='_blank'><img height='21' style='border:0px;height:21px;' src='https://ruby-gem-downloads-badge.herokuapp.com/rodf?label=rubygems&type=total&total_label=downloads&color=brightgreen' border='0' alt='RubyGems Downloads' /></a>
 <a href='https://ko-fi.com/A5071NK' target='_blank'><img height='22' style='border:0px;height:22px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=a' border='0' alt='Buy Me a Coffee' /></a>
 
-This is a library for writing to ODF output from Ruby. It mainly focuses creating ODS spreadsheets.
+RODF is a library for writing to ODF output from Ruby. It mainly focuses creating ODS spreadsheets.
 
-As well as writing ODS spreadsheets, this library also can write ODT text documents but it is undocumented and will require knowledge of the ODF spec. It currently does not support ODP Slide shows.
-
-This is NOT an ODF reading library.
+As well as writing ODS spreadsheets, this library also can write ODT text documents but it is undocumented and will require knowledge of the ODF spec. It currently does not support ODP Slide shows. Also this is NOT an ODF reading library.
 
 ## Install
 
@@ -18,7 +16,7 @@ gem install rodf
 
 ## How do I use it?
 
-rODF works pretty much like Builder, but with ODF-aware constructs. Try this:
+RODF works pretty much like Builder, but with ODF-aware constructs. For example:
 
 ```ruby
 require 'rodf'
@@ -26,7 +24,7 @@ require 'rodf'
 RODF::Spreadsheet.file("my-spreadsheet.ods") do
   table 'My first table from Ruby' do
     row do
-      cell 'Hello, rODF world!'
+      cell 'Hello world!'
     end
   end
 end
@@ -37,7 +35,7 @@ For access to variables and methods from outer code you can use block parameter:
 ```ruby
 require 'rodf'
 
-@data = 'Hello, rODF world!'
+@data = 'Hello world!'
 
 RODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
   spreadsheet.table 'My first table from Ruby' do |table|
@@ -70,8 +68,7 @@ end
 
 ## Procedural style
 
-The declarative style shown above is just syntatic sugar. A more procedural
-style can also be used. Like so:
+The declarative style shown above is just syntatic sugar. A more procedural style can also be used. Like so:
 
 ```ruby
 require 'rodf'
@@ -79,7 +76,7 @@ require 'rodf'
 ss = RODF::Spreadsheet.new
 t = ss.table 'My first table from Ruby'
 r = t.row
-c = r.cell 'Hello, rODF world!'
+c = r.cell 'Hello world!'
 
 # two methods to write to file
 ss.write_to 'my-spreadsheet.ods'
@@ -96,7 +93,7 @@ require 'rodf'
 ss = RODF::Spreadsheet.new
 ss.table 'My first table from Ruby' do
   row do
-    cell 'Hello, rODF world!'
+    cell 'Hello world!'
   end
 end
 
@@ -205,9 +202,8 @@ property :table,
   'writing-mode' => 'lr-tb',
 ```
 
-
 ## Credits
 
 Originally Created by [@thiagoarrais](https://github.com/thiagoarrais)
 
-Currently Maintained by [@westonganger](https://github.com/westonganger) for simplified ODS spreadsheet creation in the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
+Maintained by [@westonganger](https://github.com/westonganger) since 2016, for simplified ODS spreadsheet creation within the [spreadsheet_architect](https://github.com/westonganger/spreadsheet_architect) gem
