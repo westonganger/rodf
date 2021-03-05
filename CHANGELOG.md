@@ -1,7 +1,8 @@
 # CHANGELOG
 
 ## Unreleased
-- Nothing yet
+- Improve Style List Documentation
+- Style `:family` option now supports String and Symbol keys. Previously `:family` the family option would only support the key name as a Symbol.
 
 ## v1.1.1
 - [Issue #36](https://github.com/westonganger/rodf/issues/36) - Improve compatibility for Float Cells
