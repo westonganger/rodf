@@ -171,35 +171,43 @@ Available columns types are:
 
 ## Style List
 ```ruby
-property :text,
-  'font-weight' => :bold, #options are :bold, :thin
-  'font-size' => 12,
-  'font-name' => 'Arial',
-  'font-style' => 'italic',
-  'text-underline-style' => 'solid', # solid, dashed, dotted, double
-  'text-underline-type' => 'single',
-  'text-line-through-style' => 'solid',
-  align: true,
-  color: "#000000"
+### family: :cell or "table-cell"
+style "my-cell-style", family: :cell do
+  property :text,
+    'font-weight' => :bold, #options are :bold, :thin
+    'font-size' => 12,
+    'font-name' => 'Arial',
+    'font-style' => 'italic',
+    'text-underline-style' => 'solid', # solid, dashed, dotted, double
+    'text-underline-type' => 'single',
+    'text-line-through-style' => 'solid',
+    align: true,
+    color: "#000000"
 
-property :cell,
-  'background-color' => "#DDDDDD",
-  'wrap-option' => 'wrap',
-  'vertical_align' => 'automatic',
-  'border-top' => '0.75pt solid #999999',
-  'border-bottom' => '0.75pt solid #999999',
-  'border-left' => '0.75pt solid #999999',
-  'border-right' => '0.75pt solid #999999',
+  property :cell,
+    'background-color' => "#DDDDDD",
+    'wrap-option' => 'wrap',
+    'vertical_align' => 'automatic',
+    'border-top' => '0.75pt solid #999999',
+    'border-bottom' => '0.75pt solid #999999',
+    'border-left' => '0.75pt solid #999999',
+    'border-right' => '0.75pt solid #999999',
+    'writing-mode' => 'lr-tb',
 
-property :column,
-  'column-width' => '4.0cm'
+end
 
-property :row,
-  'row-height' => '18pt',
-  'use-optimal-row-height' => 'true'
+### family: :column or "table-column"
+style('my-col-style', family: :column) do
+  property :column,
+    'column-width' => '4.0cm'
+end
 
-property :table,
-  'writing-mode' => 'lr-tb',
+### family: :row or "table-row"
+style('my-row-style', family: :column) do
+  property :row,
+    'row-height' => '18pt',
+    'use-optimal-row-height' => 'true'
+end
 ```
 
 ## Credits
