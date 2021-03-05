@@ -7,7 +7,11 @@ module RODF
   class Style < Container
     contains :properties
 
-    FAMILIES = {cell: 'table-cell', column: 'table-column', row: 'table-row'}
+    FAMILIES = {
+      "cell" => 'table-cell',
+      "column" => 'table-column',
+      "row" => 'table-row',
+    }
 
     def initialize(name='', opts={}, node_tag='style:style')
       super
@@ -25,7 +29,7 @@ module RODF
     def make_element_attributes(name, opts)
       attrs = {
         'style:name' => name,
-        'style:family' => (FAMILIES[opts[:family]] || opts[:family])}
+        'style:family' => (FAMILIES[opts[:family].to_s] || opts[:family])}
       attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
       attrs['style:parent-style-name'] = opts[:parent].to_s unless opts[:parent].nil?
       attrs['style:master-page-name'] = opts[:master_page] unless opts[:master_page].nil?
