@@ -31,24 +31,4 @@ module RODF
       end
     end
   end
-
-  class ParagraphContainer < Container
-    def span(*args)
-      s = Span.new(*args)
-
-      yield s if block_given?
-
-      content_parts << s
-
-      s
-    end
-
-    def <<(content)
-      span(content)
-    end
-
-    def method_missing(style, *args)
-      span(style, *args)
-    end
-  end
 end

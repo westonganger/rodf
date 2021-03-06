@@ -58,4 +58,10 @@ describe RODF::Row do
     Hpricot(row.xml).at('table:table-row')['table:style-name'].
       should == 'dark'
   end
+
+  it "should allow arbitrary XML attributes" do
+    element = RODF::Row.new(0, attributes: {foobar: true})
+    element.xml.should include('<table:table-row foobar="true">')
+  end
+
 end

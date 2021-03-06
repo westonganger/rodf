@@ -4,6 +4,7 @@
 - Added `Table#set_column_widths` method
 - Style `:family` option now supports String and Symbol keys. Previously `:family` the family option would only support the key name as a Symbol.
 - Improve Style List Documentation
+- Allow adding XML attributes directly to `Table`, `Row`, `Column`, `Cell` using the `:attributes` argument
 - Remove usage of `contains` metaprogramming method `Container#contains` that was hiding major implementation details from most RODF classes. The code is now much easier to understand.
 
 ## v1.1.1

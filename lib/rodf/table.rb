@@ -1,13 +1,25 @@
 module RODF
   class Table < Container
-    def initialize(title = nil, spreadsheet: nil)
+    def initialize(title = nil, opts ={})
       @title = title
 
       @last_row = 0
 
-      @spreadsheet = spreadsheet
+      @elem_attrs = {}
+
+      @elem_attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
+
+      @elem_attrs['table:name'] = @title
+
+      if opts[:attributes]
+        @elem_attrs.merge!(opts[:attributes])
+      end
 
       super
+    end
+
+    def style=(style_name)
+      @elem_attrs['table:style-name'] = style_name
     end
 
     def rows
@@ -66,28 +78,8 @@ module RODF
       columns.map(&:xml).join
     end
 
-    def set_column_widths(*args)
-      if args.first.is_a?(Array)
-        col_widths = args.first
-      else
-        col_widths = args
-      end
-
-      @columns = [] ### Reset completely
-
-      col_widths.each_with_index do |width, i|
-        name = "col-width-#{i}"
-
-        @spreadsheet.style(name, family: :column) do
-          property(:column, {'column-width' => width})
-        end
-
-        @columns << RODF::Column.new(style: name)
-      end
-    end
-
     def xml
-      Builder::XmlMarkup.new.table:table, 'table:name' => @title do |xml|
+      Builder::XmlMarkup.new.table :table, @elem_attrs do |xml|
         xml << columns_xml
         xml << rows_xml
       end

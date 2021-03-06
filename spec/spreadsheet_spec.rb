@@ -109,4 +109,32 @@ describe RODF::SpreadSheet do
     output.should have_tag('//style:style')
     Hpricot(output).at('//style:style')['style:name'].should == 'red-cell'
   end
+
+  it "should allow setting columns and widths in batch using `set_column_widths`" do
+    RODF::Spreadsheet.new do |sheet|
+      ### WITH SPLAT ARGUMENT
+      table = sheet.table do |t|
+        sheet.set_column_widths(
+          table: t,
+          column_widths: [
+            '1in',
+            '2cm',
+            '2.54cm',
+          ]
+        )
+      end
+
+      table.xml.should have_tag('table:table-column')
+
+      column = Hpricot(table.xml).search('table:table-column')[0]
+      column['table:style-name'].should == ('col-width-0')
+
+      column = Hpricot(table.xml).search('table:table-column')[1]
+      column['table:style-name'].should == ('col-width-1')
+
+      column = Hpricot(table.xml).search('table:table-column')[2]
+      column['table:style-name'].should == ('col-width-2')
+    end
+  end
+
 end

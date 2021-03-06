@@ -160,6 +160,11 @@ describe RODF::Cell do
     Hpricot(cell.xml).at('table:table-cell')['table:style-name'].should == 'left-column-cell'
   end
 
+  it "should allow arbitrary XML attributes" do
+    element = RODF::Cell.new(attributes: {foobar: true})
+    element.xml.should include('<table:table-cell foobar="true">')
+  end
+
   ### DATE
   it "should have the date set correctly" do
     date = Date.parse('2010-04-15')
@@ -198,4 +203,5 @@ describe RODF::Cell do
     cell['office:value-type'].should == 'currency'
     cell['office:value'].should == number.to_s
   end
+
 end

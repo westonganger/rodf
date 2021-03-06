@@ -11,7 +11,7 @@ module RODF
     end
 
     def self.create(*args, &contents)
-      container = new(*args, &contents)
+      container = self.new(*args, &contents)
       container.xml
     end
   end

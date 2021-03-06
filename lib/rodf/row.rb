@@ -6,7 +6,13 @@ module RODF
     def initialize(number=0, opts={})
       @number = number
 
-      @style = opts[:style]
+      @elem_attrs = {}
+
+      @elem_attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
+
+      if opts[:attributes]
+        @elem_attrs.merge!(opts[:attributes])
+      end
 
       super
     end
@@ -27,6 +33,10 @@ module RODF
       cells.map(&:xml).join
     end
 
+    def style=(style_name)
+      @elem_attrs['table:style-name'] = style_name
+    end
+
     def add_cells(*elements)
       if elements.first.is_a?(Array)
         elements = elements.first
@@ -38,11 +48,7 @@ module RODF
     end
 
     def xml
-      elem_attrs = {}
-
-      elem_attrs['table:style-name'] = @style unless @style.nil?
-
-      Builder::XmlMarkup.new.tag! 'table:table-row', elem_attrs do |xml|
+      Builder::XmlMarkup.new.tag! 'table:table-row', @elem_attrs do |xml|
         xml << cells_xml
       end
     end

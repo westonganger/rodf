@@ -172,12 +172,15 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
 
     ### OR
 
-    ### Warning this will overwrite any existing columns (cells remain unaffected)
-    t.define_column_widths([
-      {'column-width' => '1in'},
-      {'column-width' => '2cm'},
-      {'column-width' => '2.54cm'},
-    ])
+    ### Warning this will overwrite any existing table columns (cells remain unaffected)
+    sheet.define_column_widths(
+      table: t, 
+      column_widths: [
+        {'column-width' => '1in'},
+        {'column-width' => '2cm'},
+        {'column-width' => '2.54cm'},
+      ],
+    )
   end
 end
 ```
@@ -237,6 +240,19 @@ end
 style('my-row-style', family: :table) do
   property :table,
     'writing-mode' => 'lr-tb',
+```
+
+## Adding Arbitrary XML Attributes
+
+```ruby
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
+  sheet.table 'My first table from Ruby', attributes: {'table-protected' => 'true'} do |table|
+    table.row do |row|
+      row.cell @data
+    end
+  end
+end
+
 ```
 
 ## Credits

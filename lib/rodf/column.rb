@@ -4,6 +4,14 @@ module RODF
       @elem_attrs = {}
 
       @elem_attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
+
+      if opts[:attributes]
+        @elem_attrs.merge!(opts[:attributes])
+      end
+    end
+
+    def style=(style_name)
+      @elem_attrs['table:style-name'] = style_name
     end
 
     def xml

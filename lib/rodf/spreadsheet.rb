@@ -38,14 +38,32 @@ module RODF
       end
     end
 
+    def set_column_widths(table:, column_widths:)
+      table.instance_variable_set(:@columns, []) ### Reset completely
+
+      column_widths.each_with_index do |width, i|
+        name = "col-width-#{i}"
+
+        self.style(name, family: :column) do
+          property(:column, {'column-width' => width})
+        end
+
+        table.columns << RODF::Column.new(style: name)
+      end
+    end
+
     def tables
       @tables ||= []
     end
 
-    def table(*args, &block)
-      x = Table.new(*args, spreadsheet: self, &block)
+    def table(*args, column_widths: nil, &block)
+      x = Table.new(*args, &block)
 
       tables << x
+
+      if column_widths
+        set_column_widths(table: x, column_widths: column_widths)
+      end
 
       return x
     end

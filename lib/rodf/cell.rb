@@ -38,6 +38,10 @@ module RODF
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
 
+      if opts[:attributes]
+        @elem_attrs.merge!(opts[:attributes])
+      end
+
       @multiplier = (opts[:span] || 1).to_i
 
       make_value_paragraph
