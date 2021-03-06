@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/text'
-
 describe RODF::Text do
   it "should have the expected structure" do
     output = RODF::Text.create

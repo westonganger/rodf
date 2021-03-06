@@ -1,5 +1,3 @@
-require 'builder'
-
 module RODF
   class MasterPage
     def initialize(name, opts = {})
@@ -7,8 +5,7 @@ module RODF
     end
 
     def xml
-      Builder::XmlMarkup.new.tag! 'style:master-page',
-        'style:name' => @name, 'style:page-layout-name' => @layout
+      Builder::XmlMarkup.new.tag! 'style:master-page', 'style:name' => @name, 'style:page-layout-name' => @layout
     end
   end
 end

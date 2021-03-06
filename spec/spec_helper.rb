@@ -1,3 +1,5 @@
+require 'rodf'
+
 require 'rspec_hpricot_matchers'
 include RspecHpricotMatchers
 

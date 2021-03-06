@@ -1,6 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/text'
 require "tempfile"
 
 describe "file storage" do

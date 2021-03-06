@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/master_page'
-
 describe RODF::MasterPage do
   it "should have a name" do
     output = RODF::MasterPage.new('my-master-page').xml

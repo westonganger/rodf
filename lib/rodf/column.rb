@@ -1,9 +1,8 @@
-require 'builder'
-
 module RODF
   class Column
     def initialize(opts={})
       @elem_attrs = {}
+
       @elem_attrs['table:style-name'] = opts[:style] unless opts[:style].nil?
     end
 

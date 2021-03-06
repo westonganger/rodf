@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/style_section'
-
 describe RODF::StyleSection do
   it "should allow style attribute" do
     output = RODF::StyleSection.new(:year, style: 'long').xml

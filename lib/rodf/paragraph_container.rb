@@ -1,7 +1,3 @@
-require 'builder'
-
-require_relative 'container'
-
 module RODF
   # Container for all kinds of paragraph content
   class ParagraphContainer < Container

@@ -1,8 +1,10 @@
 # CHANGELOG
 
 ## Unreleased
-- Improve Style List Documentation
+- Added `Table#set_column_widths` method
 - Style `:family` option now supports String and Symbol keys. Previously `:family` the family option would only support the key name as a Symbol.
+- Improve Style List Documentation
+- Remove usage of `contains` metaprogramming method `Container#contains` that was hiding major implementation details from most RODF classes. The code is now much easier to understand.
 
 ## v1.1.1
 - [Issue #36](https://github.com/westonganger/rodf/issues/36) - Improve compatibility for Float Cells

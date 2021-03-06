@@ -1,15 +1,5 @@
-require 'date'
-
-require 'builder'
-
-require_relative 'container'
-require_relative 'paragraph'
-
 module RODF
   class Cell < Container
-    contains :paragraphs
-
-    alias :p :paragraph
 
     def initialize(value=nil, opts={})
       super
@@ -25,6 +15,7 @@ module RODF
       end
 
       @value = value || ''
+
       @type = opts[:type]
 
       unless empty?(@value)
@@ -46,9 +37,37 @@ module RODF
       ### TODO: set default DataStyle for the Spreadsheet for Date / Time / DateTime cells formatting
 
       @elem_attrs = make_element_attributes(@type, @value, opts)
+
       @multiplier = (opts[:span] || 1).to_i
 
       make_value_paragraph
+    end
+
+    def paragraphs
+      @paragraphs ||= []
+    end
+
+    def paragraph(*args, &block)
+      x = Paragraph.new(*args, &block)
+
+      paragraphs << x
+
+      return x
+    end
+    alias p paragraph
+
+    def paragraphs_xml
+      paragraphs.map(&:xml).join
+    end
+
+    def add_paragraphs(*elements)
+      if elements.first.is_a?(Array)
+        elements = elements.first
+      end
+
+      elements.each do |element|
+        paragraph(element)
+      end
     end
 
     def style=(style_name)
@@ -57,10 +76,15 @@ module RODF
 
     def xml
       markup = Builder::XmlMarkup.new
+
       text = markup.tag! 'table:table-cell', @elem_attrs do |xml|
         xml << paragraphs_xml
       end
-      (@multiplier - 1).times {text = markup.tag! 'table:table-cell'}
+
+      (@multiplier - 1).times do 
+        text = markup.tag! 'table:table-cell'
+      end
+
       text
     end
 
@@ -68,7 +92,7 @@ module RODF
       !empty?(@url)
     end
 
-  private
+    private
 
     def make_element_attributes(type, value, opts)
       attrs = {}

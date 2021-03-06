@@ -14,13 +14,11 @@ As well as writing ODS spreadsheets, this library also can write ODT text docume
 gem install rodf
 ```
 
-## How do I use it?
+## Usage
 
 RODF works pretty much like Builder, but with ODF-aware constructs. For example:
 
 ```ruby
-require 'rodf'
-
 RODF::Spreadsheet.file("my-spreadsheet.ods") do
   table 'My first table from Ruby' do
     row do
@@ -33,12 +31,10 @@ end
 For access to variables and methods from outer code you can use block parameter:
 
 ```ruby
-require 'rodf'
-
 @data = 'Hello world!'
 
-RODF::Spreadsheet.file("my-spreadsheet.ods") do |spreadsheet|
-  spreadsheet.table 'My first table from Ruby' do |table|
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
+  sheet.table 'My first table from Ruby' do |table|
     table.row do |row|
       row.cell @data
     end
@@ -49,18 +45,16 @@ end
 Adding many rows or cells at once is supported as well:
 
 ```ruby
-require 'rodf'
-
-RODF::Spreadsheet.file("my-spreadsheet.ods") do
-  table 'My first table from Ruby' do
-    add_rows([
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
+  sheet.table 'My first table from Ruby' do |t|
+    t.add_rows([
       [1, 'Alice'],
       [2, { value: 'Bob', color: '#ff0000'}],
       [3, 'Carol']
     ])
 
-    row do
-      add_cells ['ID', 'Name']
+    t.row do |r|
+      r.add_cells ['ID', 'Name']
     end
   end
 end
@@ -71,9 +65,8 @@ end
 The declarative style shown above is just syntatic sugar. A more procedural style can also be used. Like so:
 
 ```ruby
-require 'rodf'
-
 ss = RODF::Spreadsheet.new
+
 t = ss.table 'My first table from Ruby'
 r = t.row
 c = r.cell 'Hello world!'
@@ -82,37 +75,43 @@ c = r.cell 'Hello world!'
 ss.write_to 'my-spreadsheet.ods'
 # or
 File.write('my-spreadsheet.ods', ss.bytes) # you can send your data in Rails over HTTP using the bytes method
-end
 ```
 
 Both styles can be mixed and matched at will:
 
 ```ruby
-require 'rodf'
-
 ss = RODF::Spreadsheet.new
-ss.table 'My first table from Ruby' do
-  row do
-    cell 'Hello world!'
+
+ss.table 'My first table from Ruby' do |t|
+  t.row do |r|
+    r.cell 'Hello world!'
   end
 end
 
 ss.write_to 'my-spreadsheet.ods'
 ```
 
-Styling and formatting is also possible:
+## Styling and Formatting
 
 ```ruby
-require 'rodf'
-
-RODF::Spreadsheet.file("my-spreadsheet.ods") do
-  style 'red-cell', family: :cell do
-    property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
+  sheet.style 'red-cell', family: :cell do |s|
+    s.property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
   end
 
-  table 'Red text table' do
-    row do
-      cell 'Red', style: 'red-cell'
+  sheet.style 'row-height', family: :row do |s|
+    s.property :row, 'row-height' => '18pt', 'use-optimal-row-height' => 'true'
+  end
+
+  sheet.table 'Red text table' do |t|
+    t.row style: 'row-height' do |r|
+      r.cell 'Red', style: 'red-cell'
+    end
+  end
+
+  sheet.table 'Red text table' do |t|
+    t.row style: 'row-height' do |r|
+      r.cell 'Red', style: 'red-cell'
     end
   end
 end
@@ -121,39 +120,64 @@ end
 Conditional formatting is also possible:
 
 ```ruby
-require 'rodf'
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
 
-RODF::Spreadsheet.file("my-spreadsheet.ods") do
-
-  office_style 'red-cell', family: :cell do
-    property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
+  sheet.office_style 'red-cell', family: :cell do |s|
+    s.property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
   end
 
-  office_style 'green-cell', family: :cell do
-    property :text, 'font-weight' => 'bold', 'color' => '#00ff00'
+  sheet.office_style 'green-cell', family: :cell do |s|
+    s.property :text, 'font-weight' => 'bold', 'color' => '#00ff00'
   end
 
   # conditional formating must be defined as style and the value of
   # apply-style-name must be an office_style
-  style 'cond1', family: :cell do
-    property :conditional, 'condition' => 'cell-content()<0', 'apply-style-name' => 'red-cell'
+  sheet.style 'cond1', family: :cell do |s|
+    s.property :conditional, 'condition' => 'cell-content()<0', 'apply-style-name' => 'red-cell'
 
-    property :conditional, 'condition' => 'cell-content()>0', 'apply-style-name' => 'green-cell'
+    s.property :conditional, 'condition' => 'cell-content()>0', 'apply-style-name' => 'green-cell'
   end
 
-  table 'Red text table' do
-    row do
-      cell 'Red force', style: 'red-cell'
+  sheet.table 'Red text table' do |t|
+    t.row do |r|
+      r.cell 'Red force', style: 'red-cell'
     end
-    row do
-      cell '-4', type: :float, style: 'cond1'
+    t.row do |r|
+      r.cell '-4', type: :float, style: 'cond1'
     end
-    row do
-      cell '0', type: :float, style: 'cond1'
+    t.row do |r|
+      r.cell '0', type: :float, style: 'cond1'
     end
-    row do
-      cell '5', type: :float, style: 'cond1'
+    t.row do |r|
+      r.cell '5', type: :float, style: 'cond1'
     end
+  end
+end
+```
+
+## Changing Columns Widths
+
+Adding columns or columns width to your spreadsheet can be done with the following
+
+```ruby
+RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
+  sheet.table "foo" do |t|
+    sheet.style('default-col-width', family: :column) do |s|
+      s.property(:column, 'column-width' => '1.234in')
+    end
+
+    col_count.times do
+      t.column style: 'default-col-width'
+    end
+
+    ### OR
+
+    ### Warning this will overwrite any existing columns (cells remain unaffected)
+    t.define_column_widths([
+      {'column-width' => '1in'},
+      {'column-width' => '2cm'},
+      {'column-width' => '2.54cm'},
+    ])
   end
 end
 ```
@@ -203,11 +227,16 @@ style('my-col-style', family: :column) do
 end
 
 ### family: :row or "table-row"
-style('my-row-style', family: :column) do
+style('my-row-style', family: :row) do
   property :row,
     'row-height' => '18pt',
     'use-optimal-row-height' => 'true'
 end
+
+### family: :table
+style('my-row-style', family: :table) do
+  property :table,
+    'writing-mode' => 'lr-tb',
 ```
 
 ## Credits

@@ -1,5 +1,3 @@
-require 'erb'
-
 module RODF
   class Skeleton
     def manifest(document_type)
@@ -9,7 +7,9 @@ module RODF
     def styles
       template('styles.pxml')
     end
-  private
+
+    private
+
     def template(fname)
       File.open(File.dirname(__FILE__) + '/skeleton/' + fname).read
     end

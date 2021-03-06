@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/page_layout'
-
 describe RODF::PageLayout do
   it "should have a name" do
     output = RODF::PageLayout.new('main-layout').xml

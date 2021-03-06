@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/paragraph'
-
 describe RODF::Paragraph do
   it "should allow text content inside" do
     output = RODF::Paragraph.new('Hello').xml

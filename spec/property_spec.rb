@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/property'
-
 describe RODF::Property do
   it "should accept either strings or symbols as keys" do
     property = RODF::Property.new :text, color:'#4c4c4c', 'font-weight'=>'bold'

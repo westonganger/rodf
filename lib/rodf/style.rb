@@ -1,12 +1,5 @@
-require 'builder'
-
-require_relative 'container'
-require_relative 'property'
-
 module RODF
   class Style < Container
-    contains :properties
-
     FAMILIES = {
       "cell" => 'table-cell',
       "column" => 'table-column',
@@ -17,6 +10,7 @@ module RODF
       super
 
       @name, @node_tag = name, node_tag
+
       @elem_attrs = make_element_attributes(@name, opts)
     end
 
@@ -29,15 +23,46 @@ module RODF
     def make_element_attributes(name, opts)
       attrs = {
         'style:name' => name,
-        'style:family' => (FAMILIES[opts[:family].to_s] || opts[:family])}
+        'style:family' => (FAMILIES[opts[:family].to_s] || opts[:family]),
+      }
+
       attrs['style:data-style-name'] = opts[:data_style] unless opts[:data_style].nil?
+
       attrs['style:parent-style-name'] = opts[:parent].to_s unless opts[:parent].nil?
+
       attrs['style:master-page-name'] = opts[:master_page] unless opts[:master_page].nil?
+
       attrs
     end
 
     def to_s
       @name
+    end
+
+    def properties
+      @properties ||= []
+    end
+
+    def property(*args, &block)
+      x = Property.new(*args, &block)
+
+      properties << x
+
+      return x
+    end
+
+    def properties_xml
+      properties.map(&:xml).join
+    end
+
+    def add_properties(*elements)
+      if elements.first.is_a?(Array)
+        elements = elements.first
+      end
+
+      elements.each do |element|
+        property(element)
+      end
     end
   end
 

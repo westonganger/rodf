@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/table'
-
 describe RODF::Table do
   it "should allow rows to be added" do
     output = RODF::Table.create('Example') {|t| }
@@ -37,6 +35,50 @@ describe RODF::Table do
     xml.should have_tag('table:table-column')
     column = Hpricot(xml).at('table:table-column')
     column['table:style-name'].should == 'wide'
+  end
+
+  it "should allow setting columns and widths in batch using `set_column_widths`" do
+    RODF::Spreadsheet.new do |s|
+      ### WITH SPLAT ARGUMENT
+      table = s.table do |t|
+        t.set_column_widths(
+          '1in',
+          '2cm',
+          '2.54cm',
+        )
+      end
+
+      table.xml.should have_tag('table:table-column')
+
+      column = Hpricot(table.xml).search('table:table-column')[0]
+      column['table:style-name'].should == ('col-width-0')
+
+      column = Hpricot(table.xml).search('table:table-column')[1]
+      column['table:style-name'].should == ('col-width-1')
+
+      column = Hpricot(table.xml).search('table:table-column')[2]
+      column['table:style-name'].should == ('col-width-2')
+
+      ### WITH ARRAY ARGUMENT
+      table = s.table do |t|
+        t.set_column_widths([
+          '1in',
+          '2cm',
+          '2.54cm',
+        ])
+      end
+
+      table.xml.should have_tag('table:table-column')
+
+      column = Hpricot(table.xml).search('table:table-column')[0]
+      column['table:style-name'].should == ('col-width-0')
+
+      column = Hpricot(table.xml).search('table:table-column')[1]
+      column['table:style-name'].should == ('col-width-1')
+
+      column = Hpricot(table.xml).search('table:table-column')[2]
+      column['table:style-name'].should == ('col-width-2')
+    end
   end
 
   it "should accept parameterless block" do

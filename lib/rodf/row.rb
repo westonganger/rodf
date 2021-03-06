@@ -1,24 +1,47 @@
-require 'builder'
-
-require_relative 'container'
-require_relative 'cell'
-
 module RODF
   class Row < Container
-    contains :cells
     attr_reader :number
     attr_writer :style
 
     def initialize(number=0, opts={})
       @number = number
+
       @style = opts[:style]
 
       super
     end
 
+    def cells
+      @cells ||= []
+    end
+
+    def cell(*args, &block)
+      x = Cell.new(*args, &block)
+
+      cells << x
+
+      return x
+    end
+
+    def cells_xml
+      cells.map(&:xml).join
+    end
+
+    def add_cells(*elements)
+      if elements.first.is_a?(Array)
+        elements = elements.first
+      end
+
+      elements.each do |element|
+        cell(element)
+      end
+    end
+
     def xml
       elem_attrs = {}
+
       elem_attrs['table:style-name'] = @style unless @style.nil?
+
       Builder::XmlMarkup.new.tag! 'table:table-row', elem_attrs do |xml|
         xml << cells_xml
       end

@@ -6,3 +6,10 @@ RSpec::Core::RakeTask.new
 
 task :test => :spec
 task :default => :test
+
+task :console do
+  require 'rodf'
+
+  require 'irb'
+  binding.irb
+end

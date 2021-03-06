@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/data_style'
-
 describe RODF::DataStyle do
   it "should have sections" do
     output = RODF::DataStyle.create 'year-to-day', :date do |s|

@@ -1,9 +1,8 @@
-require 'builder'
-
 module RODF
   class StyleSection
     def initialize(type, second = {})
       @type = type
+
       if second.instance_of?(Hash)
         @elem_attrs = make_element_attributes(second)
       else
@@ -19,9 +18,13 @@ module RODF
       attrs = {}
 
       attrs['number:decimal-places'] = opts[:decimal_places] unless opts[:decimal_places].nil?
+
       attrs['number:grouping'] = opts[:grouping] unless opts[:grouping].nil?
+
       attrs['number:min-integer-digits'] = opts[:min_integer_digits] unless opts[:min_integer_digits].nil?
+
       attrs['number:style'] = opts[:style] unless opts[:style].nil?
+
       attrs['number:textual'] = opts[:textual] unless opts[:textual].nil?
 
       attrs

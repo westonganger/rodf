@@ -1,7 +1,3 @@
-require 'builder'
-
-require_relative 'paragraph_container'
-
 module RODF
   class Hyperlink < ParagraphContainer
     def initialize(first, second = {})
@@ -25,8 +21,11 @@ module RODF
   class ParagraphContainer < Container
     def link(*args)
       l = Hyperlink.new(*args)
+
       yield l if block_given?
+
       content_parts << l
+
       l
     end
     alias a link

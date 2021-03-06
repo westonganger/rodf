@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/spreadsheet'
-
 describe RODF::SpreadSheet do
   it "should have the expected structure" do
     output = RODF::SpreadSheet.create {|s| }

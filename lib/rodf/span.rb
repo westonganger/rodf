@@ -1,8 +1,3 @@
-require 'builder'
-
-require_relative 'compatibility'
-require_relative 'paragraph_container'
-
 module RODF
   class TextNode
     def initialize(content)
@@ -10,7 +5,7 @@ module RODF
     end
 
     def xml
-      @content.to_s.to_xs
+      Builder::XChar.encode(@content.to_s)
     end
   end
 
@@ -30,6 +25,7 @@ module RODF
 
     def xml
       return content_parts_xml if @style.nil?
+
       Builder::XmlMarkup.new.text:span, 'text:style-name' => @style do |xml|
         xml << content_parts_xml
       end
@@ -39,8 +35,11 @@ module RODF
   class ParagraphContainer < Container
     def span(*args)
       s = Span.new(*args)
+
       yield s if block_given?
+
       content_parts << s
+
       s
     end
 

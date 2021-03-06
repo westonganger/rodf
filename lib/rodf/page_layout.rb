@@ -1,16 +1,35 @@
-require 'builder'
-
-require_relative 'container'
-require_relative 'property'
-
 module RODF
   class PageLayout < Container
-    contains :properties
-
     def initialize(name)
       super
 
       @name = name
+    end
+
+    def properties
+      @properties ||= []
+    end
+
+    def property(*args, &block)
+      x = Property.new(*args, &block)
+
+      properties << x
+
+      return x
+    end
+
+    def properties_xml
+      properties.map(&:xml).join
+    end
+
+    def add_properties(*elements)
+      if elements.first.is_a?(Array)
+        elements = elements.first
+      end
+
+      elements.each do |element|
+        property(element)
+      end
     end
 
     def xml

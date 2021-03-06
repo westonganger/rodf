@@ -1,9 +1,6 @@
 require_relative 'spec_helper'
 
 require 'date'
-require 'time'
-
-require_relative '../lib/rodf/cell'
 
 CELL_TYPES = [:float, :date, :time, :percentage, :currency].freeze
 

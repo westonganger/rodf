@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/skeleton'
-
 describe RODF::Skeleton do
   it "should have the expected structure" do
     output = RODF::Skeleton.new.styles

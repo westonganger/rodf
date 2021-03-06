@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/style'
-
 describe RODF::Style do
   it "should output properties when they're added" do
     RODF::Style.create.should_not have_tag('//style:style/*')

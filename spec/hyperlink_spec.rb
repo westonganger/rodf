@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/hyperlink'
-
 describe RODF::Hyperlink do
   it "should receive content text in first argument" do
     output = RODF::Hyperlink.new('link somewhere', href: 'http://www.example.org/').xml

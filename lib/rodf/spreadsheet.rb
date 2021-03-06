@@ -1,39 +1,92 @@
-require_relative 'data_style'
-require_relative 'document'
-require_relative 'hyperlink'
-require_relative 'span'
-require_relative 'table'
-
 module RODF
   class Spreadsheet < Document
-    contains :tables, :data_styles
-
     def xml
-      b = Builder::XmlMarkup.new
+      builder = Builder::XmlMarkup.new
 
-      b.instruct! :xml, version: '1.0', encoding: 'UTF-8'
-      b.tag! 'office:document-content',
-              'xmlns:office' => "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
-              'xmlns:table' => "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
-              'xmlns:text' => "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
-              'xmlns:oooc' => "http://openoffice.org/2004/calc",
-              'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
-              'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
-              'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
-              'xmlns:xlink' => "http://www.w3.org/1999/xlink" do
-      |xml|
-        xml.tag! 'office:styles' do
-          xml << default_styles_xml
-        end unless default_styles.empty?
-        xml.tag! 'office:automatic-styles' do
-          xml << styles_xml
-          xml << data_styles_xml
-        end unless styles.empty? && data_styles.empty?
+      builder.instruct!(:xml, version: '1.0', encoding: 'UTF-8')
+  
+      attrs = {
+        'xmlns:office' => "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
+        'xmlns:table' => "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
+        'xmlns:text' => "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
+        'xmlns:oooc' => "http://openoffice.org/2004/calc",
+        'xmlns:style' => "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
+        'xmlns:fo' => "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
+        'xmlns:number' => "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
+        'xmlns:xlink' => "http://www.w3.org/1999/xlink",
+      }
+
+      builder.tag!('office:document-content', attrs) do |xml|
+        if !default_styles.empty?
+          xml.tag! 'office:styles' do
+            xml << default_styles_xml
+          end
+        end
+
+        if !styles.empty? || !data_styles.empty?
+          xml.tag! 'office:automatic-styles' do
+            xml << styles_xml
+            xml << data_styles_xml
+          end
+        end
+
         xml.office:body do
           xml.office:spreadsheet do
             xml << tables_xml
           end
         end
+      end
+    end
+
+    def tables
+      @tables ||= []
+    end
+
+    def table(*args, &block)
+      x = Table.new(*args, spreadsheet: self, &block)
+
+      tables << x
+
+      return x
+    end
+
+    def tables_xml
+      tables.map(&:xml).join
+    end
+
+    def add_tables(*elements)
+      if elements.first.is_a?(Array)
+        elements = elements.first
+      end
+
+      elements.each do |element|
+        table(element)
+      end
+    end
+
+    def data_styles
+      @data_styles ||= []
+    end
+
+    def data_style(*args, &block)
+      x = DataStyle.new(*args, &block)
+
+      data_styles << x
+
+      return x
+    end
+
+    def data_styles_xml
+      data_styles.map(&:xml).join
+    end
+
+    def add_data_styles(*elements)
+      if elements.first.is_a?(Array)
+        elements = elements.first
+      end
+
+      elements.each do |element|
+        data_style(element)
       end
     end
   end

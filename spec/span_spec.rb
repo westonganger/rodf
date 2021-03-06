@@ -1,7 +1,5 @@
 require_relative 'spec_helper'
 
-require_relative '../lib/rodf/span'
-
 describe RODF::Span do
   it "should print non-styled spans in pure text" do
     RODF::Span.new('no style').xml.should == 'no style'
