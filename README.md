@@ -255,6 +255,10 @@ end
 
 ```
 
+## Production Usage Examples
+
+- `spreadsheet_architect` gem - [View Relevant Source Code](https://github.com/westonganger/spreadsheet_architect/blob/master/lib/spreadsheet_architect/class_methods/ods.rb)
+
 ## Credits
 
 Originally Created by [@thiagoarrais](https://github.com/thiagoarrais)
