@@ -187,7 +187,7 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
     ### OR
 
     ### Warning this will overwrite any existing table columns (cells remain unaffected)
-    sheet.define_column_widths(
+    sheet.set_column_widths(
       table: t, 
       column_widths: [
         {'column-width' => '1in'},
