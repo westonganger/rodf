@@ -43,4 +43,19 @@ describe RODF::Span do
   it "should escape entities" do
     RODF::Span.create('Fish & Chips').should == 'Fish &amp; Chips'
   end
+
+  it "should allow passing the :style argument" do
+    str = 'foobar'
+    style = 'italic'
+
+    output = RODF::Span.new(str, style: style).xml
+
+    output.should have_tag('text:span')
+
+    span = Hpricot(output).at('text:span')
+
+    span['text:style-name'].should == style
+
+    span.innerHTML.should == str
+  end
 end

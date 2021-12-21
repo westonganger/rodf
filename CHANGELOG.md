@@ -1,24 +1,25 @@
 # CHANGELOG
 
-## Unreleased
+## Unreleased - [View Diff](https://github.com/westonganger/rodf/compare/v1.1.1..master)
+- Allow passing `:style` argument to `Span`
 - Added `Table#set_column_widths` method
 - Style `:family` option now supports String and Symbol keys. Previously `:family` the family option would only support the key name as a Symbol.
 - Improve Style List Documentation
 - Allow adding XML attributes directly to `Table`, `Row`, `Column`, `Cell` using the `:attributes` argument
 - Remove usage of `contains` metaprogramming method `Container#contains` that was hiding major implementation details from most RODF classes. The code is now much easier to understand.
 
-## v1.1.1
+## v1.1.1 - [View Diff](https://github.com/westonganger/rodf/compare/v1.1.0..v1.1.1)
 - [Issue #36](https://github.com/westonganger/rodf/issues/36) - Improve compatibility for Float Cells
 - Fix gemspec require for Ruby 1.9
 - Cleanup File Commenting
 
-## v1.1.0
+## v1.1.0 - [View Diff](https://github.com/westonganger/rodf/compare/v1.0.0..v1.1.0)
 - [#34](https://github.com/westonganger/rodf/pull/34) - Add ability to add many rows or cells at once
 - [#29](https://github.com/westonganger/rodf/pull/29) - Remove ActiveSupport dependency in favor of `dry-inflector`
 - [#21](https://github.com/thiagoarrais/rodf/pull/21) - Allow more attributes for the `data_style` method
 - [#19](https://github.com/westonganger/rodf/issues/19) - Changes to Date/Time handling
 
-## v1.0.0
+## v1.0.0 - [View Diff](https://github.com/westonganger/rodf/compare/v0.3.7..v1.0.0)
 - Rename main module ODF to RODF, Fix cell types
 
 ## v0.3.7

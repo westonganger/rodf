@@ -95,6 +95,7 @@ ss.write_to 'my-spreadsheet.ods'
 
 ```ruby
 RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
+
   sheet.style 'red-cell', family: :cell do |s|
     s.property :text, 'font-weight' => 'bold', 'color' => '#ff0000'
   end
@@ -109,11 +110,24 @@ RODF::Spreadsheet.file("my-spreadsheet.ods") do |sheet|
     end
   end
 
-  sheet.table 'Red text table' do |t|
+  sheet.table 'Text with Paragraphs' do |t|
     t.row style: 'row-height' do |r|
-      r.cell 'Red', style: 'red-cell'
+      r.cell do |cell|
+        cell.paragraph do |paragraph|
+          text_array = my_text_content.split("\n").select{|x| !x.empty? }
+
+          text_array.each do |str|
+            if str.start_with?("#")
+              paragraph.span(str, style: 'red-cell')
+            else
+              paragraph.span(str)
+            end
+          end
+        end
+      end
     end
   end
+
 end
 ```
 

@@ -10,23 +10,34 @@ module RODF
   end
 
   class Span < ParagraphContainer
-    def initialize(first, second = nil)
-      super
+    def initialize(first, second=nil, style: nil, &block)
+      super(first, second, &block)
 
       @style = nil
 
       if first.instance_of?(Symbol)
+        ### Legacy behaviour
+
         @style = first
-        content_parts << TextNode.new(second) unless second.nil?
+
+        if !second.nil?
+          content_parts << TextNode.new(second)
+        end
       else
+        if style
+          @style = style
+        end
+
         content_parts << TextNode.new(first)
       end
     end
 
     def xml
-      return content_parts_xml if @style.nil?
+      if @style.nil?
+        return content_parts_xml
+      end
 
-      Builder::XmlMarkup.new.text:span, 'text:style-name' => @style do |xml|
+      Builder::XmlMarkup.new.text(:span, 'text:style-name' => @style) do |xml|
         xml << content_parts_xml
       end
     end
