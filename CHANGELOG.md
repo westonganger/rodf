@@ -1,6 +1,9 @@
 # CHANGELOG
 
-## Unreleased - [View Diff](https://github.com/westonganger/rodf/compare/v1.1.1..master)
+## Unreleased - [View Diff](https://github.com/westonganger/rodf/compare/v1.2.0..master)
+- Nothing yet
+
+## v1.2.0 - [View Diff](https://github.com/westonganger/rodf/compare/v1.1.1..v1.2.0)
 - Allow passing `:style` argument to `Span`
 - Added `Table#set_column_widths` method
 - Style `:family` option now supports String and Symbol keys. Previously `:family` the family option would only support the key name as a Symbol.
