@@ -1,6 +1,11 @@
 require 'rodf'
 
 require 'rspec_hpricot_matchers'
+RspecHpricotMatchers::HaveTag.class_eval do
+  def failure_message_when_negated
+    negative_failure_message
+  end
+end
 include RspecHpricotMatchers
 
 RSpec.configure do |config|
