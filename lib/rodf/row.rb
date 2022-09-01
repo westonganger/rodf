@@ -1,7 +1,6 @@
 module RODF
   class Row < Container
     attr_reader :number
-    attr_writer :style
 
     def initialize(number=0, opts={})
       @number = number

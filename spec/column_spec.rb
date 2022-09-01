@@ -6,15 +6,17 @@ describe RODF::Column do
     col.xml.should include('<table:table-column/>')
   end
 
-  it "should be stylable in the initialization" do
-    col = RODF::Column.new(style: 'dark')
-    Hpricot(col.xml).at('table:table-column')['table:style-name'].should == 'dark'
-  end
+  context "style" do
+    it "should be stylable in the initialization" do
+      col = RODF::Column.new(style: 'dark')
+      Hpricot(col.xml).at('table:table-column')['table:style-name'].should == 'dark'
+    end
 
-  it "should be attr_writer stylable" do
-    column = RODF::Column.new
-    column.style = 'dark'
-    Hpricot(column.xml).at('table:table-column')['table:style-name'].should == 'dark'
+    it "should be a writable attribute" do
+      column = RODF::Column.new
+      column.style = 'dark'
+      Hpricot(column.xml).at('table:table-column')['table:style-name'].should == 'dark'
+    end
   end
 
   it "should allow arbitrary XML attributes" do

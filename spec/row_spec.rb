@@ -44,19 +44,21 @@ describe RODF::Row do
     cells[4]['office:value'].should eq '5'
   end
 
-  it "should be stylable in the initialization" do
-    output = RODF::Row.create 0, style: 'dark' do
-      cell
+  context "style" do
+    it "should be stylable in the initialization" do
+      output = RODF::Row.create 0, style: 'dark' do
+        cell
+      end
+      Hpricot(output).at('table:table-row')['table:style-name'].
+        should == 'dark'
     end
-    Hpricot(output).at('table:table-row')['table:style-name'].
-      should == 'dark'
-  end
 
-  it "should be attr_writer stylable" do
-    row = RODF::Row.new
-    row.style = 'dark'
-    Hpricot(row.xml).at('table:table-row')['table:style-name'].
-      should == 'dark'
+    it "should be a writable attribute" do
+      row = RODF::Row.new
+      row.style = 'dark'
+      Hpricot(row.xml).at('table:table-row')['table:style-name'].
+        should == 'dark'
+    end
   end
 
   it "should allow arbitrary XML attributes" do
