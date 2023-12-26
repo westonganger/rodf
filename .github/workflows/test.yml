@@ -1,29 +1,27 @@
 name: Tests
 on:
   push:
-    branches: ['*']
+    branches: ['master']
   pull_request:
-    branches: ['*']
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+
     strategy:
       fail-fast: false
       matrix:
         include:
-          ### TEST ALL RUBY VERSIONS, USE DEFAULT GEMFILE
-          - ruby: 2.3
-          - ruby: 2.4
-          - ruby: 2.5
-          - ruby: 2.6
-          - ruby: 2.7
-          - ruby: "3.0" ### must be quoted otherwise will be treated as "3" which will resolve to latest 3.x version
-          - ruby: 3.1
-          - ruby: 3.2
-
-    env:
-      BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
+          ### TEST ALL RUBY VERSIONS
+          - ruby: "2.5"
+          - ruby: "2.6"
+          - ruby: "2.7"
+          - ruby: "3.0"
+          - ruby: "3.1"
+          - ruby: "3.2"
+          - ruby: "3.3"
 
     steps:
     - uses: actions/checkout@v3
