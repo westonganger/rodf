@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Skeleton
     def manifest(document_type)

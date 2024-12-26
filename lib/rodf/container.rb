@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Container
     def initialize(*_args, &contents)

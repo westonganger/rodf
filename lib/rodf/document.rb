@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Document < Container
     def self.file(ods_file_name, &contents)

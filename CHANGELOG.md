@@ -1,7 +1,7 @@
 # CHANGELOG
 
 ## Unreleased - [View Diff](https://github.com/westonganger/rodf/compare/v1.2.0..master)
-- Nothing yet
+- Use `frozen_string_literal: true`
 
 ## v1.2.0 - [View Diff](https://github.com/westonganger/rodf/compare/v1.1.1..v1.2.0)
 - Allow passing `:style` argument to `Span`
@@ -67,7 +67,7 @@
 ## v0.1.3
 - Dependency fix (by Merul Patel)
 
-## v0.1.2 
+## v0.1.2
 - Cell span
 
 ## v0.1.1

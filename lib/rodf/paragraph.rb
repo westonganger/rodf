@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Paragraph < ParagraphContainer
     def initialize(fst = nil, snd = {})

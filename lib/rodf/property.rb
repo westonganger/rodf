@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Property
     PROPERTY_NAMES = {
@@ -57,19 +59,19 @@ module RODF
          'editable', 'protect',
          'may-break-between-rows', 'rel-width', 'width',
          'vertical-pos', 'vertical-rel'
-        ], 
+        ],
         'style'
       ],
       [
-        ['height', 'y'], 
+        ['height', 'y'],
         'svg'
       ],
       [
-        ['dont-balance-text-columns', 'list-level-position-and-space-mode', 'min-label-distance', 'min-label-width', 'space-before'], 
+        ['dont-balance-text-columns', 'list-level-position-and-space-mode', 'min-label-distance', 'min-label-width', 'space-before'],
         'text'
       ],
       [
-        ['align', 'border-model', 'display'], 
+        ['align', 'border-model', 'display'],
         'table'
       ]
     ]
@@ -124,7 +126,7 @@ module RODF
     end
 
     def cascading_join(width_parts, style_parts, color_parts, *prefs)
-      [ 
+      [
         cascade(width_parts, prefs),
         cascade(style_parts, prefs),
         cascade(color_parts, prefs),

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   # Container for all kinds of paragraph content
   class ParagraphContainer < Container

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Table < Container
     def initialize(title = nil, opts ={})

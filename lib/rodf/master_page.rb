@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class MasterPage
     def initialize(name, opts = {})

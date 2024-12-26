@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RODF
   class Cell < Container
 
@@ -85,7 +87,7 @@ module RODF
         xml << paragraphs_xml
       end
 
-      (@multiplier - 1).times do 
+      (@multiplier - 1).times do
         text = markup.tag! 'table:table-cell'
       end
 
