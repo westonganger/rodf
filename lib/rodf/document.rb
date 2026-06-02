@@ -17,7 +17,7 @@ module RODF
     end
 
     def bytes
-      buffer = Zip::OutputStream::write_buffer do |zio|
+      buffer = Zip::OutputStream::write_buffer(suppress_extra_fields: [:zip64]) do |zio|
         zio.put_next_entry('META-INF/manifest.xml')
 
         zio << self.class.skeleton.manifest(self.class.doc_type)
