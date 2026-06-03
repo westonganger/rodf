@@ -1,6 +1,9 @@
 # CHANGELOG
 
-## Unreleased - [View Diff](https://github.com/westonganger/rodf/compare/v1.2.0..master)
+## Unreleased - [View Diff](https://github.com/westonganger/rodf/compare/v1.3.0..master)
+- Nothing yet
+
+## v1.3.0 - [View Diff](https://github.com/westonganger/rodf/compare/v1.2.0..v1.3.0)
 - [#49](https://github.com/westonganger/rodf/pull/49) - Ensure `bytes` method doesnt use zip64 which started happening with rubyzip >= 3.0
 - Require rubyzip >= 3.2 which requires Ruby 3.0+
 
